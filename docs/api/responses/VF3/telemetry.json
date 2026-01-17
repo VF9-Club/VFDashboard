@@ -1,0 +1,999 @@
+{
+  "code": 200000,
+  "message": "Success",
+  "data": [
+    {
+      "resourceId": 7,
+      "instanceId": 1,
+      "deviceKey": "34193_00001_00007",
+      "value": "0",
+      "objectId": 34193,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 8,
+      "instanceId": 1,
+      "deviceKey": "34193_00001_00008",
+      "value": "0",
+      "objectId": 34193,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 9,
+      "instanceId": 1,
+      "deviceKey": "34193_00001_00009",
+      "value": "100",
+      "objectId": 34193,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 3,
+      "instanceId": 1,
+      "deviceKey": "34193_00001_00003",
+      "value": "0",
+      "objectId": 34193,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 25,
+      "instanceId": 1,
+      "deviceKey": "34193_00001_00025",
+      "value": "0",
+      "objectId": 34193,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 4,
+      "instanceId": 1,
+      "deviceKey": "34193_00001_00004",
+      "value": "0",
+      "objectId": 34193,
+      "lastUpdateTime": "1768037471449"
+    },
+    {
+      "resourceId": 26,
+      "instanceId": 1,
+      "deviceKey": "34193_00001_00026",
+      "value": "0",
+      "objectId": 34193,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 5,
+      "instanceId": 1,
+      "deviceKey": "34193_00001_00005",
+      "value": "0",
+      "objectId": 34193,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 27,
+      "instanceId": 1,
+      "deviceKey": "34193_00001_00027",
+      "value": "0",
+      "objectId": 34193,
+      "lastUpdateTime": "1768037471449"
+    },
+    {
+      "resourceId": 6,
+      "instanceId": 1,
+      "deviceKey": "34193_00001_00006",
+      "value": "0",
+      "objectId": 34193,
+      "lastUpdateTime": "1768037471449"
+    },
+    {
+      "resourceId": 21,
+      "instanceId": 1,
+      "deviceKey": "34193_00001_00021",
+      "value": "22:00",
+      "objectId": 34193,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 22,
+      "instanceId": 1,
+      "deviceKey": "34193_00001_00022",
+      "value": "04:00",
+      "objectId": 34193,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 23,
+      "instanceId": 1,
+      "deviceKey": "34193_00001_00023",
+      "value": "1",
+      "objectId": 34193,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 2,
+      "instanceId": 1,
+      "deviceKey": "34193_00001_00002",
+      "value": "0",
+      "objectId": 34193,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 24,
+      "instanceId": 1,
+      "deviceKey": "34193_00001_00024",
+      "value": "07:30",
+      "objectId": 34193,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 19,
+      "instanceId": 1,
+      "deviceKey": "34193_00001_00019",
+      "value": "100",
+      "objectId": 34193,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 16,
+      "instanceId": 1,
+      "deviceKey": "34193_00001_00016",
+      "value": "1768037471",
+      "objectId": 34193,
+      "lastUpdateTime": "1768037471449"
+    },
+    {
+      "resourceId": 10,
+      "instanceId": 1,
+      "deviceKey": "34193_00001_00010",
+      "value": "1",
+      "objectId": 34193,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 12,
+      "instanceId": 1,
+      "deviceKey": "34193_00001_00012",
+      "value": "0",
+      "objectId": 34193,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 13,
+      "instanceId": 1,
+      "deviceKey": "34193_00001_00013",
+      "value": "07:30",
+      "objectId": 34193,
+      "lastUpdateTime": "1768037471449"
+    },
+    {
+      "resourceId": 4,
+      "instanceId": 1,
+      "deviceKey": "34196_00001_00004",
+      "value": "9.2.40.VN",
+      "objectId": 34196,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 1,
+      "instanceId": 1,
+      "deviceKey": "34196_00001_00001",
+      "value": "1.3.123",
+      "objectId": 34196,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 3,
+      "instanceId": 1,
+      "deviceKey": "34196_00001_00003",
+      "value": "1.3",
+      "objectId": 34196,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 2,
+      "instanceId": 1,
+      "deviceKey": "34196_00001_00002",
+      "value": "2025-03-04,18:34",
+      "objectId": 34196,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 16,
+      "instanceId": 1,
+      "deviceKey": "34199_00001_00016",
+      "value": "0",
+      "objectId": 34199,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 17,
+      "instanceId": 1,
+      "deviceKey": "34199_00001_00017",
+      "value": "0",
+      "objectId": 34199,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 10,
+      "instanceId": 1,
+      "deviceKey": "03492_00001_00010",
+      "value": "********",
+      "objectId": 3492,
+      "lastUpdateTime": "1768643973824"
+    },
+    {
+      "resourceId": 12,
+      "instanceId": 1,
+      "deviceKey": "03492_00001_00012",
+      "value": "LTE",
+      "objectId": 3492,
+      "lastUpdateTime": "1768013692126"
+    },
+    {
+      "resourceId": 13,
+      "instanceId": 1,
+      "deviceKey": "03492_00001_00013",
+      "value": "0",
+      "objectId": 3492,
+      "lastUpdateTime": "1768034566000"
+    },
+    {
+      "resourceId": 8,
+      "instanceId": 1,
+      "deviceKey": "03492_00001_00008",
+      "value": "452",
+      "objectId": 3492,
+      "lastUpdateTime": "1768015367426"
+    },
+    {
+      "resourceId": 9,
+      "instanceId": 1,
+      "deviceKey": "03492_00001_00009",
+      "value": "01",
+      "objectId": 3492,
+      "lastUpdateTime": "1768015367427"
+    },
+    {
+      "resourceId": 14,
+      "instanceId": 1,
+      "deviceKey": "03492_00001_00014",
+      "value": "5",
+      "objectId": 3492,
+      "lastUpdateTime": "1767456541318"
+    },
+    {
+      "resourceId": 2,
+      "instanceId": 15,
+      "deviceKey": "34182_00015_00002",
+      "value": "BMS",
+      "objectId": 34182,
+      "lastUpdateTime": "1768638141359"
+    },
+    {
+      "resourceId": 1,
+      "instanceId": 5,
+      "deviceKey": "34182_00005_00001",
+      "value": "0x01",
+      "objectId": 34182,
+      "lastUpdateTime": "1768638141359"
+    },
+    {
+      "resourceId": 2,
+      "instanceId": 5,
+      "deviceKey": "34182_00005_00002",
+      "value": "BCM",
+      "objectId": 34182,
+      "lastUpdateTime": "1768638141359"
+    },
+    {
+      "resourceId": 1,
+      "instanceId": 15,
+      "deviceKey": "34182_00015_00001",
+      "value": "0x13",
+      "objectId": 34182,
+      "lastUpdateTime": "1768638141359"
+    },
+    {
+      "resourceId": 9,
+      "instanceId": 1,
+      "deviceKey": "34182_00001_00009",
+      "value": "SOW69021101AA",
+      "objectId": 34182,
+      "lastUpdateTime": "1768638141359"
+    },
+    {
+      "resourceId": 1,
+      "instanceId": 26,
+      "deviceKey": "34182_00026_00001",
+      "value": "0x1A",
+      "objectId": 34182,
+      "lastUpdateTime": "1768638141359"
+    },
+    {
+      "resourceId": 3,
+      "instanceId": 1,
+      "deviceKey": "34182_00001_00003",
+      "value": "65",
+      "objectId": 34182,
+      "lastUpdateTime": "1768638141359"
+    },
+    {
+      "resourceId": 4,
+      "instanceId": 1,
+      "deviceKey": "34182_00001_00004",
+      "value": "01",
+      "objectId": 34182,
+      "lastUpdateTime": "1768638141359"
+    },
+    {
+      "resourceId": 1,
+      "instanceId": 2,
+      "deviceKey": "34182_00002_00001",
+      "value": "0x02",
+      "objectId": 34182,
+      "lastUpdateTime": "1768638141359"
+    },
+    {
+      "resourceId": 2,
+      "instanceId": 26,
+      "deviceKey": "34182_00026_00002",
+      "value": "EDS_R",
+      "objectId": 34182,
+      "lastUpdateTime": "1768638141359"
+    },
+    {
+      "resourceId": 1,
+      "instanceId": 11,
+      "deviceKey": "34182_00011_00001",
+      "value": "0x2C",
+      "objectId": 34182,
+      "lastUpdateTime": "1768638141359"
+    },
+    {
+      "resourceId": 10,
+      "instanceId": 1,
+      "deviceKey": "34182_00001_00010",
+      "value": "EEP69021001AE",
+      "objectId": 34182,
+      "lastUpdateTime": "1768638141359"
+    },
+    {
+      "resourceId": 1,
+      "instanceId": 1,
+      "deviceKey": "34182_00001_00001",
+      "value": "4",
+      "objectId": 34182,
+      "lastUpdateTime": "1768638141359"
+    },
+    {
+      "resourceId": 2,
+      "instanceId": 2,
+      "deviceKey": "34182_00002_00002",
+      "value": "XGW",
+      "objectId": 34182,
+      "lastUpdateTime": "1768638141359"
+    },
+    {
+      "resourceId": 2,
+      "instanceId": 11,
+      "deviceKey": "34182_00011_00002",
+      "value": "VCU",
+      "objectId": 34182,
+      "lastUpdateTime": "1768638141359"
+    },
+    {
+      "resourceId": 2,
+      "instanceId": 1,
+      "deviceKey": "34182_00001_00002",
+      "value": "MHU",
+      "objectId": 34182,
+      "lastUpdateTime": "1768638141359"
+    },
+    {
+      "resourceId": 1,
+      "instanceId": 1,
+      "deviceKey": "34183_00001_00001",
+      "value": "1",
+      "objectId": 34183,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 11,
+      "instanceId": 1,
+      "deviceKey": "34183_00001_00011",
+      "value": "174",
+      "objectId": 34183,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 10,
+      "instanceId": 1,
+      "deviceKey": "34183_00001_00010",
+      "value": "0",
+      "objectId": 34183,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 9,
+      "instanceId": 1,
+      "deviceKey": "34183_00001_00009",
+      "value": "82",
+      "objectId": 34183,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 29,
+      "instanceId": 1,
+      "deviceKey": "34183_00001_00029",
+      "value": "0",
+      "objectId": 34183,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 36,
+      "instanceId": 1,
+      "deviceKey": "34183_00001_00036",
+      "value": "0",
+      "objectId": 34183,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 47,
+      "instanceId": 1,
+      "deviceKey": "34183_00001_00047",
+      "value": "1",
+      "objectId": 34183,
+      "lastUpdateTime": "1768644031227"
+    },
+    {
+      "resourceId": 3,
+      "instanceId": 1,
+      "deviceKey": "34183_00001_00003",
+      "value": "5775.000000",
+      "objectId": 34183,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 35,
+      "instanceId": 1,
+      "deviceKey": "34183_00001_00035",
+      "value": "0",
+      "objectId": 34183,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 46,
+      "instanceId": 1,
+      "deviceKey": "34183_00001_00046",
+      "value": "1",
+      "objectId": 34183,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 2,
+      "instanceId": 1,
+      "deviceKey": "34183_00001_00002",
+      "value": "0",
+      "objectId": 34183,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 9,
+      "instanceId": 1,
+      "deviceKey": "34180_00001_00009",
+      "value": "701087",
+      "objectId": 34180,
+      "lastUpdateTime": "1767456541318"
+    },
+    {
+      "resourceId": 7,
+      "instanceId": 1,
+      "deviceKey": "34180_00001_00007",
+      "value": "2025",
+      "objectId": 34180,
+      "lastUpdateTime": "1767456541318"
+    },
+    {
+      "resourceId": 1,
+      "instanceId": 1,
+      "deviceKey": "34180_00001_00001",
+      "value": "********",
+      "objectId": 34180,
+      "lastUpdateTime": "1767456541318"
+    },
+    {
+      "resourceId": 11,
+      "instanceId": 1,
+      "deviceKey": "34180_00001_00011",
+      "value": "********",
+      "objectId": 34180,
+      "lastUpdateTime": "1767456541318"
+    },
+    {
+      "resourceId": 10,
+      "instanceId": 1,
+      "deviceKey": "34180_00001_00010",
+      "value": "********",
+      "objectId": 34180,
+      "lastUpdateTime": "1767456541318"
+    },
+    {
+      "resourceId": 1,
+      "instanceId": 1,
+      "deviceKey": "34181_00001_00001",
+      "value": "miniCar",
+      "objectId": 34181,
+      "lastUpdateTime": "1767456541318"
+    },
+    {
+      "resourceId": 2,
+      "instanceId": 1,
+      "deviceKey": "34181_00001_00002",
+      "value": "Mini-Car",
+      "objectId": 34181,
+      "lastUpdateTime": "1767456541318"
+    },
+    {
+      "resourceId": 3,
+      "instanceId": 1,
+      "deviceKey": "34181_00001_00003",
+      "value": "BEV",
+      "objectId": 34181,
+      "lastUpdateTime": "1767456541318"
+    },
+    {
+      "resourceId": 4,
+      "instanceId": 1,
+      "deviceKey": "34181_00001_00004",
+      "value": "BASE",
+      "objectId": 34181,
+      "lastUpdateTime": "1767456541318"
+    },
+    {
+      "resourceId": 5,
+      "instanceId": 1,
+      "deviceKey": "34181_00001_00005",
+      "value": "2025",
+      "objectId": 34181,
+      "lastUpdateTime": "1767456541318"
+    },
+    {
+      "resourceId": 6,
+      "instanceId": 1,
+      "deviceKey": "34181_00001_00006",
+      "value": "VN",
+      "objectId": 34181,
+      "lastUpdateTime": "1767456541318"
+    },
+    {
+      "resourceId": 7,
+      "instanceId": 1,
+      "deviceKey": "34181_00001_00007",
+      "value": "VF3",
+      "objectId": 34181,
+      "lastUpdateTime": "1767456541318"
+    },
+    {
+      "resourceId": 9,
+      "instanceId": 1,
+      "deviceKey": "34181_00001_00009",
+      "value": "VF3",
+      "objectId": 34181,
+      "lastUpdateTime": "1767456541318"
+    },
+    {
+      "resourceId": 4,
+      "instanceId": 9,
+      "deviceKey": "34186_00009_00004",
+      "value": "0",
+      "objectId": 34186,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 4,
+      "instanceId": 7,
+      "deviceKey": "34186_00007_00004",
+      "value": "0",
+      "objectId": 34186,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 4,
+      "instanceId": 5,
+      "deviceKey": "34186_00005_00004",
+      "value": "0",
+      "objectId": 34186,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 4,
+      "instanceId": 15,
+      "deviceKey": "34186_00015_00004",
+      "value": "0",
+      "objectId": 34186,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 4,
+      "instanceId": 14,
+      "deviceKey": "34186_00014_00004",
+      "value": "0",
+      "objectId": 34186,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 4,
+      "instanceId": 8,
+      "deviceKey": "34186_00008_00004",
+      "value": "0",
+      "objectId": 34186,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 50,
+      "instanceId": 1,
+      "deviceKey": "10351_00001_00050",
+      "value": "0",
+      "objectId": 10351,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 50,
+      "instanceId": 5,
+      "deviceKey": "10351_00005_00050",
+      "value": "0",
+      "objectId": 10351,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 50,
+      "instanceId": 6,
+      "deviceKey": "10351_00006_00050",
+      "value": "0",
+      "objectId": 10351,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 50,
+      "instanceId": 2,
+      "deviceKey": "10351_00002_00050",
+      "value": "0",
+      "objectId": 10351,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 1,
+      "instanceId": 1,
+      "deviceKey": "34220_00001_00001",
+      "value": "27.000000",
+      "objectId": 34220,
+      "lastUpdateTime": "1767616683656"
+    },
+    {
+      "resourceId": 4,
+      "instanceId": 1,
+      "deviceKey": "34224_00001_00004",
+      "value": "0",
+      "objectId": 34224,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 5,
+      "instanceId": 1,
+      "deviceKey": "34224_00001_00005",
+      "value": "24.0",
+      "objectId": 34224,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 2,
+      "instanceId": 1,
+      "deviceKey": "34224_00001_00002",
+      "value": "0",
+      "objectId": 34224,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 3,
+      "instanceId": 1,
+      "deviceKey": "34224_00001_00003",
+      "value": "07:00",
+      "objectId": 34224,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 7,
+      "instanceId": 1,
+      "deviceKey": "34224_00001_00007",
+      "value": "127",
+      "objectId": 34224,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 12,
+      "instanceId": 1,
+      "deviceKey": "34224_00001_00012",
+      "value": "GMT+07:00",
+      "objectId": 34224,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 3,
+      "instanceId": 1,
+      "deviceKey": "34222_00001_00003",
+      "value": "2",
+      "objectId": 34222,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 5,
+      "instanceId": 1,
+      "deviceKey": "34222_00001_00005",
+      "value": "0",
+      "objectId": 34222,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 3,
+      "instanceId": 1,
+      "deviceKey": "34213_00001_00003",
+      "value": "1",
+      "objectId": 34213,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 3,
+      "instanceId": 6,
+      "deviceKey": "34213_00006_00003",
+      "value": "0",
+      "objectId": 34213,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 3,
+      "instanceId": 2,
+      "deviceKey": "34213_00002_00003",
+      "value": "0",
+      "objectId": 34213,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 3,
+      "instanceId": 3,
+      "deviceKey": "34213_00003_00003",
+      "value": "0",
+      "objectId": 34213,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 2,
+      "instanceId": 1,
+      "deviceKey": "34210_00001_00002",
+      "value": "100",
+      "objectId": 34210,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 3,
+      "instanceId": 1,
+      "deviceKey": "34210_00001_00003",
+      "value": "0",
+      "objectId": 34210,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 6,
+      "instanceId": 1,
+      "deviceKey": "34214_00001_00006",
+      "value": "0",
+      "objectId": 34214,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 2,
+      "instanceId": 1,
+      "deviceKey": "34215_00001_00002",
+      "value": "1",
+      "objectId": 34215,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 2,
+      "instanceId": 2,
+      "deviceKey": "34215_00002_00002",
+      "value": "1",
+      "objectId": 34215,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 20,
+      "instanceId": 1,
+      "deviceKey": "00005_00001_00020",
+      "value": "0",
+      "objectId": 5,
+      "lastUpdateTime": "1767456541318"
+    },
+    {
+      "resourceId": 31,
+      "instanceId": 1,
+      "deviceKey": "00005_00001_00031",
+      "value": "0",
+      "objectId": 5,
+      "lastUpdateTime": "1767456541318"
+    },
+    {
+      "resourceId": 10,
+      "instanceId": 1,
+      "deviceKey": "00005_00001_00010",
+      "value": "0",
+      "objectId": 5,
+      "lastUpdateTime": "1767456541318"
+    },
+    {
+      "resourceId": 30,
+      "instanceId": 1,
+      "deviceKey": "00005_00001_00030",
+      "value": "FRS 3A.1.9.4",
+      "objectId": 5,
+      "lastUpdateTime": "1768644030159"
+    },
+    {
+      "resourceId": 28,
+      "instanceId": 1,
+      "deviceKey": "00005_00001_00028",
+      "value": "0",
+      "objectId": 5,
+      "lastUpdateTime": "1767456541318"
+    },
+    {
+      "resourceId": 29,
+      "instanceId": 1,
+      "deviceKey": "00005_00001_00029",
+      "value": "0",
+      "objectId": 5,
+      "lastUpdateTime": "1767456541318"
+    },
+    {
+      "resourceId": 26,
+      "instanceId": 1,
+      "deviceKey": "00005_00001_00026",
+      "value": "0",
+      "objectId": 5,
+      "lastUpdateTime": "1767456541318"
+    },
+    {
+      "resourceId": 3,
+      "instanceId": 1,
+      "deviceKey": "00005_00001_00003",
+      "value": "0",
+      "objectId": 5,
+      "lastUpdateTime": "1767456811945"
+    },
+    {
+      "resourceId": 14,
+      "instanceId": 1,
+      "deviceKey": "00005_00001_00014",
+      "value": "0",
+      "objectId": 5,
+      "lastUpdateTime": "1767456541318"
+    },
+    {
+      "resourceId": 25,
+      "instanceId": 1,
+      "deviceKey": "00005_00001_00025",
+      "value": "3",
+      "objectId": 5,
+      "lastUpdateTime": "1767456541318"
+    },
+    {
+      "resourceId": 0,
+      "instanceId": 1,
+      "deviceKey": "00006_00001_00000",
+      "value": "********",
+      "objectId": 6,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 11,
+      "instanceId": 1,
+      "deviceKey": "00006_00001_00011",
+      "value": "10",
+      "objectId": 6,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 10,
+      "instanceId": 1,
+      "deviceKey": "00006_00001_00010",
+      "value": "1",
+      "objectId": 6,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 1,
+      "instanceId": 1,
+      "deviceKey": "00006_00001_00001",
+      "value": "********",
+      "objectId": 6,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 5,
+      "instanceId": 1,
+      "deviceKey": "56789_00001_00005",
+      "value": "1",
+      "objectId": 56789,
+      "lastUpdateTime": "1768644425367"
+    },
+    {
+      "resourceId": 7,
+      "instanceId": 1,
+      "deviceKey": "56789_00001_00007",
+      "value": "MQTT_KEEP_ALIVE_TIMEOUT",
+      "objectId": 56789,
+      "lastUpdateTime": "1768644425367"
+    },
+    {
+      "resourceId": 9,
+      "instanceId": 1,
+      "deviceKey": "56789_00001_00009",
+      "value": "0",
+      "objectId": 56789,
+      "lastUpdateTime": "1768412046349"
+    },
+    {
+      "resourceId": 8,
+      "instanceId": 1,
+      "deviceKey": "56789_00001_00008",
+      "value": "[{\"appointmentId\":\"CR1764845769513850389\",\"status\":\"12\"}]",
+      "objectId": 56789,
+      "lastUpdateTime": "1768439579452"
+    },
+    {
+      "resourceId": 2,
+      "instanceId": 1,
+      "deviceKey": "34200_00001_00002",
+      "value": "1",
+      "objectId": 34200,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 1,
+      "instanceId": 1,
+      "deviceKey": "34200_00001_00001",
+      "value": "1",
+      "objectId": 34200,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 1,
+      "instanceId": 1,
+      "deviceKey": "34205_00001_00001",
+      "value": "0",
+      "objectId": 34205,
+      "lastUpdateTime": "1768034566000"
+    },
+    {
+      "resourceId": 3,
+      "instanceId": 1,
+      "deviceKey": "34205_00001_00003",
+      "value": "W3siUElOIjoiNzA3MjYwIn1d",
+      "objectId": 34205,
+      "lastUpdateTime": "1767456544387"
+    },
+    {
+      "resourceId": 1,
+      "instanceId": 1,
+      "deviceKey": "34206_00001_00001",
+      "value": "0",
+      "objectId": 34206,
+      "lastUpdateTime": "1768644347328"
+    },
+    {
+      "resourceId": 1,
+      "instanceId": 1,
+      "deviceKey": "34207_00001_00001",
+      "value": "0",
+      "objectId": 34207,
+      "lastUpdateTime": "1768644347328"
+    }
+  ],
+  "metadata": {}
+}

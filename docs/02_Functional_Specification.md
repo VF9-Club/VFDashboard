@@ -1,6 +1,6 @@
 # VinFast Dashboard - Functional Specification
-**Version:** 1.0  
-**Status:** DRAFT  
+**Version:** 1.1  
+**Status:** UPDATED  
 **Date:** Jan 2026
 
 ---
@@ -15,7 +15,10 @@ The design adopts a **Neumorphism / Soft UI** aesthetic with a modular "Bento Gr
 
 ### 1.2 Core Layout Structure
 *   **Theme**: Light/Clean (Soft shadows, Rounded Corners 24px).
-*   **Grid System**: Modular cards that stack vertically on mobile and align specifically on Desktop.
+*   **Grid System**: 3-Column Layout on Desktop, Vertical Stack on Mobile.
+    *   **Left Column**: Energy & System Health.
+    *   **Center Column**: Digital Twin (Visualizer).
+    *   **Right Column**: Environment Controls & Location Map.
 *   **Information Portals**: Replacing generic controls with detailed, read-only status cards.
 
 ---
@@ -23,59 +26,77 @@ The design adopts a **Neumorphism / Soft UI** aesthetic with a modular "Bento Gr
 ## 2. Functional Modules & Requirements
 
 ### Module A: Header & User Context
-**Goal**: Identify the User and Vehicle immediately.
-*   **FR-A-01**: Display "Welcome, [User Name]" and Avatar.
-*   **FR-A-02**: Display Vehicle Model Label (e.g., "**Vinfast VF9 Plus - 2023 Model**").
-*   **FR-A-03**: Display current local Weather (Icon + Temp).
+**Goal**: Identify the User, Vehicle, and Context.
+*   **FR-A-01**: Display "VinFast [Vehicle Name]" and User Avatar.
+*   **FR-A-02**: Display User Role/Type (e.g., "Primary Owner").
+*   **FR-A-03**: Display current local Weather (Icon + Temp) and "Last Updated" timestamp.
+*   **FR-A-04 (Updates)**: "Refresh" button to trigger immediate telemetry poll.
 
 ### Module B: Central Car Status (The "Digital Twin")
-**Visual**: Top-down view of the specific vehicle model.
-*   **FR-B-01**: Show custom vehicle nickname (e.g., "**Deep Blue VF9**") below image.
-*   **FR-B-02 (Tires)**: Display 4 callout bubbles for Tire Pressure (Bar) and Temperature (C).
-*   **FR-B-03 (Doors)**: Display Open/Ajar status as a text warning inside the vehicle status area.
+**Visual**: Top-down view or Isometric view of the specific vehicle model.
+*   **FR-B-01**: Show custom vehicle nickname or Model Name.
+*   **FR-B-02 (Tires)**: Display 4 callout cards for Tire Pressure (Bar/PSI) and Temperature (C).
+*   **FR-B-03 (Doors)**: Visual warning indicators if Doors, Trunk, or Hood are open.
+*   **FR-B-04 (Odometer)**: Display current total distance (km).
+*   **FR-B-05 (Warranty)**: Display Warranty Expiration Date and Mileage Limit.
+*   **FR-B-06 (Gear)**: Visual Gear Selector (P, R, N, D, S) indicating current position.
+*   **FR-B-07 (Multi-Vehicle)**: Left/Right arrows and pagination dots to switch between vehicles if multiple are linked to the account.
 
-### Module C: Battery & Power
-**Goal**: Mitigate Range Anxiety.
-*   **FR-C-01**: Display High Voltage Battery % (Large Text).
+### Module C: Energy & Charging
+**Goal**: Detailed Battery Management.
+*   **FR-C-01**: **Circular Progress Chart** showing High Voltage Battery %.
 *   **FR-C-02**: Display Estimated Range (Description: `364 km`).
-*   **FR-C-03 (Charging)**: If charging, show **Target SOC** limit and **Time Remaining**.
-*   **FR-C-04**: Display 12V Battery Health Status.
+*   **FR-C-03 (Charging)**: 
+    *   Status: "Charging" vs "Unplugged".
+    *   Target SOC: Limit set by user.
+    *   Time Left: Remaining time to target.
+*   **FR-C-04**: Display 12V Battery Health Status (%).
 *   **FR-C-05**: Display Battery SOH (State of Health) %.
+*   **FR-C-06**: Display Battery Metadata (Serial Number, Manufacture Date).
 
-### Module D: Climate & Environment
-*   **FR-D-01**: Display Interior and Exterior Temperatures.
-*   **FR-D-02**: Display Fan/AC Status (if available).
+### Module D: Environment & Location
+**Goal**: Cabin Comfort and Tracking.
+*   **FR-D-01 (Weather)**: List Outside and Inside Temperatures.
+*   **FR-D-02 (Climate)**: Display Fan Speed status.
+*   **FR-D-03 (Modes)**: Status indicators for **Pet Mode** and **Camp Mode**.
+*   **FR-D-04 (Location)**: Live Google Maps embed showing current vehicle position (Latitude/Longitude) with custom marker.
+*   **FR-D-05**: Display Reverse-Geocoded Address (City, Country).
 
-### Module E: System Info Portal
+### Module E: System Health Portal
 **Goal**: Detailed Technical Monitoring.
-*   **FR-E-01**: Display current FOTA Version (e.g., v2.1.5).
-*   **FR-E-02**: List versions of key ECUs (BMS, Gateway).
-*   **FR-E-03**: List active Vehicle Warnings (e.g., "Low Washer Fluid").
+*   **FR-E-01**: Status List for key subsystems:
+    *   **Tires**: "All OK" vs "Low Pressure".
+    *   **Doors**: "All Closed" vs "Driver Open".
+    *   **Safety**: "System Normal" vs "Thermal Warning".
+    *   **Service**: "No Alerts" vs "Service Due".
+*   **FR-E-02**: Firmware Version display.
+*   **FR-E-03**: T-Box Version display.
+
+### Module F: Multi-Vehicle Management
+**Goal**: Seamless switching for users with fleets or multiple cars.
+*   **FR-F-01**: Store list of all linked vehicles on initial load.
+*   **FR-F-02**: Cache telemetry data per VIN to allow instant switching without re-fetching.
+*   **FR-F-03**: Update Header and Digital Twin assets (Image, Name) dynamically when vehicle changes.
 
 ---
 
 ## 3. User Interactions & Micro-animations
-*   **Interaction-01 (Alerts)**: Cards with Warnings (e.g., Low Tire Pressure) must highlight Red/Orange.
-*   **Interaction-02 (Hover Effects)**: Cards should "lift" slightly (`transform: translateY(-5px)`) and glow when hovered.
-*   **Interaction-03 (Data Updates)**: Values (Speed, %, Range) should "tick" up/down smoothly rather than instantly swapping.
-*   **Interaction-04 (Loading States)**: Use **Skeleton Screens** with a shimmering wave effect during initial data fetch (do not use generic spinners).
-*   **Interaction-05 (No Controls)**: The dashboard is Read-Only. No "Unlock" or "Start AC" buttons are present.
+*   **Interaction-01 (Alerts)**: Cards with Warnings (e.g., Low Tire Pressure, Open Door) must highlight Red/Orange.
+*   **Interaction-02 (Hover Effects)**: Cards should "lift" slightly and glow when hovered.
+*   **Interaction-03 (Vehicle Switch)**: Smooth transition of vehicle image and data when using arrows/dots.
+*   **Interaction-04 (Loading States)**: Use **Skeleton Screens** with a shimmering wave effect during initial data fetch.
+*   **Interaction-05 (Read-Only)**: The dashboard is ensuring a Read-Only experience for safety.
 
 ---
 
-## 4. Technical Integration & Fallback Strategy
+## 4. Technical Integration
 
 ### 4.1 API Mapping (BFF)
-*   **Login**: `POST /api/login`
-*   **Get User/Avatar**: `GET /api/vehicles` (Returns list of vehicles with embedded user profile data)
-*   **Get Telemetry**: `GET /api/telemetry/{vin}?deep_scan=true`
+*   **Login**: `POST /api/login` (Auth0 integration).
+*   **Get Vehicles**: `GET /api/vehicles` (Returns list of vehicles).
+*   **Get Telemetry**: `GET /api/telemetry/{vin}` (Polled every hour or on demand).
+*   **Get User**: `GET /api/user` (Profile info).
 
-### 4.2 Fallback Data Strategy
-If dynamic Alias Mapping (`api/responses/get-alias.json`) fails, the system **MUST** fallback to hardcoded resource IDs to ensure display continuity.
-
-| Metric | Fallback Resource Path |
-| :--- | :--- |
-| **Battery Level** | `/34196/0/0` |
-| **Range Estimate** | `/34196/0/1` |
-| **Charging Status** | `/34197/0/0` |
-| **Location (Lat/Long)**| `/34200/0/0` & `/34200/0/1` |
+### 4.2 State Management
+*   **Store**: `nanostores` (vehicleStore).
+*   **Caching**: `vehicleCache` map stores state for every VIN fetched to avoid redundant network calls.

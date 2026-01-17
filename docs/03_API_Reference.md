@@ -1,14 +1,12 @@
 # VinFast Dashboard - API Reference
-**Version:** 1.0  
+**Version:** 1.1  
 **Status:** VALIDATED  
 **Date:** Jan 2026
 
 ---
 
 ## 1. Overview
-This document details the VinFast Connected Car API interactions, specifically validated against **VF9 Firmware v2.1.5**. 
-
-> **Note**: For specific Telemetry Data Mappings (Battery, Tires, Climate), please refer to the **[Data Dictionary](./04_Data_Dictionary.md)**.
+This document details the VinFast Connected Car API interactions via the **BFF (Backend-for-Frontend)** layer. The Node.js/Fastify backend acts as a proxy, handling authentication, caching, and data enhancement.
 
 ### Regional Configuration
 | Region | API Base URL | Auth0 Domain | Client ID |
@@ -20,80 +18,45 @@ This document details the VinFast Connected Car API interactions, specifically v
 ---
 
 ## 2. Authentication Flow
-The API uses Auth0 standards.
+The API uses Auth0 standards. The BFF handles the `POST /api/login` request, exchanges credentials for tokens, and sets secure HTTP-Only cookies (`access_token`, `refresh_token`, `vin`, `user_id`).
 
-**Endpoint**: `https://{auth0_domain}/oauth/token`  
-**Method**: `POST`  
-**Required Headers**: `Content-Type: application/json`
-**Payload**:
-```json
-{
-  "client_id": "{client_id}",
-  "audience": "https://{auth0_domain}/api/v2/",
-  "grant_type": "password",
-  "username": "...",
-  "password": "..."
-}
-```
-
-**Response (200 OK)**:
-*(Reference: `docs/api/responses/token.json`)*
-```json
-{
-  "access_token": "eyJhbGciOiJSUzI1NiIs...",
-  "refresh_token": "v1.MR2AY0QvbrAeFQ5...",
-  "id_token": "eyJhbGciOiJSUzI1NiIs...",
-  "scope": "openid profile email ... offline_access",
-  "expires_in": 3600,
-  "token_type": "Bearer"
-}
-```
-> **Note**: The backend **MUST** securely store the `refresh_token` (e.g., in a session file or database) to enable auto-renewal of access tokens when they expire (`401 Unauthorized`).
-
-### 2.1 Refresh Token
-**Endpoint**: `https://{auth0_domain}/oauth/token`  
-**Method**: `POST`  
-**Payload**:
-```json
-{
-  "client_id": "{client_id}",
-  "grant_type": "refresh_token",
-  "refresh_token": "{refresh_token}"
-}
-```
+### Key Endpoints
+*   **Login**: `POST /api/login`
+*   **Logout**: `POST /api/logout` (Clears cookies)
 
 ---
 
-## 3. Common Request Headers
-All API calls (except Login) require these standard headers:
-```http
-Authorization: Bearer {access_token}
-Content-Type: application/json
-x-service-name: CAPP
-x-app-version: 1.10.3
-x-device-platform: HomeAssistant
-x-device-family: Integration
-x-device-os-version: 1.0
-x-device-identifier: ha-vinfast-integration
-```
+## 3. Core API Endpoints (BFF)
+
+### 3.1 Get Vehicles
+**Endpoint**: `/api/vehicles` (GET)
+*   **Purpose**: Retrieve list of all vehicles linked to the user's account.
+*   **Response**: JSON Array containing:
+    *   `vinCode`: Vehicle Identification Number (ID).
+    *   `marketingName`: e.g., "VF9 Plus".
+    *   `vehicleImage`: URL to vehicle asset.
+    *   `exteriorColor`: e.g., "Deep Ocean".
+    *   `warrantyExpirationDate`, `warrantyMileage`.
+*   **Optimization**: This is fetched once on app load and stored in `vehicleStore`.
+
+### 3.2 Get User Profile
+**Endpoint**: `/api/user` (GET)
+*   **Purpose**: Retrieve User Name, Avatar, and Role.
+*   **Response**: JSON object with `name`, `sub`, `picture`.
+
+### 3.3 Get Telemetry (Deep Scan)
+**Endpoint**: `/api/telemetry/{vin}` (GET)
+*   **Query Params**: `?deep_scan=true` (forces fresh fetch from car).
+*   **Purpose**: Retrieve real-time status.
+*   **Enhancements**: The BFF automatically:
+    *   Fetches **Weather** (Open-Meteo) based on vehicle coordinates.
+    *   Fetches **Address** (Nominatim Reverse Geocoding) based on coordinates.
+    *   Maps raw obscure resource IDs to friendly keys (e.g., `VEHICLE_STATUS_HV_BATTERY_SOC` -> `battery_level`).
+*   **Response**: A flattened JSON object ready for UI consumption.
 
 ---
 
-## 4. Core API Endpoints
+## 4. Control Limitations
+> **IMPORTANT**: Remote Control Commands (Lock/Unlock, Climate Start) are **Read-Only**.
 
-### 4.1 Get Vehicles
-**Endpoint**: `/ccarusermgnt/api/v1/user-vehicle` (GET)
-*   **Purpose**: Retrieve `vinCode`, `vehicleAliasVersion`, User Profile, and Avatar.
-*   **Response**: List of vehicles associated with the authorized user.
-
-### 4.2 Get Telemetry (Deep Scan)
-**Endpoint**: `/ccaraccessmgmt/api/v1/telemetry/app/ping` (POST)
-*   **Purpose**: Request real-time status for specific sensor IDs.
-*   **Payload**: List of `objectId`, `instanceId`, and `resourceId` to fetch.
-
----
-
-## 5. Control Limitations
-> **IMPORTANT**: Remote Control Commands (Lock/Unlock) are **NOT Supported**.
-
-Control commands require cryptographic keys tied to the specific paired mobile device (Phone). This dashboard integration uses the user's account credentials but does not have access to the private keys stored in the official VinFast app's secure keystore, making command signing impossible.
+The dashboard can **display** lock status (`is_locked`) and climate status (`fan_speed`, `inside_temp`), but it cannot **change** them. Command signing requires a private key stored in the mobile app's keystore, which is not accessible to this web dashboard.

@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VF3 Telemetry Report</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 20px; background-color: #f4f4f9; color: #333; }
+        h1 { text-align: center; color: #2c3e50; }
+        .group-container { background: #fff; margin-bottom: 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); overflow: hidden; }
+        .group-header { background-color: #3498db; color: #fff; padding: 15px 20px; font-size: 1.2em; font-weight: bold; text-transform: uppercase; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #ecf0f1; color: #7f8c8d; font-weight: 600; text-transform: uppercase; font-size: 0.9em; }
+        tr:hover { background-color: #f1f2f6; }
+        tr:last-child td { border-bottom: none; }
+        .value-col { font-family: 'Consolas', monospace; color: #e74c3c; }
+        .alias-col { font-weight: 500; color: #2980b9; font-size: 0.9em; }
+        .no-data { text-align: center; padding: 20px; color: #7f8c8d; }
+    </style>
+</head>
+<body>
+    <h1>VF3 Vehicle Telemetry Report</h1>
+    <p style="text-align:center; color: #7f8c8d;">Generated from <code>telemetry.json</code> and <code>static_alias_map.json</code></p>
+
+    <div class="group-container">
+        <div class="group-header">BATTERY LEASING</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">BATTERY_LEASING_INFO_BATTERY_LEASING_CONTROL</td>
+                    <td>Battery Leasing Info Battery Leasing Control</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">BATTERY_LEASING_INFO_CURRENT_LIMITED_SOC</td>
+                    <td>Battery Leasing Info Current Limited Soc</td>
+                    <td class="value-col">100</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">BMS STATUS</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">BMS_STATUS_STATE_OF_HEALTH</td>
+                    <td>Bms Status State Of Health</td>
+                    <td class="value-col">27.000000</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">CAMP MODE</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">CAMP_MODE_CONTROL_STATUS</td>
+                    <td>Camp Mode Control Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">CAPP PAIRING</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">CAPP_PAIRING_INFO_PHONE_PAIRING_EVENT</td>
+                    <td>Capp Pairing Info Phone Pairing Event</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">CCARSERVICE OBJECT</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">CCARSERVICE_OBJECT_BOOKING_SERVICE_STATUS</td>
+                    <td>Ccarservice Object Booking Service Status</td>
+                    <td class="value-col">[{"appointmentId":"CR1764845769513850389","status":"12"}]</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CCARSERVICE_OBJECT_VEHICLE_CONNECTING_STATUS</td>
+                    <td>Ccarservice Object Vehicle Connecting Status</td>
+                    <td class="value-col">1</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CCARSERVICE_OBJECT_VEHICLE_DISCONNECTED_REASON</td>
+                    <td>Ccarservice Object Vehicle Disconnected Reason</td>
+                    <td class="value-col">MQTT_KEEP_ALIVE_TIMEOUT</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CCARSERVICE_OBJECT_WARNING_MESSAGE_ACTIVATED_COUNTER</td>
+                    <td>Ccarservice Object Warning Message Activated Counter</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">CHARGE CONTROL</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">CHARGE_CONTROL_CHARGE_SCHEDULE_MODE</td>
+                    <td>Charge Control Charge Schedule Mode</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CHARGE_CONTROL_CURRENT_DEPARTURE_TIME</td>
+                    <td>Charge Control Current Departure Time</td>
+                    <td class="value-col">07:30</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CHARGE_CONTROL_CURRENT_TARGET_SOC</td>
+                    <td>Charge Control Current Target Soc</td>
+                    <td class="value-col">100</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CHARGE_CONTROL_ENABLE_PEAK_OFF_HOUR</td>
+                    <td>Charge Control Enable Peak Off Hour</td>
+                    <td class="value-col">1</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CHARGE_CONTROL_ERRORCODE</td>
+                    <td>Charge Control Errorcode</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CHARGE_CONTROL_FULL_CHARGE_REMAINING_TIME</td>
+                    <td>Charge Control Full Charge Remaining Time</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CHARGE_CONTROL_PEAK_OFF_HOUR_END</td>
+                    <td>Charge Control Peak Off Hour End</td>
+                    <td class="value-col">04:00</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CHARGE_CONTROL_PEAK_OFF_HOUR_START</td>
+                    <td>Charge Control Peak Off Hour Start</td>
+                    <td class="value-col">22:00</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">CHARGING STATUS</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">CHARGING_STATUS_CHARGE_LID_CONTROL</td>
+                    <td>Charging Status Charge Lid Control</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CHARGING_STATUS_CHARGE_LID_STATUS</td>
+                    <td>Charging Status Charge Lid Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CHARGING_STATUS_CHARGE_SCHEDULE_CONTROL_STATUS</td>
+                    <td>Charging Status Charge Schedule Control Status</td>
+                    <td class="value-col">1</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CHARGING_STATUS_CHARGE_SCHEDULE_START_TIME</td>
+                    <td>Charging Status Charge Schedule Start Time</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CHARGING_STATUS_CHARGING_ATTEMPT_TIMESTAMP</td>
+                    <td>Charging Status Charging Attempt Timestamp</td>
+                    <td class="value-col">1768037471</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CHARGING_STATUS_CHARGING_CONTROL</td>
+                    <td>Charging Status Charging Control</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CHARGING_STATUS_CHARGING_GUN_AUTHENTICATE_STATUS</td>
+                    <td>Charging Status Charging Gun Authenticate Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CHARGING_STATUS_CHARGING_REMAINING_TIME</td>
+                    <td>Charging Status Charging Remaining Time</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CHARGING_STATUS_CHARGING_STATUS</td>
+                    <td>Charging Status Charging Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CHARGING_STATUS_ESTIMATED_RUNNING_TIME</td>
+                    <td>Charging Status Estimated Running Time</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CHARGING_STATUS_SET_CHARGE_SCHEDULE_START_TIME</td>
+                    <td>Charging Status Set Charge Schedule Start Time</td>
+                    <td class="value-col">07:30</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CHARGING_STATUS_TARGET_SOC_CONTROL</td>
+                    <td>Charging Status Target Soc Control</td>
+                    <td class="value-col">100</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">CLIMATE CONTROL</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">CLIMATE_CONTROL_AC_CONTROL_EXE_ERROR</td>
+                    <td>Climate Control Ac Control Exe Error</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CLIMATE_CONTROL_AC_CONTROL_STATUS</td>
+                    <td>Climate Control Ac Control Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">CLIMATE SCHEDULE</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">CLIMATE_SCHEDULE_CLIMATE_TIMER</td>
+                    <td>Climate Schedule Climate Timer</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CLIMATE_SCHEDULE_DEPARTURE_TIME</td>
+                    <td>Climate Schedule Departure Time</td>
+                    <td class="value-col">07:00</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CLIMATE_SCHEDULE_SCHEDULE_BIT_MASK</td>
+                    <td>Climate Schedule Schedule Bit Mask</td>
+                    <td class="value-col">127</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CLIMATE_SCHEDULE_SET_DRIVER_TEMPERATURE</td>
+                    <td>Climate Schedule Set Driver Temperature</td>
+                    <td class="value-col">24.0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CLIMATE_SCHEDULE_SET_FAN_SPEED</td>
+                    <td>Climate Schedule Set Fan Speed</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">CLIMATE_SCHEDULE_TIMEZONE</td>
+                    <td>Climate Schedule Timezone</td>
+                    <td class="value-col">GMT+07:00</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">DOOR AJAR</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">DOOR_AJAR_FRONT_LEFT_DOOR_STATUS</td>
+                    <td>Door Ajar Front Left Door Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">DOOR_AJAR_FRONT_RIGHT_DOOR_STATUS</td>
+                    <td>Door Ajar Front Right Door Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">DOOR BONNET</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">DOOR_BONNET_DOOR_STATUS</td>
+                    <td>Door Bonnet Door Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">DOOR TRUNK</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">DOOR_TRUNK_DOOR_STATUS</td>
+                    <td>Door Trunk Door Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">ECUS INFORMATION</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">ECUS_INFORMATION_BCM_ECU_IDENTIFIER</td>
+                    <td>Ecus Information Bcm Ecu Identifier</td>
+                    <td class="value-col">0x01</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">ECUS_INFORMATION_BCM_ECU_NAME</td>
+                    <td>Ecus Information Bcm Ecu Name</td>
+                    <td class="value-col">BCM</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">ECUS_INFORMATION_BMS_ECU_IDENTIFIER</td>
+                    <td>Ecus Information Bms Ecu Identifier</td>
+                    <td class="value-col">0x13</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">ECUS_INFORMATION_BMS_ECU_NAME</td>
+                    <td>Ecus Information Bms Ecu Name</td>
+                    <td class="value-col">BMS</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">ECUS_INFORMATION_EDS_R_ECU_IDENTIFIER</td>
+                    <td>Ecus Information Eds R Ecu Identifier</td>
+                    <td class="value-col">0x1A</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">ECUS_INFORMATION_EDS_R_ECU_NAME</td>
+                    <td>Ecus Information Eds R Ecu Name</td>
+                    <td class="value-col">EDS_R</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">ECUS_INFORMATION_MHU_ECU_IDENTIFIER</td>
+                    <td>Ecus Information Mhu Ecu Identifier</td>
+                    <td class="value-col">4</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">ECUS_INFORMATION_MHU_ECU_NAME</td>
+                    <td>Ecus Information Mhu Ecu Name</td>
+                    <td class="value-col">MHU</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">ECUS_INFORMATION_MHU_HARDWARE_VERSION</td>
+                    <td>Ecus Information Mhu Hardware Version</td>
+                    <td class="value-col">01</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">ECUS_INFORMATION_MHU_SOFTWARE_VERSION</td>
+                    <td>Ecus Information Mhu Software Version</td>
+                    <td class="value-col">65</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">ECUS_INFORMATION_MHU_VINFAST_ECU_HARDWARE_PARTNUMBER</td>
+                    <td>Ecus Information Mhu Vinfast Ecu Hardware Partnumber</td>
+                    <td class="value-col">EEP69021001AE</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">ECUS_INFORMATION_MHU_VINFAST_ECU_SOFTWARE_PARTNUMBER</td>
+                    <td>Ecus Information Mhu Vinfast Ecu Software Partnumber</td>
+                    <td class="value-col">SOW69021101AA</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">ECUS_INFORMATION_VCU_ECU_IDENTIFIER</td>
+                    <td>Ecus Information Vcu Ecu Identifier</td>
+                    <td class="value-col">0x2C</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">ECUS_INFORMATION_VCU_ECU_NAME</td>
+                    <td>Ecus Information Vcu Ecu Name</td>
+                    <td class="value-col">VCU</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">ECUS_INFORMATION_XGW_ECU_IDENTIFIER</td>
+                    <td>Ecus Information Xgw Ecu Identifier</td>
+                    <td class="value-col">0x02</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">ECUS_INFORMATION_XGW_ECU_NAME</td>
+                    <td>Ecus Information Xgw Ecu Name</td>
+                    <td class="value-col">XGW</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">FIRMWARE UPDATE</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">FIRMWARE_UPDATE_CURRENT_PKG_VERSION</td>
+                    <td>Firmware Update Current Pkg Version</td>
+                    <td class="value-col">FRS 3A.1.9.4</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">FIRMWARE_UPDATE_CURRENT_TARGET_PROGRESS</td>
+                    <td>Firmware Update Current Target Progress</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">FIRMWARE_UPDATE_DOWNLOAD_REMAINING_TIME</td>
+                    <td>Firmware Update Download Remaining Time</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">FIRMWARE_UPDATE_FIRMWARE_UPDATE_ERROR_CODE</td>
+                    <td>Firmware Update Firmware Update Error Code</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">FIRMWARE_UPDATE_INSTALLING_REMAINING_TIME</td>
+                    <td>Firmware Update Installing Remaining Time</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">FIRMWARE_UPDATE_INSTALLING_TIME</td>
+                    <td>Firmware Update Installing Time</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">FIRMWARE_UPDATE_REFER_DOWNLOAD_METHOD</td>
+                    <td>Firmware Update Refer Download Method</td>
+                    <td class="value-col">3</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">FIRMWARE_UPDATE_STATE</td>
+                    <td>Firmware Update State</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">FIRMWARE_UPDATE_TOTAL_DOWNLOADING_PROGRESS</td>
+                    <td>Firmware Update Total Downloading Progress</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">FIRMWARE_UPDATE_TOTAL_OVERALL_PROGRESS</td>
+                    <td>Firmware Update Total Overall Progress</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">INTRUSION CONFIGURATION</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">INTRUSION_CONFIGURATION</td>
+                    <td>Intrusion Configuration</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">INTRUSION STATUS</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">INTRUSION_STATUS</td>
+                    <td>Intrusion Status</td>
+                    <td class="value-col">2</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">LOCATION BEARING</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">LOCATION_BEARING_DEGREE</td>
+                    <td>Location Bearing Degree</td>
+                    <td class="value-col">10</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">LOCATION GNSS</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">LOCATION_GNSS_STATUS</td>
+                    <td>Location Gnss Status</td>
+                    <td class="value-col">1</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">LOCATION LATITUDE</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">LOCATION_LATITUDE</td>
+                    <td>Location Latitude</td>
+                    <td class="value-col">21.000000</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">LOCATION LONGITUDE</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">LOCATION_LONGITUDE</td>
+                    <td>Location Longitude</td>
+                    <td class="value-col">105.000000</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">NETWORK ACCESS</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">NETWORK_ACCESS_DEVICE_INFO_CELL_IDENTIFIER_CID</td>
+                    <td>Network Access Device Info Cell Identifier Cid</td>
+                    <td class="value-col">********</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">NETWORK_ACCESS_DEVICE_INFO_MOBILE_COUNTRY_CODE_MCC</td>
+                    <td>Network Access Device Info Mobile Country Code Mcc</td>
+                    <td class="value-col">452</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">NETWORK_ACCESS_DEVICE_INFO_MOBILE_NETWORK_CODE_MNC</td>
+                    <td>Network Access Device Info Mobile Network Code Mnc</td>
+                    <td class="value-col">01</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">NETWORK_ACCESS_DEVICE_INFO_NETWORK_TECHNOLOGY</td>
+                    <td>Network Access Device Info Network Technology</td>
+                    <td class="value-col">LTE</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">NETWORK_ACCESS_DEVICE_INFO_STATUS</td>
+                    <td>Network Access Device Info Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">NETWORK_ACCESS_DEVICE_INFO_WAKEUP_SOURCE</td>
+                    <td>Network Access Device Info Wakeup Source</td>
+                    <td class="value-col">5</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">PET MODE</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">PET_MODE_CONTROL_STATUS</td>
+                    <td>Pet Mode Control Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">REMOTE CONTROL</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">REMOTE_CONTROL_DOOR_STATUS</td>
+                    <td>Remote Control Door Status</td>
+                    <td class="value-col">1</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">REMOTE_CONTROL_TESTCOMMAND_STATUS</td>
+                    <td>Remote Control Testcommand Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">REMOTE_CONTROL_TRUNK_STATUS</td>
+                    <td>Remote Control Trunk Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">REMOTE_CONTROL_WINDOW_STATUS</td>
+                    <td>Remote Control Window Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">TELLTALES NOTIFICATION</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">TELLTALES_NOTIFICATION_ENABLE</td>
+                    <td>Telltales Notification Enable</td>
+                    <td class="value-col">1</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">TELLTALES_NOTIFICATION_STATE</td>
+                    <td>Telltales Notification State</td>
+                    <td class="value-col">1</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">VALET MODE</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">VALET_MODE_CONTROL_CONFIGURATION_JSON</td>
+                    <td>Valet Mode Control Configuration Json</td>
+                    <td class="value-col">W3siUElOIjoiNzA3MjYwIn1d</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VALET_MODE_CONTROL_STATUS</td>
+                    <td>Valet Mode Control Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">VEHICLE STATUS</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">VEHICLE_STATUS_AUTODIAG</td>
+                    <td>Vehicle Status Autodiag</td>
+                    <td class="value-col">1</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VEHICLE_STATUS_CAPP_STATUS</td>
+                    <td>Vehicle Status Capp Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VEHICLE_STATUS_GEAR_POSITION</td>
+                    <td>Vehicle Status Gear Position</td>
+                    <td class="value-col">1</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VEHICLE_STATUS_HANDBRAKE_STATUS</td>
+                    <td>Vehicle Status Handbrake Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VEHICLE_STATUS_HV_BATTERY_SOC</td>
+                    <td>Vehicle Status Hv Battery Soc</td>
+                    <td class="value-col">82</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VEHICLE_STATUS_IGNITION_STATUS</td>
+                    <td>Vehicle Status Ignition Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VEHICLE_STATUS_ODOMETER</td>
+                    <td>Vehicle Status Odometer</td>
+                    <td class="value-col">5775.000000</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VEHICLE_STATUS_REMAINING_DISTANCE</td>
+                    <td>Vehicle Status Remaining Distance</td>
+                    <td class="value-col">174</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VEHICLE_STATUS_REMOTE_CONTROL_STATUS</td>
+                    <td>Vehicle Status Remote Control Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VEHICLE_STATUS_START_AUTODIAG</td>
+                    <td>Vehicle Status Start Autodiag</td>
+                    <td class="value-col">1</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VEHICLE_STATUS_VEHICLE_SPEED</td>
+                    <td>Vehicle Status Vehicle Speed</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">VEHICLE WARNINGS</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">VEHICLE_WARNINGS_ANTI_THIEF_DECTECTION_ALARM_STATUS</td>
+                    <td>Vehicle Warnings Anti Thief Dectection Alarm Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VEHICLE_WARNINGS_DOORS_TRUNK_OPENING_WARNING_STATUS</td>
+                    <td>Vehicle Warnings Doors Trunk Opening Warning Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VEHICLE_WARNINGS_HV_BATTERY_LOW_SOC_WARNING_STATUS</td>
+                    <td>Vehicle Warnings Hv Battery Low Soc Warning Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VEHICLE_WARNINGS_LOW_FUEL_BATTERY_WARNING_STATUS</td>
+                    <td>Vehicle Warnings Low Fuel Battery Warning Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VEHICLE_WARNINGS_SPEED_LIMIT_WARNING_STATUS</td>
+                    <td>Vehicle Warnings Speed Limit Warning Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VEHICLE_WARNINGS_TRUNK_OPENING_WARNING_STATUS</td>
+                    <td>Vehicle Warnings Trunk Opening Warning Status</td>
+                    <td class="value-col">0</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">VERSION INFO</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">VERSION_INFO_MESSAGE_PROTOCOL_VERSION</td>
+                    <td>Version Info Message Protocol Version</td>
+                    <td class="value-col">1.3</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VERSION_INFO_RELEASE_DATE</td>
+                    <td>Version Info Release Date</td>
+                    <td class="value-col">2025-03-04,18:34</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VERSION_INFO_TBOX_SOFTWARE_VERSION</td>
+                    <td>Version Info Tbox Software Version</td>
+                    <td class="value-col">9.2.40.VN</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VERSION_INFO_VERSION</td>
+                    <td>Version Info Version</td>
+                    <td class="value-col">1.3.123</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">VINFAST VEHICLE IDENTIFIER</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">VINFAST_VEHICLE_IDENTIFIER_MODEL_YEAR</td>
+                    <td>Vinfast Vehicle Identifier Model Year</td>
+                    <td class="value-col">2025</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VINFAST_VEHICLE_IDENTIFIER_VEHICLE_NAME</td>
+                    <td>Vinfast Vehicle Identifier Vehicle Name</td>
+                    <td class="value-col">My VF3</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VINFAST_VEHICLE_IDENTIFIER_VEHICLE_OWNER</td>
+                    <td>Vinfast Vehicle Identifier Vehicle Owner</td>
+                    <td class="value-col">{"profile_rule":"ROLE_MASTER_DRIVER","profile_email":"user@example.com"}</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VINFAST_VEHICLE_IDENTIFIER_VEHICLE_PRODUCTION_IDENTIFIER</td>
+                    <td>Vinfast Vehicle Identifier Vehicle Production Identifier</td>
+                    <td class="value-col">701087</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VINFAST_VEHICLE_IDENTIFIER_VIN_NUMBER</td>
+                    <td>Vinfast Vehicle Identifier Vin Number</td>
+                    <td class="value-col">VF3XXXXXXXXXXXXXX</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">VINFAST VEHICLE MASTER</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">VINFAST_VEHICLE_MASTER_INFO_ENGINE_TYPE</td>
+                    <td>Vinfast Vehicle Master Info Engine Type</td>
+                    <td class="value-col">BEV</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VINFAST_VEHICLE_MASTER_INFO_MARKET_AREA</td>
+                    <td>Vinfast Vehicle Master Info Market Area</td>
+                    <td class="value-col">VN</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VINFAST_VEHICLE_MASTER_INFO_MARKETING_NAME</td>
+                    <td>Vinfast Vehicle Master Info Marketing Name</td>
+                    <td class="value-col">VF3</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VINFAST_VEHICLE_MASTER_INFO_TBOX_DB_VARIANT</td>
+                    <td>Vinfast Vehicle Master Info Tbox Db Variant</td>
+                    <td class="value-col">VF3</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VINFAST_VEHICLE_MASTER_INFO_VEHICLE_CLASS</td>
+                    <td>Vinfast Vehicle Master Info Vehicle Class</td>
+                    <td class="value-col">Mini-Car</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VINFAST_VEHICLE_MASTER_INFO_VEHICLE_PLATFORM</td>
+                    <td>Vinfast Vehicle Master Info Vehicle Platform</td>
+                    <td class="value-col">miniCar</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VINFAST_VEHICLE_MASTER_INFO_VEHICLE_VARIANT</td>
+                    <td>Vinfast Vehicle Master Info Vehicle Variant</td>
+                    <td class="value-col">BASE</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">VINFAST_VEHICLE_MASTER_INFO_YEAR_OF_PRODUCTION</td>
+                    <td>Vinfast Vehicle Master Info Year Of Production</td>
+                    <td class="value-col">2025</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="group-container">
+        <div class="group-header">WINDOW AJAR</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Alias</th>
+                    <th style="width: 30%">Name (Derived)</th>
+                    <th style="width: 30%">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr>
+                    <td class="alias-col">WINDOW_AJAR_FRONT_LEFT_STATUS</td>
+                    <td>Window Ajar Front Left Status</td>
+                    <td class="value-col">1</td>
+                </tr>
+        
+                <tr>
+                    <td class="alias-col">WINDOW_AJAR_FRONT_RIGHT_STATUS</td>
+                    <td>Window Ajar Front Right Status</td>
+                    <td class="value-col">1</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+</body>
+</html>

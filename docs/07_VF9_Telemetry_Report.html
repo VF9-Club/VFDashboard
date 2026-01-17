@@ -1,27 +1,88 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Telemetry Report</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 20px; background-color: #f4f4f9; color: #333; }
-        h1 { text-align: center; color: #2c3e50; }
-        .group-container { background: #fff; margin-bottom: 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); overflow: hidden; }
-        .group-header { background-color: #3498db; color: #fff; padding: 15px 20px; font-size: 1.2em; font-weight: bold; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd; }
-        th { background-color: #ecf0f1; color: #7f8c8d; font-weight: 600; text-transform: uppercase; font-size: 0.9em; }
-        tr:hover { background-color: #f1f2f6; }
-        tr:last-child td { border-bottom: none; }
-        .value-col { font-family: 'Consolas', monospace; color: #e74c3c; }
-        .alias-col { font-weight: 500; color: #2980b9; font-size: 0.9em; }
-        .no-data { text-align: center; padding: 20px; color: #7f8c8d; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .group-container {
+            background: #fff;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .group-header {
+            background-color: #3498db;
+            color: #fff;
+            padding: 15px 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #ecf0f1;
+            color: #7f8c8d;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+
+        tr:hover {
+            background-color: #f1f2f6;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .value-col {
+            font-family: 'Consolas', monospace;
+            color: #e74c3c;
+        }
+
+        .alias-col {
+            font-weight: 500;
+            color: #2980b9;
+            font-size: 0.9em;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+        }
     </style>
 </head>
+
 <body>
-    <h1>Vehicle Telemetry Report</h1>
+    <h1>VF9 Telemetry Report</h1>
 
     <div class="group-container">
         <div class="group-header">BATTERY LEASING</div>
@@ -2406,7 +2467,9 @@
                 <tr>
                     <td class="alias-col">FOTA_COMMAND_STATUS</td>
                     <td>Status</td>
-                    <td class="value-col">ewogICJyZW1haW5pbmdUaW1lSW5TZWNvbmRzIiA6IDAsCiAgInBlcmNlbnQiIDogMCwKICAic29mdHdhcmVWZXJzaW9uIiA6ICI5QS41LjEwLjEyIiwKICAicHJlY29uZGl0aW9uRXJyb3IiIDogMCwKICAic3RhdHVzIiA6ICJVUF9UT19EQVRFIgp9</td>
+                    <td class="value-col">
+                        ewogICJyZW1haW5pbmdUaW1lSW5TZWNvbmRzIiA6IDAsCiAgInBlcmNlbnQiIDogMCwKICAic29mdHdhcmVWZXJzaW9uIiA6ICI5QS41LjEwLjEyIiwKICAicHJlY29uZGl0aW9uRXJyb3IiIDogMCwKICAic3RhdHVzIiA6ICJVUF9UT19EQVRFIgp9
+                    </td>
                 </tr>
 
             </tbody>
@@ -2776,7 +2839,8 @@
                 </tr>
 
                 <tr>
-                    <td class="alias-col">TELLTALES_NOTIFICATION_NULL_AEB_AUTO_EMERGENCY_BRAKING_UNAVAILABLE_TEMPORARILY</td>
+                    <td class="alias-col">TELLTALES_NOTIFICATION_NULL_AEB_AUTO_EMERGENCY_BRAKING_UNAVAILABLE_TEMPORARILY
+                    </td>
                     <td>EV Battery Over Heat</td>
                     <td class="value-col">0</td>
                 </tr>
@@ -3978,4 +4042,5 @@
     </div>
 
 </body>
+
 </html>
