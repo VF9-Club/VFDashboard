@@ -4,7 +4,7 @@ services:
     name: vfdashboard-backend
     runtime: docker
     dockerContext: ./backend
-    dockerfilePath: Dockerfile
+    dockerfilePath: ./backend/Dockerfile
     plan: free
     region: singapore # Cùng region với user (vn) sẽ nhanh hơn
     envVars:
@@ -22,7 +22,7 @@ services:
     name: vfdashboard-frontend
     runtime: docker
     dockerContext: ./frontend
-    dockerfilePath: Dockerfile
+    dockerfilePath: ./frontend/Dockerfile
     plan: free
     region: singapore
     envVars:
