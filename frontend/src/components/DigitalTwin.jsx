@@ -125,14 +125,6 @@ export default function DigitalTwin() {
   const currentIndex = allVehicles.findIndex((v) => v.vinCode === data.vin);
   const hasMultipleVehicles = allVehicles.length > 1;
 
-  const handleSwitch = (offset) => {
-    if (!hasMultipleVehicles) return;
-    const newIndex =
-      (currentIndex + offset + allVehicles.length) % allVehicles.length;
-    switchVehicle(allVehicles[newIndex].vinCode);
-  };
-
-  // Image Logic
   const getCarImage = () => {
     // 1. Prefer API provided image
     if (data.vehicleImage) return data.vehicleImage;
@@ -145,25 +137,23 @@ export default function DigitalTwin() {
     if (model.includes("VF 7")) return "/vf7-iso.png";
     if (model.includes("VF 8")) return "/vf8-iso.png";
 
-    // NO Default Fallback
     return null;
   };
 
   const carImageSrc = getCarImage();
 
-  // Collect active warnings
   const warnings = [];
   if (data.door_fl || data.door_fr || data.door_rl || data.door_rr)
     warnings.push("Door Open");
   if (data.trunk_status) warnings.push("Trunk Open");
   if (data.hood_status) warnings.push("Hood Open");
-  if (data.central_lock_status === false) warnings.push("Unlocked"); // Warning if unlocked
+  // Central Lock: false means UNLOCKED (Warning)
+  if (data.central_lock_status === false || data.is_locked === false)
+    warnings.push("Unlocked");
 
   return (
     <div className="relative w-full h-full min-h-[400px] bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden flex flex-col">
-      {/* Main Visual Area */}
       <div className="relative flex-1 w-full flex items-center justify-center p-4">
-        {/* Model Label (Floating) */}
         <div className="absolute top-4 md:top-6 left-4 md:left-8 z-10 flex flex-col">
           <h2 className="text-xl font-black text-gray-900 tracking-wide uppercase leading-none mb-2">
             {data.vin ? (
@@ -173,7 +163,6 @@ export default function DigitalTwin() {
             )}
           </h2>
 
-          {/* Odometer & Driving Time */}
           <div className="flex flex-col gap-0.5 animate-in fade-in slide-in-from-left-4 duration-700 delay-300">
             <div className="flex items-baseline gap-1">
               {data.vin ? (
@@ -195,21 +184,18 @@ export default function DigitalTwin() {
             </div>
           </div>
 
-          {/* Warranty Info (New) - Hidden on Mobile Top, moved to bottom */}
-          <div className="hidden md:flex mt-2 pt-2 border-t border-gray-100 flex flex-col gap-0.5 animate-in fade-in slide-in-from-left-4 duration-700 delay-500">
+          <div className="flex mt-2 pt-2 border-t border-gray-100 flex flex-col gap-0.5 animate-in fade-in slide-in-from-left-4 duration-700 delay-500">
             <p className="text-[8px] md:text-[9px] font-bold text-gray-400 uppercase tracking-wider">
               Warranty Expires
             </p>
             <div className="flex items-center gap-2 text-xs font-bold text-gray-600 font-mono">
               <span
-                className={
-                  !data.warrantyExpirationDate ? "text-gray-300" : ""
-                }
+                className={!data.warrantyExpirationDate ? "text-gray-300" : ""}
               >
                 {data.warrantyExpirationDate
                   ? new Date(data.warrantyExpirationDate).toLocaleDateString(
-                    "vi-VN",
-                  )
+                      "vi-VN",
+                    )
                   : "N/A"}
               </span>
               <span className="text-gray-300">|</span>
@@ -222,17 +208,16 @@ export default function DigitalTwin() {
           </div>
         </div>
 
-        {/* Car Image Area */}
-        <div className="relative w-full max-w-[520px] aspect-[16/10] flex items-center justify-center mt-14 md:mt-4 group">
-
-          {/* Controls Container - Full width to position elements */}
+        <div className="relative w-full max-w-[520px] aspect-[16/10] flex items-center justify-center mt-6 md:mt-0 translate-y-4 md:translate-y-28 group">
           {hasMultipleVehicles && (
             <>
               {/* Left Arrow */}
               <div className="absolute left-0 top-1/2 -translate-y-1/2 z-30 px-2">
                 {currentIndex > 0 && (
                   <button
-                    onClick={() => switchVehicle(allVehicles[currentIndex - 1].vinCode)}
+                    onClick={() =>
+                      switchVehicle(allVehicles[currentIndex - 1].vinCode)
+                    }
                     className="p-3 rounded-full bg-white/80 backdrop-blur-sm border border-gray-100 shadow-lg text-gray-400 hover:text-blue-600 hover:scale-110 active:scale-95 transition-all"
                     title="Previous Vehicle"
                   >
@@ -257,7 +242,9 @@ export default function DigitalTwin() {
               <div className="absolute right-0 top-1/2 -translate-y-1/2 z-30 px-2">
                 {currentIndex < allVehicles.length - 1 && (
                   <button
-                    onClick={() => switchVehicle(allVehicles[currentIndex + 1].vinCode)}
+                    onClick={() =>
+                      switchVehicle(allVehicles[currentIndex + 1].vinCode)
+                    }
                     className="p-3 rounded-full bg-white/80 backdrop-blur-sm border border-gray-100 shadow-lg text-gray-400 hover:text-blue-600 hover:scale-110 active:scale-95 transition-all"
                     title="Next Vehicle"
                   >
@@ -284,11 +271,14 @@ export default function DigitalTwin() {
                   <button
                     key={v.vinCode}
                     onClick={() => switchVehicle(v.vinCode)}
-                    className={`transition-all duration-300 rounded-full ${idx === currentIndex
-                      ? "w-6 h-1.5 bg-gray-800"
-                      : "w-1.5 h-1.5 bg-gray-300 hover:bg-gray-400"
-                      }`}
-                    title={v.customizedVehicleName || v.vehicleName || "Vehicle"}
+                    className={`transition-all duration-300 rounded-full ${
+                      idx === currentIndex
+                        ? "w-6 h-1.5 bg-gray-800"
+                        : "w-1.5 h-1.5 bg-gray-300 hover:bg-gray-400"
+                    }`}
+                    title={
+                      v.customizedVehicleName || v.vehicleName || "Vehicle"
+                    }
                   />
                 ))}
               </div>
@@ -309,7 +299,7 @@ export default function DigitalTwin() {
               onLoad={() => setImageLoaded(true)}
               onError={(e) => {
                 e.target.onerror = null;
-                e.target.style.display = 'none';
+                e.target.style.display = "none";
                 setImageLoaded(true);
               }}
             />
@@ -317,8 +307,7 @@ export default function DigitalTwin() {
         </div>
 
         {/* Tire Cards */}
-        {/* Remapped Data: TL=FR, TR=RR, BL=FL, BR=RL */}
-        {/* Mobile: Push outwards (2%) to avoid covering image. Desktop: Keep 8% */}
+        {/* TL=FR, TR=RR, BL=FL, BR=RL */}
 
         <TireCard
           pressure={data.tire_pressure_fr}
@@ -348,30 +337,7 @@ export default function DigitalTwin() {
       </div>
 
       {/* Bottom Controls Area */}
-      <div className="h-auto w-full bg-white flex flex-col items-center justify-end pb-6 space-y-4 z-30">
-        {/* Mobile Warranty Info - Visible only on Mobile */}
-        <div className="md:hidden flex flex-col items-center gap-0.5 pb-2">
-          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
-            Warranty
-          </p>
-          <div className="flex items-center gap-2 text-xs font-bold text-gray-600">
-            <span className="bg-gray-50 px-2 py-0.5 rounded border border-gray-100">
-              {data.warrantyExpirationDate
-                ? new Date(data.warrantyExpirationDate).toLocaleDateString(
-                  "en-US",
-                  { month: "short", year: "numeric" },
-                )
-                : "--"}
-            </span>
-            <span className="text-gray-300">•</span>
-            <span className="bg-gray-50 px-2 py-0.5 rounded border border-gray-100">
-              {data.warrantyMileage
-                ? `${Number(data.warrantyMileage).toLocaleString()} km`
-                : "--"}
-            </span>
-          </div>
-        </div>
-
+      <div className="h-auto w-full bg-white flex flex-col items-center justify-end pb-4 space-y-3 z-30">
         {/* Gear Selector */}
         <div className="bg-gray-50/80 backdrop-blur-md px-10 py-3.5 rounded-full flex items-center gap-8 border border-gray-200 shadow-[0_4px_20px_rgb(0,0,0,0.05)] relative z-30">
           {[GEARS.PARK, GEARS.REVERSE, GEARS.NEUTRAL, GEARS.DRIVE].map(

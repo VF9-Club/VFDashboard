@@ -137,10 +137,13 @@ export default function VehicleHeader() {
 
   const handleLogout = async () => {
     try {
-      await fetch(`${import.meta.env.PUBLIC_API_URL || "http://localhost:3000"}/api/logout`, {
-        method: "POST",
-        credentials: "include",
-      });
+      await fetch(
+        `${import.meta.env.PUBLIC_API_URL || "http://localhost:3000"}/api/logout`,
+        {
+          method: "POST",
+          credentials: "include",
+        },
+      );
     } catch (e) {
       console.error("Logout failed", e);
     }
@@ -295,10 +298,10 @@ export default function VehicleHeader() {
             <p className="text-xs text-gray-400 mt-0.5 font-medium tracking-wide">
               {vehicle.userVehicleType
                 ? vehicle.userVehicleType
-                  .replace("ROLE_", "")
-                  .toLowerCase()
-                  .replace(/_/g, " ")
-                  .replace(/\b\w/g, (c) => c.toUpperCase())
+                    .replace("ROLE_", "")
+                    .toLowerCase()
+                    .replace(/_/g, " ")
+                    .replace(/\b\w/g, (c) => c.toUpperCase())
                 : ""}
             </p>
           </div>

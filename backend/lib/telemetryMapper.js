@@ -77,7 +77,6 @@ const TELEMETRY_KEY_MAP = {
   ECUS_INFORMATION_VCU_SOFTWARE_VERSION: "vcu_version",
   ECUS_INFORMATION_BCM_SOFTWARE_VERSION: "bcm_version",
 
-  ASSUARANCE_SERVICE_DATA_TOTAL_DRIVING_TIME: "driving_time",
   VEHICLE_STATUS_CENTRAL_LOCK_STATUS: "central_lock_status",
 
   // System Health / Vehicle Status

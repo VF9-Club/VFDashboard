@@ -92,7 +92,9 @@ fastify.post(
       // Return valid generic message for Production security
       // But verify if it was a vehicle fetch error
       if (err.message === "Failed to retrieve vehicle data") {
-        return reply.code(502).send({ error: "Login successful but failed to load profile." });
+        return reply
+          .code(502)
+          .send({ error: "Login successful but failed to load profile." });
       }
       return reply.code(401).send({ error: "Invalid email or password." });
     }
@@ -209,6 +211,12 @@ fastify.get(
   },
 );
 
+// Helper: Strip administrative prefixes (Thành phố, Tỉnh, Quận, etc.)
+const stripPrefix = (str) => {
+  if (!str) return str;
+  return str.replace(/^(Thành phố|Tỉnh|Quận|Huyện|Xã|Phường)\s+/gi, "").trim();
+};
+
 // Helper: Reverse Geocoding (Simple Cache-less for demo)
 const fetchLocationName = async (lat, lon) => {
   if (!lat || !lon) return null;
@@ -219,13 +227,19 @@ const fetchLocationName = async (lat, lon) => {
     const res = await fetch(url, { headers });
     if (res.ok) {
       const data = await res.json();
-      // Construct address: "City, CountryCode"
       const a = data.address || {};
-      const city = a.city || a.town || a.village || a.state || a.county;
-      const country = (a.country_code || "").toUpperCase();
 
-      const parts = [city, country].filter(Boolean);
-      return parts.join(", ");
+      const rawDistrict = a.city_district || a.district || a.county;
+      const rawCity = a.city || a.town || a.village || a.state || a.province;
+
+      const district = stripPrefix(rawDistrict);
+      const city = stripPrefix(rawCity);
+      const country = (a.country_code || "VN").toUpperCase();
+
+      return {
+        location_address: [district, city, country].filter(Boolean).join(", "),
+        weather_address: [city, country].filter(Boolean).join(", "),
+      };
     }
   } catch {
     // console.log(`[${new Date().toISOString()}] Received telemetry update`);
@@ -270,12 +284,15 @@ fastify.get(
 
       if (telemetry.latitude && telemetry.longitude) {
         // Parallel fetch for speed
-        const [address, weather] = await Promise.all([
+        const [geoData, weather] = await Promise.all([
           fetchLocationName(telemetry.latitude, telemetry.longitude),
           fetchWeather(telemetry.latitude, telemetry.longitude),
         ]);
 
-        if (address) telemetry.location_address = address;
+        if (geoData) {
+          telemetry.location_address = geoData.location_address;
+          telemetry.weather_address = geoData.weather_address;
+        }
         if (weather) {
           telemetry.external_temp = weather.temperature;
           telemetry.weather_code = weather.weathercode;

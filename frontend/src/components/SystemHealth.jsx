@@ -221,7 +221,7 @@ export default function SystemHealth() {
               d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
-        ); // Replace with proper tire icon
+        );
       case "door":
         return (
           <svg
@@ -314,7 +314,7 @@ export default function SystemHealth() {
   };
 
   return (
-    <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 min-h-[400px] md:h-full flex flex-col">
+    <div className="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 min-h-[400px] md:h-full flex flex-col">
       <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
         <svg
           className="w-6 h-6 text-blue-600"
@@ -332,24 +332,24 @@ export default function SystemHealth() {
         Vehicle Status
       </h3>
 
-      <div className="space-y-4 flex-1 md:overflow-y-auto pr-2 custom-scrollbar">
+      <div className="space-y-2 flex-1 md:overflow-y-auto pr-2 custom-scrollbar">
         {items.map((item, index) => (
           <div
             key={index}
-            className="grid grid-cols-[40px_1fr_auto] gap-3 items-center pb-3 border-b border-gray-50 last:border-0 last:pb-0"
+            className="grid grid-cols-[32px_1fr_auto] gap-2 items-center pb-2 border-b border-gray-50 last:border-0 last:pb-0"
           >
             <div
-              className={`h-10 w-10 rounded-2xl flex items-center justify-center border border-gray-50/50 ${item.bg} ${item.iconColor}`}
+              className={`h-8 w-8 rounded-xl flex items-center justify-center border border-gray-50/50 ${item.bg} ${item.iconColor}`}
             >
               {getIcon(item.icon)}
             </div>
             <div>
-              <p className="text-sm font-semibold text-gray-900 leading-tight">
+              <p className="text-sm font-semibold text-gray-900 leading-tight whitespace-nowrap">
                 {item.label}
               </p>
             </div>
             <span
-              className={`text-[10px] font-bold px-2 py-1 rounded-md w-[120px] text-center truncate shadow-sm ${item.bg} ${item.txt}`}
+              className={`text-[10px] font-bold px-2 py-1 rounded-md w-[100px] text-center truncate shadow-sm ${item.bg} ${item.txt}`}
             >
               {item.value}
             </span>

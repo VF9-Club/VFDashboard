@@ -42,15 +42,12 @@ export interface VehicleState {
   bms_version?: string;
   gateway_version?: string;
   ecu_head_unit?: string;
-  ecu_audio_amp?: string;
-  ecu_connectivity?: string;
-  ecu_nav?: string;
-  ecu_driver_monitoring?: string;
-  ecu_camera?: string;
-  ecu_lighting?: string;
   ecu_tailgate?: string;
   ecu_door_control?: string;
   ecu_seat_control?: string;
+
+  ignition_status?: number | string | null;
+  heading?: number;
 
   // Detailed Versions
   mhu_version?: string;
@@ -64,7 +61,6 @@ export interface VehicleState {
   service_alert?: string | number;
 
   // Driving Stats
-  driving_time?: number | null; // Seconds or Minutes? Usually seconds.
   central_lock_status?: boolean; // True=Locked?
 
   // Warranty
@@ -170,21 +166,14 @@ export const vehicleStore = map<VehicleState>({
   bms_version: "--",
   gateway_version: "--",
   ecu_head_unit: "--",
-  ecu_audio_amp: "--",
-  ecu_connectivity: "--",
-  ecu_nav: "--",
-  ecu_driver_monitoring: "--",
-  ecu_camera: "--",
-  ecu_lighting: "--",
-  ecu_tailgate: "--",
-  ecu_door_control: "--",
-  ecu_seat_control: "--",
+
+  ignition_status: null,
+  heading: 0,
 
   mhu_version: "--",
   vcu_version: "--",
   bcm_version: "--",
 
-  driving_time: null,
   central_lock_status: undefined,
 
   // Warranty
@@ -285,20 +274,12 @@ const INITIAL_TELEMETRY: Partial<VehicleState> = {
   bms_version: "--",
   gateway_version: "--",
   ecu_head_unit: "--",
-  ecu_audio_amp: "--",
-  ecu_connectivity: "--",
-  ecu_nav: "--",
-  ecu_driver_monitoring: "--",
-  ecu_camera: "--",
-  ecu_lighting: "--",
-  ecu_tailgate: "--",
-  ecu_door_control: "--",
-  ecu_seat_control: "--",
+  ignition_status: null,
+  heading: 0,
   mhu_version: "--",
   vcu_version: "--",
   bcm_version: "--",
 
-  driving_time: null,
   central_lock_status: undefined,
 
   // Vehicle Status
