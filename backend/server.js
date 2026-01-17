@@ -4,6 +4,11 @@ const cookie = require("@fastify/cookie");
 const cors = require("@fastify/cors");
 const { DEFAULT_REGION } = require("./lib/config");
 const VinFastAPI = require("./lib/vinfast");
+const SimpleCache = require("./lib/simpleCache");
+
+// Cache initialization
+const locationCache = new SimpleCache();
+const weatherCache = new SimpleCache();
 
 // Register Plugins
 fastify.register(cookie, {
@@ -174,9 +179,18 @@ fastify.get(
   },
 );
 
-// Helper: Reverse Geocoding (Simple Cache-less for demo)
+// Helper: Reverse Geocoding (with caching)
 const fetchLocationName = async (lat, lon) => {
   if (!lat || !lon) return null;
+
+  // Round to 3 decimal places (~100m precision) for cache hit rate
+  const rLat = Number(lat).toFixed(3);
+  const rLon = Number(lon).toFixed(3);
+  const cacheKey = `loc_${rLat}_${rLon}`;
+
+  const cached = locationCache.get(cacheKey);
+  if (cached) return cached;
+
   try {
     const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`;
     // Nominatim requires a User-Agent
@@ -190,7 +204,10 @@ const fetchLocationName = async (lat, lon) => {
       const country = (a.country_code || "").toUpperCase();
 
       const parts = [city, country].filter(Boolean);
-      return parts.join(", ");
+      const result = parts.join(", ");
+
+      locationCache.set(cacheKey, result, 86400); // Cache for 24 hours
+      return result;
     }
   } catch {
     // console.log(`[${new Date().toISOString()}] Received telemetry update`);
@@ -201,11 +218,21 @@ const fetchLocationName = async (lat, lon) => {
 // Helper: Fetch Weather (Open-Meteo)
 const fetchWeather = async (lat, lon) => {
   if (!lat || !lon) return null;
+
+  // Round to 3 decimal places (~100m precision) for cache hit rate
+  const rLat = Number(lat).toFixed(3);
+  const rLon = Number(lon).toFixed(3);
+  const cacheKey = `weather_${rLat}_${rLon}`;
+
+  const cached = weatherCache.get(cacheKey);
+  if (cached) return cached;
+
   try {
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
     const res = await fetch(url);
     if (res.ok) {
       const data = await res.json();
+      weatherCache.set(cacheKey, data.current_weather, 1800); // Cache for 30 minutes
       return data.current_weather; // { temperature, weathercode, windspeed, ... }
     }
   } catch (e) {
