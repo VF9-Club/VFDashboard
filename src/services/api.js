@@ -27,40 +27,48 @@ class VinFastAPI {
   }
 
   saveSession() {
-    if (typeof localStorage === "undefined") return;
-    localStorage.setItem(
-      "vf_session",
-      JSON.stringify({
-        accessToken: this.accessToken,
-        refreshToken: this.refreshToken,
-        vin: this.vin,
-        userId: this.userId,
-        region: this.region,
-        timestamp: Date.now(),
-      }),
-    );
+    if (typeof window === "undefined" || typeof localStorage === "undefined") return;
+    try {
+      localStorage.setItem(
+        "vf_session",
+        JSON.stringify({
+          accessToken: this.accessToken,
+          refreshToken: this.refreshToken,
+          vin: this.vin,
+          userId: this.userId,
+          region: this.region,
+          timestamp: Date.now(),
+        }),
+      );
+    } catch (e) {
+      // localStorage not available
+    }
   }
 
   restoreSession() {
-    if (typeof localStorage === "undefined") return;
-    const raw = localStorage.getItem("vf_session");
-    if (raw) {
-      try {
+    if (typeof window === "undefined" || typeof localStorage === "undefined") return;
+    try {
+      const raw = localStorage.getItem("vf_session");
+      if (raw) {
         const data = JSON.parse(raw);
         this.accessToken = data.accessToken;
         this.refreshToken = data.refreshToken;
         this.vin = data.vin;
         this.userId = data.userId;
         if (data.region) this.setRegion(data.region);
-      } catch (e) {
-        console.error("Failed to restore session", e);
       }
+    } catch (e) {
+      console.error("Failed to restore session", e);
     }
   }
 
   clearSession() {
-    if (typeof localStorage === "undefined") return;
-    localStorage.removeItem("vf_session");
+    if (typeof window === "undefined" || typeof localStorage === "undefined") return;
+    try {
+      localStorage.removeItem("vf_session");
+    } catch (e) {
+      // localStorage not available
+    }
     this.accessToken = null;
     this.refreshToken = null;
     this.vin = null;
