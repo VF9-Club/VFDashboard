@@ -1,9 +1,13 @@
 import React from "react";
 import { useStore } from "@nanostores/react";
 import { vehicleStore, fetchTelemetry } from "../stores/vehicleStore";
+import { unitSystem } from "../stores/settingsStore";
+import { formatTemperature } from "../utils/unitConversions";
+import UnitToggle from "./UnitToggle";
 
 // Weather Icon (Dynamic WMO Codes)
-const WeatherIcon = ({ temp, code }) => {
+const WeatherIcon = ({ temp, code, currentUnitSystem }) => {
+  const formattedTemp = formatTemperature(temp, currentUnitSystem);
   // WMO Weather Codes:
   // 0: Clear sky
   // 1-3: Partly cloudy
@@ -122,7 +126,7 @@ const WeatherIcon = ({ temp, code }) => {
     <div className="flex items-center gap-2 bg-blue-50 px-3 py-1.5 rounded-full border border-blue-100">
       {icon}
       <span className="text-sm font-bold text-blue-700">
-        {temp !== null && temp !== undefined ? `${temp}°C` : "N/A"}
+        {formattedTemp.value !== null ? `${formattedTemp.value}${formattedTemp.unit}` : "N/A"}
       </span>
     </div>
   );
@@ -130,6 +134,7 @@ const WeatherIcon = ({ temp, code }) => {
 
 export default function VehicleHeader() {
   const vehicle = useStore(vehicleStore);
+  const currentUnitSystem = useStore(unitSystem);
 
   const handleRefresh = () => {
     fetchTelemetry(vehicle.vin);
@@ -247,9 +252,11 @@ export default function VehicleHeader() {
 
       {/* Right: Actions & Context */}
       <div className="flex items-center gap-3">
+        <UnitToggle />
         <WeatherIcon
           temp={vehicle.external_temp ?? vehicle.outside_temp}
           code={vehicle.weather_code}
+          currentUnitSystem={currentUnitSystem}
         />
 
         {/* Last Updated & Refresh Group */}

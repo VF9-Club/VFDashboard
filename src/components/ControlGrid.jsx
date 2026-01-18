@@ -1,5 +1,7 @@
 import { useStore } from "@nanostores/react";
 import { vehicleStore } from "../stores/vehicleStore";
+import { unitSystem } from "../stores/settingsStore";
+import { formatTemperature } from "../utils/unitConversions";
 import { DEFAULT_LOCATION } from "../constants/vehicle";
 
 // Weather Row Component
@@ -26,6 +28,10 @@ const WeatherRow = ({ label, value, icon, subValue }) => (
 
 export default function ControlGrid() {
   const v = useStore(vehicleStore);
+  const currentUnitSystem = useStore(unitSystem);
+
+  // Format outside temperature
+  const formattedOutsideTemp = formatTemperature(v.outside_temp, currentUnitSystem);
 
   const isDefaultLoc =
     Number(v.latitude) === DEFAULT_LOCATION.LATITUDE &&
@@ -89,8 +95,8 @@ export default function ControlGrid() {
           <WeatherRow
             label="Outside"
             value={
-              v.outside_temp !== undefined && v.outside_temp !== null
-                ? `${v.outside_temp}°C`
+              formattedOutsideTemp.value !== null
+                ? `${formattedOutsideTemp.value}${formattedOutsideTemp.unit}`
                 : "N/A"
             }
             subValue="Live"
