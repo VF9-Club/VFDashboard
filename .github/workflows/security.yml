@@ -39,11 +39,13 @@ jobs:
         uses: github/codeql-action/init@v4
         with:
           languages: ${{ matrix.language }}
+          build-mode: none # JS/TS often doesn't need a build for CodeQL if interpreted
 
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v3
-
+      # Autobuild is often unnecessary for JS/TS if build-mode is none or default
+      # But let's keep it strictly v4 if we use it, or remove it if we set build-mode.
+      # Recent CodeQL v4 supports 'build-mode: none' for interpreted languages.
+      
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
+        uses: github/codeql-action/analyze@v4
         with:
           category: "/language:${{matrix.language}}"
