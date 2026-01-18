@@ -1,6 +1,7 @@
 import { map } from "nanostores";
 import { api } from "../services/api";
 import { DEFAULT_LOCATION } from "../constants/vehicle";
+import { resetRefreshTimer, setRefreshing } from "./refreshTimerStore";
 
 export interface VehicleState {
   // Store Metadata
@@ -344,6 +345,7 @@ export const fetchTelemetry = async (vin: string) => {
 
   // Set refreshing state
   vehicleStore.setKey("isRefreshing", true);
+  setRefreshing(true);
 
   try {
     const data = await api.getTelemetry(vin);
@@ -354,6 +356,8 @@ export const fetchTelemetry = async (vin: string) => {
     console.error("Telemetry Refresh Error", e);
   } finally {
     vehicleStore.setKey("isRefreshing", false);
+    setRefreshing(false);
+    resetRefreshTimer(); // Reset the countdown timer after successful refresh
     if (!vehicleStore.get().isInitialized) {
       vehicleStore.setKey("isInitialized", true);
     }
