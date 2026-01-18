@@ -1,14 +1,22 @@
 import React from "react";
 import { useStore } from "@nanostores/react";
 import { vehicleStore, switchVehicle } from "../stores/vehicleStore";
-import { TIRE_PRESSURE, TEMPERATURE, GEARS } from "../constants/vehicle";
+import { unitSystem } from "../stores/settingsStore";
+import { GEARS } from "../constants/vehicle";
+import {
+  formatPressure,
+  formatTemperature,
+  formatDistance,
+  getPressureThresholds,
+  getTemperatureThresholds,
+} from "../utils/unitConversions";
 
 // Tire Pressure Card - Polished Visuals with Full Labels
-const TireCard = ({ pressure, temp, label, positionClass }) => {
+const TireCard = ({ pressure, temp, label, positionClass, currentUnitSystem }) => {
   const hasData = pressure !== null && pressure !== undefined;
 
-  // Normalize Pressure to Bar
-  let displayPressure = "--";
+  // Normalize Pressure to Bar first
+  let pressureInBar = null;
   if (hasData) {
     let val = pressure;
     if (val > 100) {
@@ -19,25 +27,26 @@ const TireCard = ({ pressure, temp, label, positionClass }) => {
       val = val / 14.5038;
     }
     // If < 8, assume default Bar
-    displayPressure = Number(val).toFixed(1);
+    pressureInBar = val;
   }
 
-  // Status Logic for Coloring (using Bar values)
-  // Warning conditions: Pressure < LIMIT_LOW or > LIMIT_HIGH, OR Temp > LIMIT_HIGH
-  const limitPressureLow = TIRE_PRESSURE.LIMIT_LOW;
-  const limitPressureHigh = TIRE_PRESSURE.LIMIT_HIGH;
-  const limitTempHigh = TEMPERATURE.LIMIT_HIGH;
+  // Format pressure based on unit system
+  const formattedPressure = formatPressure(pressureInBar, currentUnitSystem);
+  const formattedTemp = formatTemperature(temp, currentUnitSystem);
+
+  // Get thresholds based on unit system
+  const pressureThresholds = getPressureThresholds(currentUnitSystem);
+  const tempThresholds = getTemperatureThresholds(currentUnitSystem);
 
   // HIDE BUBBLE IF NO DATA
   if (!hasData) return null;
 
-  // We check raw converted value for warning logic
-  const numericPressure = hasData ? Number(displayPressure) : null;
+  // Warning logic using thresholds in current unit system
   const isWarning =
     hasData &&
-    (numericPressure < limitPressureLow ||
-      numericPressure > limitPressureHigh ||
-      (temp && temp > limitTempHigh));
+    (formattedPressure.value < pressureThresholds.low ||
+      formattedPressure.value > pressureThresholds.high ||
+      (formattedTemp.value && formattedTemp.value > tempThresholds.high));
 
   // Dynamic Styles based on status
   // Normal: Green Safe Theme
@@ -68,19 +77,19 @@ const TireCard = ({ pressure, temp, label, positionClass }) => {
           <span
             className={`text-xl md:text-2xl font-black tracking-tighter ${valueColor}`}
           >
-            {displayPressure}
+            {formattedPressure.value}
           </span>
           <span className={`text-[10px] ${subTextColor} font-bold uppercase`}>
-            {TIRE_PRESSURE.UNIT}
+            {formattedPressure.unit}
           </span>
         </div>
 
         {/* Temp Row */}
-        {temp !== null && temp !== undefined && (
+        {formattedTemp.value !== null && formattedTemp.value !== undefined && (
           <div className="flex items-center gap-1 -mt-0.5">
-            <span className={`text-xs font-bold ${textColor}`}>{temp}</span>
+            <span className={`text-xs font-bold ${textColor}`}>{formattedTemp.value}</span>
             <span className={`text-[10px] ${subTextColor} font-medium`}>
-              {TEMPERATURE.UNIT}
+              {formattedTemp.unit}
             </span>
           </div>
         )}
@@ -111,8 +120,15 @@ const WarningItem = ({ label }) => (
 
 export default function DigitalTwin() {
   const data = useStore(vehicleStore);
+  const currentUnitSystem = useStore(unitSystem);
   const [imageLoaded, setImageLoaded] = React.useState(false);
   const imgRef = React.useRef(null);
+
+  // Format odometer with current unit system
+  const formattedOdometer = formatDistance(data.odometer, currentUnitSystem);
+
+  // Warranty mileage is NOT converted - API returns it in the market's native unit
+  // (US: miles, VN: km)
 
   React.useEffect(() => {
     if (imgRef.current && imgRef.current.complete) {
@@ -168,14 +184,14 @@ export default function DigitalTwin() {
               {data.vin ? (
                 <>
                   <span
-                    className={`text-lg font-bold leading-none ${data.odometer != null ? "text-gray-700" : "text-gray-300"}`}
+                    className={`text-lg font-bold leading-none ${formattedOdometer.value != null ? "text-gray-700" : "text-gray-300"}`}
                   >
-                    {data.odometer !== undefined && data.odometer !== null
-                      ? Number(data.odometer).toLocaleString()
+                    {formattedOdometer.value !== undefined && formattedOdometer.value !== null
+                      ? Number(formattedOdometer.value).toLocaleString()
                       : "N/A"}
                   </span>
                   <span className="text-[10px] font-bold text-gray-400 uppercase">
-                    km
+                    {formattedOdometer.unit || ""}
                   </span>
                 </>
               ) : (
@@ -201,7 +217,7 @@ export default function DigitalTwin() {
               <span className="text-gray-300">|</span>
               <span className={!data.warrantyMileage ? "text-gray-300" : ""}>
                 {data.warrantyMileage
-                  ? `${Number(data.warrantyMileage).toLocaleString()} km`
+                  ? `${Number(data.warrantyMileage).toLocaleString()} ${data.region === 'us' ? 'mi' : 'km'}`
                   : "N/A"}
               </span>
             </div>
@@ -314,12 +330,14 @@ export default function DigitalTwin() {
           temp={data.tire_temp_fr}
           label="FRONT RIGHT"
           positionClass="top-[22%] left-[1%] md:left-[8%]"
+          currentUnitSystem={currentUnitSystem}
         />
         <TireCard
           pressure={data.tire_pressure_rr}
           temp={data.tire_temp_rr}
           label="REAR RIGHT"
           positionClass="top-[22%] right-[1%] md:right-[8%]"
+          currentUnitSystem={currentUnitSystem}
         />
 
         <TireCard
@@ -327,12 +345,14 @@ export default function DigitalTwin() {
           temp={data.tire_temp_fl}
           label="FRONT LEFT"
           positionClass="bottom-[2%] left-[1%] md:left-[8%]"
+          currentUnitSystem={currentUnitSystem}
         />
         <TireCard
           pressure={data.tire_pressure_rl}
           temp={data.tire_temp_rl}
           label="REAR LEFT"
           positionClass="bottom-[2%] right-[1%] md:right-[8%]"
+          currentUnitSystem={currentUnitSystem}
         />
       </div>
 

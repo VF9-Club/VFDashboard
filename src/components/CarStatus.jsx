@@ -1,11 +1,17 @@
 import { useStore } from "@nanostores/react";
 import { vehicleStore } from "../stores/vehicleStore";
+import { unitSystem } from "../stores/settingsStore";
+import { formatDistance } from "../utils/unitConversions";
 
 export default function CarStatus() {
   const data = useStore(vehicleStore);
+  const currentUnitSystem = useStore(unitSystem);
   const { battery_level, charging_status } = data;
   // Normalize charging status (can be boolean or numeric 1=Charging)
   const isCharging = charging_status === 1 || charging_status === true;
+
+  // Format range with current unit system
+  const formattedRange = formatDistance(data.range, currentUnitSystem);
 
   const formatTime = (mins) => {
     if (!mins) return "--";
@@ -148,13 +154,13 @@ export default function CarStatus() {
                     Est. Range
                   </p>
                   <p
-                    className={`text-xl font-black leading-none ${data.range !== null ? "text-blue-600" : "text-gray-300"}`}
+                    className={`text-xl font-black leading-none ${formattedRange.value !== null ? "text-blue-600" : "text-gray-300"}`}
                   >
-                    {data.range !== null ? data.range : "N/A"}{" "}
+                    {formattedRange.value !== null ? formattedRange.value : "N/A"}{" "}
                     <span
-                      className={`text-[10px] font-bold ${data.range !== null ? "text-blue-400" : "text-gray-300"}`}
+                      className={`text-[10px] font-bold ${formattedRange.value !== null ? "text-blue-400" : "text-gray-300"}`}
                     >
-                      {data.range !== null ? "km" : ""}
+                      {formattedRange.unit || ""}
                     </span>
                   </p>
                 </div>
