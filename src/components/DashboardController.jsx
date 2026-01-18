@@ -6,6 +6,7 @@ import {
   fetchVehicles,
   vehicleStore,
 } from "../stores/vehicleStore";
+import { REFRESH_INTERVAL, resetRefreshTimer } from "../stores/refreshTimerStore";
 
 export default function DashboardController({ vin: initialVin }) {
   const { vin } = useStore(vehicleStore);
@@ -33,14 +34,15 @@ export default function DashboardController({ vin: initialVin }) {
 
   // Polling Effect
   useEffect(() => {
-    // Polling Interval: 1 hour (3600000 ms)
+    // Polling Interval: 5 hours (18000000 ms)
     const interval = setInterval(() => {
       const currentVin = vin || initialVin;
       if (currentVin) {
         fetchTelemetry(currentVin);
         fetchUser(); // Refresh user too
+        resetRefreshTimer(); // Reset the countdown timer
       }
-    }, 3600000);
+    }, REFRESH_INTERVAL);
 
     return () => clearInterval(interval);
   }, [vin, initialVin]);

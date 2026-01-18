@@ -1,6 +1,7 @@
 import React from "react";
 import { useStore } from "@nanostores/react";
 import { vehicleStore, fetchTelemetry } from "../stores/vehicleStore";
+import { refreshTimerStore, formatCountdown } from "../stores/refreshTimerStore";
 
 // Weather Icon (Dynamic WMO Codes)
 const WeatherIcon = ({ temp, code }) => {
@@ -130,6 +131,7 @@ const WeatherIcon = ({ temp, code }) => {
 
 export default function VehicleHeader() {
   const vehicle = useStore(vehicleStore);
+  const refreshTimer = useStore(refreshTimerStore);
 
   const handleRefresh = () => {
     fetchTelemetry(vehicle.vin);
@@ -283,6 +285,16 @@ export default function VehicleHeader() {
             </span>
             <span className="text-xs font-mono font-bold text-gray-600 tabular-nums leading-none">
               {lastUpdatedTime}
+            </span>
+          </div>
+
+          {/* Countdown Timer */}
+          <div className="hidden md:flex flex-col items-start leading-none pl-2 pr-1 border-l border-gray-200">
+            <span className="text-[8px] text-gray-400 uppercase font-bold tracking-wider mb-0.5">
+              Next Refresh
+            </span>
+            <span className="text-xs font-mono font-bold text-blue-600 tabular-nums leading-none">
+              {refreshTimer.isRefreshing ? 'Refreshing...' : formatCountdown(refreshTimer.timeUntilRefresh)}
             </span>
           </div>
         </div>
