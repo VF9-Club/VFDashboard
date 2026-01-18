@@ -12,9 +12,9 @@ export default function AuthGate({ children }) {
           <div className="w-16 h-16 rounded-full border-4 border-gray-200 border-t-blue-600 animate-spin"></div>
           <div className="absolute inset-0 flex items-center justify-center">
             <img
-              src="/vinfast-logo.png"
-              className="w-8 h-8 opacity-50"
-              alt=""
+              src="/logo.png"
+              className="w-8 h-8 object-contain opacity-50"
+              alt="Logo"
             />
           </div>
         </div>
