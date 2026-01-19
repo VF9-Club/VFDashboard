@@ -45,12 +45,12 @@ export default function Login({ bgImage }) {
       {/* Main Content */}
       <div className="relative z-10 w-full max-w-md space-y-6">
         {/* Light Theme Login Card - Dashboard Style */}
-        <div className="relative rounded-3xl bg-white p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 backdrop-blur-sm">
+        <div className="relative rounded-3xl bg-white dark:bg-gray-800 p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 dark:border-gray-700 backdrop-blur-sm transition-colors">
           {/* Error Toast - Absolute Position: Above Card */}
           {error && (
             <div className="absolute bottom-full left-0 w-full flex justify-center mb-5 animate-bounce-in">
               <div
-                className="flex items-center w-full max-w-xs p-3 space-x-3 text-gray-500 bg-white rounded-2xl shadow-xl border border-red-100"
+                className="flex items-center w-full max-w-xs p-3 space-x-3 text-gray-500 dark:text-gray-300 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-red-100 dark:border-red-900"
                 role="alert"
               >
                 <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-50 rounded-xl">
@@ -66,7 +66,7 @@ export default function Login({ bgImage }) {
                   <span className="sr-only">Error icon</span>
                 </div>
                 <div
-                  className="ms-3 text-sm font-bold text-gray-900 truncate"
+                  className="ms-3 text-sm font-bold text-gray-900 dark:text-white truncate"
                   title={error}
                 >
                   {error}
@@ -74,7 +74,7 @@ export default function Login({ bgImage }) {
                 <button
                   type="button"
                   onClick={() => setError("")}
-                  className="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8"
+                  className="ms-auto -mx-1.5 -my-1.5 bg-white dark:bg-gray-800 text-gray-400 hover:text-gray-900 dark:hover:text-white rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 inline-flex items-center justify-center h-8 w-8"
                   aria-label="Close"
                 >
                   <span className="sr-only">Close</span>
@@ -112,7 +112,7 @@ export default function Login({ bgImage }) {
                 <input
                   type="email"
                   required
-                  className="relative block w-full rounded-xl border-gray-200 bg-gray-50 py-3.5 px-4 text-gray-900 focus:z-10 focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-200 font-medium placeholder:text-gray-400 text-sm"
+                  className="relative block w-full rounded-xl border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 py-3.5 px-4 text-gray-900 dark:text-white focus:z-10 focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-200 font-medium placeholder:text-gray-400 dark:placeholder:text-gray-500 text-sm"
                   placeholder="Email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -122,7 +122,7 @@ export default function Login({ bgImage }) {
                 <input
                   type="password"
                   required
-                  className="relative block w-full rounded-xl border-gray-200 bg-gray-50 py-3.5 px-4 text-gray-900 focus:z-10 focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-200 font-medium placeholder:text-gray-400 text-sm"
+                  className="relative block w-full rounded-xl border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 py-3.5 px-4 text-gray-900 dark:text-white focus:z-10 focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-200 font-medium placeholder:text-gray-400 dark:placeholder:text-gray-500 text-sm"
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -138,21 +138,21 @@ export default function Login({ bgImage }) {
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
+                    className="w-4 h-4 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 focus:ring-3 focus:ring-blue-300"
                   />
                 </div>
                 <label
                   htmlFor="remember-me"
-                  className="ml-2 text-sm font-bold text-gray-500 uppercase tracking-wider"
+                  className="ml-2 text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider"
                 >
                   Remember Me
                 </label>
               </div>
 
-              <div className="text-sm flex items-center bg-gray-50 px-3 py-1.5 rounded-lg">
+              <div className="text-sm flex items-center bg-gray-50 dark:bg-gray-700 px-3 py-1.5 rounded-lg">
                 <label
                   htmlFor="region"
-                  className="font-bold text-gray-500 text-xs uppercase tracking-wider mr-2"
+                  className="font-bold text-gray-500 dark:text-gray-400 text-xs uppercase tracking-wider mr-2"
                 >
                   Region
                 </label>
@@ -160,7 +160,7 @@ export default function Login({ bgImage }) {
                   <button
                     type="button"
                     onClick={() => setRegionDropdownOpen(!regionDropdownOpen)}
-                    className="flex items-center gap-2 bg-transparent text-gray-900 text-sm font-bold focus:outline-none"
+                    className="flex items-center gap-2 bg-transparent text-gray-900 dark:text-white text-sm font-bold focus:outline-none"
                   >
                     {region === "vn"
                       ? "Vietnam"
@@ -192,7 +192,7 @@ export default function Login({ bgImage }) {
                       ></div>
 
                       {/* Menu */}
-                      <div className="absolute top-full right-0 mt-2 w-40 bg-white rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 p-1.5 z-20 animate-in fade-in zoom-in-95 duration-200 origin-top-right">
+                      <div className="absolute top-full right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 dark:border-gray-700 p-1.5 z-20 animate-in fade-in zoom-in-95 duration-200 origin-top-right">
                         {[
                           { val: "vn", label: "Vietnam" },
                           { val: "us", label: "United States" },
@@ -207,8 +207,8 @@ export default function Login({ bgImage }) {
                             }}
                             className={`w-full text-left px-3 py-2 rounded-lg text-sm font-bold transition-colors ${
                               region === opt.val
-                                ? "bg-blue-50 text-blue-600"
-                                : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                                ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"
+                                : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white"
                             }`}
                           >
                             {opt.label}
@@ -257,13 +257,13 @@ export default function Login({ bgImage }) {
         </div>
 
         {/* Footer: Github - Text - VF9 Club */}
-        <div className="relative flex items-center justify-between px-6 py-4 bg-white rounded-3xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+        <div className="relative flex items-center justify-between px-6 py-4 bg-white dark:bg-gray-800 rounded-3xl border border-gray-100 dark:border-gray-700 shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-colors">
           {/* Left: GitHub */}
           <a
             href="https://github.com/VF9-Club/VFDashboard"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-400 hover:text-gray-900 transition-colors duration-300"
+            className="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-300"
             title="View Source on GitHub"
           >
             <svg
@@ -281,7 +281,7 @@ export default function Login({ bgImage }) {
           </a>
 
           {/* Center: Text */}
-          <p className="text-gray-500 text-xs font-bold uppercase tracking-wider text-center">
+          <p className="text-gray-500 dark:text-gray-400 text-xs font-bold uppercase tracking-wider text-center">
             Made with <span className="text-red-500 text-sm">❤️</span> in
             Vietnam
           </p>

@@ -16,9 +16,9 @@ export default function SystemHealth() {
     if (!tire_pressure_fl && !tire_pressure_fr)
       return {
         status: "No Data",
-        color: "text-gray-400",
-        bg: "bg-gray-100",
-        iconColor: "text-gray-400",
+        color: "text-gray-400 dark:text-gray-500",
+        bg: "bg-gray-100 dark:bg-gray-700/50",
+        iconColor: "text-gray-400 dark:text-gray-500",
       };
 
     const tires = [
@@ -34,14 +34,14 @@ export default function SystemHealth() {
     if (lowTires.length > 0)
       return {
         status: "Low Pressure",
-        color: "text-red-700",
-        bg: "bg-red-50",
+        color: "text-red-700 dark:text-red-400",
+        bg: "bg-red-50 dark:bg-red-900/20",
         iconColor: "text-red-500",
       };
     return {
       status: "All OK",
-      color: "text-emerald-700",
-      bg: "bg-emerald-50",
+      color: "text-emerald-700 dark:text-emerald-400",
+      bg: "bg-emerald-50 dark:bg-emerald-900/20",
       iconColor: "text-emerald-500",
     };
   };
@@ -61,9 +61,9 @@ export default function SystemHealth() {
     ) {
       return {
         status: "--",
-        color: "text-gray-400",
-        bg: "bg-gray-100",
-        iconColor: "text-gray-400",
+        color: "text-gray-400 dark:text-gray-500",
+        bg: "bg-gray-100 dark:bg-gray-700/50",
+        iconColor: "text-gray-400 dark:text-gray-500",
       };
     }
 
@@ -78,14 +78,14 @@ export default function SystemHealth() {
     if (openDoors.length > 0)
       return {
         status: `${openDoors.join(", ")} Open`,
-        color: "text-amber-700",
-        bg: "bg-amber-50",
+        color: "text-amber-700 dark:text-amber-400",
+        bg: "bg-amber-50 dark:bg-amber-900/20",
         iconColor: "text-amber-500",
       };
     return {
       status: "All Closed",
-      color: "text-emerald-700",
-      bg: "bg-emerald-50",
+      color: "text-emerald-700 dark:text-emerald-400",
+      bg: "bg-emerald-50 dark:bg-emerald-900/20",
       iconColor: "text-emerald-500",
     };
   };
@@ -94,24 +94,24 @@ export default function SystemHealth() {
     if (data.thermal_warning === undefined || data.thermal_warning === null) {
       return {
         status: "--",
-        color: "text-gray-400",
-        bg: "bg-gray-100",
-        iconColor: "text-gray-400",
+        color: "text-gray-400 dark:text-gray-500",
+        bg: "bg-gray-100 dark:bg-gray-700/50",
+        iconColor: "text-gray-400 dark:text-gray-500",
       };
     }
 
     if (Number(data.thermal_warning) === 1) {
       return {
         status: "Thermal Warning",
-        color: "text-red-700",
-        bg: "bg-red-50",
+        color: "text-red-700 dark:text-red-400",
+        bg: "bg-red-50 dark:bg-red-900/20",
         iconColor: "text-red-600",
       };
     }
     return {
       status: "System Normal",
-      color: "text-emerald-700",
-      bg: "bg-emerald-50",
+      color: "text-emerald-700 dark:text-emerald-400",
+      bg: "bg-emerald-50 dark:bg-emerald-900/20",
       iconColor: "text-emerald-500",
     };
   };
@@ -120,25 +120,25 @@ export default function SystemHealth() {
     if (data.service_alert === undefined || data.service_alert === null) {
       return {
         status: "--",
-        color: "text-gray-400",
-        bg: "bg-gray-100",
-        iconColor: "text-gray-400",
+        color: "text-gray-400 dark:text-gray-500",
+        bg: "bg-gray-100 dark:bg-gray-700/50",
+        iconColor: "text-gray-400 dark:text-gray-500",
       };
     }
 
     if (data.service_alert && data.service_alert != 0) {
       return {
         status: "Service Due",
-        color: "text-blue-700",
-        bg: "bg-blue-50",
+        color: "text-blue-700 dark:text-blue-400",
+        bg: "bg-blue-50 dark:bg-blue-900/20",
         iconColor: "text-blue-500",
       };
     }
     return {
       status: "No Alerts",
-      color: "text-gray-500",
-      bg: "bg-gray-50",
-      iconColor: "text-gray-400",
+      color: "text-gray-500 dark:text-gray-400",
+      bg: "bg-gray-50 dark:bg-gray-700/50",
+      iconColor: "text-gray-400 dark:text-gray-500",
     };
   };
 
@@ -186,10 +186,10 @@ export default function SystemHealth() {
         data.firmware_version && data.firmware_version !== "--"
           ? data.firmware_version
           : "N/A",
-      bg: "bg-gray-50",
-      txt: "text-gray-600",
+      bg: "bg-gray-50 dark:bg-gray-700/50",
+      txt: "text-gray-600 dark:text-gray-300",
       icon: "chip",
-      iconColor: "text-indigo-500",
+      iconColor: "text-indigo-500 dark:text-indigo-400",
     },
     {
       label: VEHICLE_STATUS_LABELS.TBOX,
@@ -197,10 +197,10 @@ export default function SystemHealth() {
         data.tbox_version && data.tbox_version !== "--"
           ? data.tbox_version
           : "N/A",
-      bg: "bg-gray-50",
-      txt: "text-gray-600",
+      bg: "bg-gray-50 dark:bg-gray-700/50",
+      txt: "text-gray-600 dark:text-gray-300",
       icon: "wifi",
-      iconColor: "text-blue-500",
+      iconColor: "text-blue-500 dark:text-blue-400",
     },
   ];
 
@@ -314,10 +314,10 @@ export default function SystemHealth() {
   };
 
   return (
-    <div className="bg-white rounded-3xl p-4 md:p-5 shadow-sm border border-gray-100 flex-1 min-h-0 md:min-h-[400px] md:h-full flex flex-col">
-      <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+    <div className="bg-white dark:bg-gray-800 rounded-3xl p-4 md:p-5 shadow-sm border border-gray-100 dark:border-gray-700 flex-1 min-h-0 md:min-h-[400px] md:h-full flex flex-col transition-colors">
+      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
         <svg
-          className="w-6 h-6 text-blue-600 flex-shrink-0"
+          className="w-6 h-6 text-blue-600 dark:text-blue-400 flex-shrink-0"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -336,15 +336,15 @@ export default function SystemHealth() {
         {items.map((item, index) => (
           <div
             key={index}
-            className="grid grid-cols-[32px_1fr_auto] gap-2 items-center pb-2 border-b border-gray-50 last:border-0 last:pb-0"
+            className="grid grid-cols-[32px_1fr_auto] gap-2 items-center pb-2 border-b border-gray-50 dark:border-gray-700 last:border-0 last:pb-0"
           >
             <div
-              className={`h-8 w-8 rounded-xl flex items-center justify-center border border-gray-50/50 ${item.bg} ${item.iconColor}`}
+              className={`h-8 w-8 rounded-xl flex items-center justify-center border border-gray-50/50 dark:border-gray-600/50 ${item.bg} ${item.iconColor}`}
             >
               {getIcon(item.icon)}
             </div>
             <div>
-              <p className="text-sm font-semibold text-gray-900 leading-tight whitespace-nowrap">
+              <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 leading-tight whitespace-nowrap">
                 {item.label}
               </p>
             </div>

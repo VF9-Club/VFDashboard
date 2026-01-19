@@ -45,19 +45,19 @@ const TireCard = ({ pressure, temp, label, positionClass }) => {
 
   // PC Styles (Lighter)
   const cardBgDesktop = isWarning
-    ? "md:bg-amber-50/90 md:border-amber-200"
-    : "md:bg-emerald-50/90 md:border-emerald-200";
+    ? "md:bg-amber-50/90 md:border-amber-200 dark:md:bg-amber-900/30 dark:md:border-amber-800"
+    : "md:bg-emerald-50/90 md:border-emerald-200 dark:md:bg-emerald-900/30 dark:md:border-emerald-800";
 
   // Mobile Styles (Unified with PC as requested)
   const cardBgMobile = isWarning
-    ? "bg-amber-50/90 border-amber-200"
-    : "bg-emerald-50/90 border-emerald-200";
+    ? "bg-amber-50/90 border-amber-200 dark:bg-amber-900/40 dark:border-amber-800"
+    : "bg-emerald-50/90 border-emerald-200 dark:bg-emerald-900/40 dark:border-emerald-800";
 
   // Text Colors
-  const textColor = isWarning ? "text-amber-600" : "text-emerald-700";
-  const labelColor = isWarning ? "text-amber-600/70" : "text-emerald-600/70";
-  const valueColor = isWarning ? "text-amber-600" : "text-emerald-600";
-  const subTextColor = isWarning ? "text-amber-500" : "text-emerald-500";
+  const textColor = isWarning ? "text-amber-600 dark:text-amber-400" : "text-emerald-700 dark:text-emerald-300";
+  const labelColor = isWarning ? "text-amber-600/70 dark:text-amber-400/70" : "text-emerald-600/70 dark:text-emerald-400/70";
+  const valueColor = isWarning ? "text-amber-600 dark:text-amber-400" : "text-emerald-600 dark:text-emerald-400";
+  const subTextColor = isWarning ? "text-amber-500 dark:text-amber-500" : "text-emerald-500 dark:text-emerald-500";
 
   return (
     <div
@@ -75,7 +75,7 @@ const TireCard = ({ pressure, temp, label, positionClass }) => {
         md:px-3 md:py-2.5
         gap-0 md:gap-0.5
         w-[85px] md:w-[130px]
-        hover:scale-105 md:hover:bg-white md:hover:border-gray-200 md:hover:shadow-md transition-all
+        hover:scale-105 md:hover:bg-white md:hover:border-gray-200 md:hover:shadow-md dark:md:hover:bg-gray-800 dark:md:hover:border-gray-600 transition-all
         md:bg-opacity-100
       `}
       >
@@ -123,7 +123,7 @@ const TireCard = ({ pressure, temp, label, positionClass }) => {
 
 // Warning Item Component
 const WarningItem = ({ label }) => (
-  <div className="flex items-center gap-2 px-3 py-1.5 bg-red-50 text-red-600 rounded-lg border border-red-100 animate-pulse">
+  <div className="flex items-center gap-2 px-3 py-1.5 bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-lg border border-red-100 dark:border-red-800 animate-pulse">
     <svg
       className="w-4 h-4"
       fill="none"
@@ -198,15 +198,15 @@ export default function DigitalTwin() {
     warnings.push("Unlocked");
 
   return (
-    <div className="relative w-full h-full min-h-[45vh] md:min-h-[400px] bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden flex flex-col flex-1">
+    <div className="relative w-full h-full min-h-[45vh] md:min-h-[400px] bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden flex flex-col flex-1 transition-colors">
       <div className="relative flex-1 w-full flex items-center justify-center p-2 md:p-4">
         {/* Header Section: Nickname, ODO, Details, Warranty */}
         <div className="absolute top-4 md:top-6 left-5 md:left-8 right-5 md:right-8 z-10 flex flex-col">
           {/* Row 1: Icon + Nickname (Left) | ODO (Right) */}
           <div className="flex items-center justify-between w-full">
-            <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2 min-w-0">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2 min-w-0">
               <svg
-                className="w-6 h-6 text-blue-600 flex-shrink-0"
+                className="w-6 h-6 text-blue-600 dark:text-blue-400 flex-shrink-0"
                 viewBox="0 0 512 512"
                 fill="currentColor"
               >
@@ -221,14 +221,14 @@ export default function DigitalTwin() {
                 {data.vin ? (
                   data.customizedVehicleName || data.model
                 ) : (
-                  <div className="h-6 w-32 bg-gray-200 animate-pulse rounded"></div>
+                  <div className="h-6 w-32 bg-gray-200 dark:bg-gray-700 animate-pulse rounded"></div>
                 )}
               </span>
             </h3>
 
             {/* Odometer (Right) */}
             <div className="flex flex-col items-end leading-none shrink-0">
-              <span className="text-[8px] md:text-[9px] font-bold text-blue-600 uppercase tracking-tighter mb-0.5">
+              <span className="text-[8px] md:text-[9px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-tighter mb-0.5">
                 Odometer
               </span>
               <div className="flex items-baseline gap-1 animate-in fade-in slide-in-from-right-4 duration-700 delay-300">
@@ -236,16 +236,16 @@ export default function DigitalTwin() {
                   data.odometer !== null &&
                   data.odometer !== undefined ? (
                   <>
-                    <span className="text-base md:text-xl font-mono font-extrabold text-gray-700 tabular-nums">
+                    <span className="text-base md:text-xl font-mono font-extrabold text-gray-700 dark:text-gray-200 tabular-nums">
                       {odo.integer}
-                      <span className="text-gray-400 text-sm">{odo.decimal}</span>
+                      <span className="text-gray-400 dark:text-gray-500 text-sm">{odo.decimal}</span>
                     </span>
-                    <span className="text-[10px] font-bold text-gray-400 uppercase">
+                    <span className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase">
                       km
                     </span>
                   </>
                 ) : (
-                  <span className="text-base md:text-xl font-mono font-extrabold text-gray-300 animate-pulse tracking-widest">
+                  <span className="text-base md:text-xl font-mono font-extrabold text-gray-300 dark:text-gray-600 animate-pulse tracking-widest">
                     ------
                   </span>
                 )}
@@ -254,20 +254,20 @@ export default function DigitalTwin() {
           </div>
 
           {/* Row 2: Vehicle Details (Tighter) */}
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] md:text-xs text-gray-500 font-medium animate-in fade-in slide-in-from-left-4 duration-700 delay-400">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] md:text-xs text-gray-500 dark:text-gray-400 font-medium animate-in fade-in slide-in-from-left-4 duration-700 delay-400">
             <span>{data.vehicleVariant}</span>
-            <span className="text-gray-300">•</span>
+            <span className="text-gray-300 dark:text-gray-600">•</span>
             <span>{data.yearOfProduct}</span>
 
             {data.battery_type && (
               <>
-                <span className="text-gray-300">•</span>
+                <span className="text-gray-300 dark:text-gray-600">•</span>
                 <span className="uppercase">{data.battery_type}</span>
               </>
             )}
 
             {/* Exterior Color */}
-            <span className="text-gray-300 ml-1">•</span>
+            <span className="text-gray-300 dark:text-gray-600 ml-1">•</span>
             <div className="flex items-center gap-1 group/ext">
               <span>{data.color}</span>
             </div>
@@ -275,7 +275,7 @@ export default function DigitalTwin() {
             {/* Interior Color */}
             {data.interiorColor && (
               <>
-                <span className="text-gray-300 ml-1">•</span>
+                <span className="text-gray-300 dark:text-gray-600 ml-1">•</span>
                 <div className="flex items-center gap-1 group/int">
                   <span>{data.interiorColor}</span>
                 </div>
@@ -284,13 +284,13 @@ export default function DigitalTwin() {
           </div>
 
           {/* Row 3: Warranty Section (Existing, with reduced mt) */}
-          <div className="mt-1.5 pt-1.5 border-t border-gray-100 flex flex-col gap-0.5 animate-in fade-in slide-in-from-left-4 duration-700 delay-500">
-            <p className="text-[8px] md:text-[9px] font-bold text-gray-400 uppercase tracking-wider">
+          <div className="mt-1.5 pt-1.5 border-t border-gray-100 dark:border-gray-700 flex flex-col gap-0.5 animate-in fade-in slide-in-from-left-4 duration-700 delay-500">
+            <p className="text-[8px] md:text-[9px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
               Warranty Expires
             </p>
-            <div className="flex items-center gap-2 text-xs font-bold text-gray-600 font-mono">
+            <div className="flex items-center gap-2 text-xs font-bold text-gray-600 dark:text-gray-300 font-mono">
               <span
-                className={!data.warrantyExpirationDate ? "text-gray-300" : ""}
+                className={!data.warrantyExpirationDate ? "text-gray-300 dark:text-gray-600" : ""}
               >
                 {data.warrantyExpirationDate
                   ? new Date(data.warrantyExpirationDate).toLocaleDateString(
@@ -298,8 +298,8 @@ export default function DigitalTwin() {
                   )
                   : "N/A"}
               </span>
-              <span className="text-gray-300">|</span>
-              <span className={!data.warrantyMileage ? "text-gray-300" : ""}>
+              <span className="text-gray-300 dark:text-gray-600">|</span>
+              <span className={!data.warrantyMileage ? "text-gray-300 dark:text-gray-600" : ""}>
                 {data.warrantyMileage
                   ? `${Number(data.warrantyMileage).toLocaleString()} km`
                   : "N/A"}
@@ -318,7 +318,7 @@ export default function DigitalTwin() {
                     onClick={() =>
                       switchVehicle(allVehicles[currentIndex - 1].vinCode)
                     }
-                    className="p-3 rounded-full bg-white/80 backdrop-blur-sm border border-gray-100 shadow-lg text-gray-400 hover:text-blue-600 hover:scale-110 active:scale-95 transition-all"
+                    className="p-3 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-100 dark:border-gray-600 shadow-lg text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 hover:scale-110 active:scale-95 transition-all"
                     title="Previous Vehicle"
                   >
                     <svg
@@ -345,7 +345,7 @@ export default function DigitalTwin() {
                     onClick={() =>
                       switchVehicle(allVehicles[currentIndex + 1].vinCode)
                     }
-                    className="p-3 rounded-full bg-white/80 backdrop-blur-sm border border-gray-100 shadow-lg text-gray-400 hover:text-blue-600 hover:scale-110 active:scale-95 transition-all"
+                    className="p-3 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-100 dark:border-gray-600 shadow-lg text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 hover:scale-110 active:scale-95 transition-all"
                     title="Next Vehicle"
                   >
                     <svg
@@ -372,8 +372,8 @@ export default function DigitalTwin() {
                     key={v.vinCode}
                     onClick={() => switchVehicle(v.vinCode)}
                     className={`transition-all duration-300 rounded-full ${idx === currentIndex
-                      ? "w-6 h-1.5 bg-gray-800"
-                      : "w-1.5 h-1.5 bg-gray-300 hover:bg-gray-400"
+                      ? "w-6 h-1.5 bg-gray-800 dark:bg-white"
+                      : "w-1.5 h-1.5 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500"
                       }`}
                     title={
                       v.customizedVehicleName || v.vehicleName || "Vehicle"
@@ -386,7 +386,7 @@ export default function DigitalTwin() {
 
           {/* Skeleton */}
           <div
-            className={`absolute inset-0 bg-gray-100/50 rounded-2xl animate-pulse ${imageLoaded || !carImageSrc ? "hidden" : "block"}`}
+            className={`absolute inset-0 bg-gray-100/50 dark:bg-gray-700/50 rounded-2xl animate-pulse ${imageLoaded || !carImageSrc ? "hidden" : "block"}`}
           ></div>
 
           {carImageSrc && (
@@ -436,9 +436,9 @@ export default function DigitalTwin() {
       </div>
 
       {/* Bottom Controls Area */}
-      <div className="h-auto w-full bg-white flex flex-col items-center justify-end pb-4 space-y-3 z-30">
+      <div className="h-auto w-full bg-white dark:bg-gray-800 flex flex-col items-center justify-end pb-4 space-y-3 z-30 transition-colors">
         {/* Gear Selector */}
-        <div className="bg-gray-50/80 backdrop-blur-md px-10 py-3.5 rounded-full flex items-center gap-8 border border-gray-200 shadow-[0_4px_20px_rgb(0,0,0,0.05)] relative z-30">
+        <div className="bg-gray-50/80 dark:bg-gray-700/50 backdrop-blur-md px-10 py-3.5 rounded-full flex items-center gap-8 border border-gray-200 dark:border-gray-600 shadow-[0_4px_20px_rgb(0,0,0,0.05)] relative z-30">
           {[GEARS.PARK, GEARS.REVERSE, GEARS.NEUTRAL, GEARS.DRIVE].map(
             (gear) => {
               // Normalize data gear (handle numbers or strings)
@@ -463,7 +463,7 @@ export default function DigitalTwin() {
               return (
                 <span
                   key={gear}
-                  className={`text-base font-black transition-all duration-300 ${isActive ? "text-blue-600 scale-125" : "text-gray-300 hover:text-gray-400"}`}
+                  className={`text-base font-black transition-all duration-300 ${isActive ? "text-blue-600 dark:text-blue-400 scale-125" : "text-gray-300 dark:text-gray-600 hover:text-gray-400 dark:hover:text-gray-500"}`}
                 >
                   {gear}
                 </span>
@@ -482,7 +482,7 @@ export default function DigitalTwin() {
             </div>
           ) : (
             /* Show nothing or minimal status when safe */
-            <span className="text-[10px] font-bold text-green-600 flex items-center gap-1.5">
+            <span className="text-[10px] font-bold text-green-600 dark:text-green-400 flex items-center gap-1.5">
               <svg
                 className="w-3 h-3"
                 fill="none"

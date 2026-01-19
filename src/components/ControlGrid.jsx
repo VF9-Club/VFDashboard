@@ -4,19 +4,19 @@ import { DEFAULT_LOCATION } from "../constants/vehicle";
 
 // Weather Row Component
 const WeatherRow = ({ label, value, icon, subValue }) => (
-  <div className="flex items-center justify-between py-3 border-b border-gray-50 last:border-0">
+  <div className="flex items-center justify-between py-3 border-b border-gray-50 dark:border-gray-700 last:border-0">
     <div className="flex items-center gap-3">
-      <div className="w-10 h-10 rounded-2xl bg-gray-50 flex items-center justify-center text-blue-600 shadow-sm border border-gray-100">
+      <div className="w-10 h-10 rounded-2xl bg-gray-50 dark:bg-gray-700/50 flex items-center justify-center text-blue-600 dark:text-blue-400 shadow-sm border border-gray-100 dark:border-gray-600">
         {icon}
       </div>
       <div>
-        <span className="block text-sm font-bold text-gray-900">{value}</span>
-        <span className="text-xs font-medium text-gray-400">{label}</span>
+        <span className="block text-sm font-bold text-gray-900 dark:text-gray-100">{value}</span>
+        <span className="text-xs font-medium text-gray-400 dark:text-gray-500">{label}</span>
       </div>
     </div>
     <div className="text-right">
       {subValue && (
-        <span className="block text-xs font-bold text-gray-400 bg-gray-100 px-2 py-0.5 rounded-md">
+        <span className="block text-xs font-bold text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-gray-700/50 px-2 py-0.5 rounded-md">
           {subValue}
         </span>
       )}
@@ -27,12 +27,12 @@ const WeatherRow = ({ label, value, icon, subValue }) => (
 export function EnvironmentCard() {
   const v = useStore(vehicleStore);
   return (
-    <div className="rounded-3xl bg-white p-5 shadow-sm border border-gray-100 flex flex-col h-full">
+    <div className="rounded-3xl bg-white dark:bg-gray-800 p-5 shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col h-full transition-colors">
       <div className="flex flex-col mb-4 gap-1">
         <div className="flex justify-between items-center">
-          <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
             <svg
-              className="w-6 h-6 text-blue-600"
+              className="w-6 h-6 text-blue-600 dark:text-blue-400"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -50,7 +50,7 @@ export function EnvironmentCard() {
 
         <div className="flex items-center gap-1.5 pl-1">
           <svg
-            className="w-3 h-3 text-gray-400 flex-shrink-0"
+            className="w-3 h-3 text-gray-400 dark:text-gray-500 flex-shrink-0"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -69,7 +69,7 @@ export function EnvironmentCard() {
             />
           </svg>
           <span
-            className="text-[10px] font-bold text-gray-500 uppercase tracking-wide truncate w-full"
+            className="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide truncate w-full"
             title={v.weather_address || v.location_address}
           >
             {v.weather_address || v.location_address ? (
@@ -139,19 +139,19 @@ export function EnvironmentCard() {
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-3 mt-4 pt-4 border-t border-gray-100">
-        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-2xl border border-gray-100">
-          <span className="text-xs font-bold text-gray-500">Pet Mode</span>
+      <div className="grid grid-cols-2 gap-3 mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
+        <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-2xl border border-gray-100 dark:border-gray-600">
+          <span className="text-xs font-bold text-gray-500 dark:text-gray-400">Pet Mode</span>
           <span
-            className={`text-[10px] font-bold px-2 py-1 rounded-lg ${Number(v.pet_mode) === 1 ? "bg-blue-600 text-white shadow-md shadow-blue-200" : "bg-gray-200 text-gray-500"}`}
+            className={`text-[10px] font-bold px-2 py-1 rounded-lg ${Number(v.pet_mode) === 1 ? "bg-blue-600 text-white shadow-md shadow-blue-200" : "bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-300"}`}
           >
             {Number(v.pet_mode) === 1 ? "ON" : "OFF"}
           </span>
         </div>
-        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-2xl border border-gray-100">
-          <span className="text-xs font-bold text-gray-500">Camp Mode</span>
+        <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-2xl border border-gray-100 dark:border-gray-600">
+          <span className="text-xs font-bold text-gray-500 dark:text-gray-400">Camp Mode</span>
           <span
-            className={`text-[10px] font-bold px-2 py-1 rounded-lg ${Number(v.camp_mode) === 1 ? "bg-blue-600 text-white shadow-md shadow-blue-200" : "bg-gray-200 text-gray-500"}`}
+            className={`text-[10px] font-bold px-2 py-1 rounded-lg ${Number(v.camp_mode) === 1 ? "bg-blue-600 text-white shadow-md shadow-blue-200" : "bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-300"}`}
           >
             {Number(v.camp_mode) === 1 ? "ON" : "OFF"}
           </span>
@@ -169,12 +169,12 @@ export function MapCard() {
   const hasValidCoords = v.latitude && v.longitude && !isDefaultLoc;
 
   return (
-    <div className="flex-1 rounded-3xl bg-white p-5 shadow-sm border border-gray-100 flex flex-col min-h-0 md:min-h-[400px] h-full">
+    <div className="flex-1 rounded-3xl bg-white dark:bg-gray-800 p-5 shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col min-h-0 md:min-h-[400px] h-full transition-colors">
       <div className="flex flex-col mb-4 gap-1 px-1">
         <div className="flex justify-between items-center">
-          <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2 whitespace-nowrap overflow-hidden text-ellipsis">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2 whitespace-nowrap overflow-hidden text-ellipsis">
             <svg
-              className="w-6 h-6 text-blue-600 flex-shrink-0"
+              className="w-6 h-6 text-blue-600 dark:text-blue-400 flex-shrink-0"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -198,7 +198,7 @@ export function MapCard() {
 
         <div className="flex items-center gap-1.5 pl-1 overflow-hidden">
           <svg
-            className="w-3 h-3 text-gray-400 flex-shrink-0"
+            className="w-3 h-3 text-gray-400 dark:text-gray-500 flex-shrink-0"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -221,7 +221,7 @@ export function MapCard() {
               href={`https://www.google.com/maps?q=${v.latitude},${v.longitude}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[10px] font-bold text-gray-500 uppercase tracking-wide truncate flex items-center gap-1 hover:text-blue-600 transition-all group"
+              className="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide truncate flex items-center gap-1 hover:text-blue-600 dark:hover:text-blue-400 transition-all group"
               title={v.location_address || "Open in Google Maps"}
             >
               <span className="truncate">
@@ -253,7 +253,7 @@ export function MapCard() {
         </div>
       </div>
 
-      <div className="flex-1 bg-gray-100 rounded-2xl relative overflow-hidden">
+      <div className="flex-1 bg-gray-100 dark:bg-gray-900 rounded-2xl relative overflow-hidden">
         {hasValidCoords ? (
           <iframe
             width="100%"
@@ -264,13 +264,13 @@ export function MapCard() {
             marginWidth="0"
             title="Vehicle Location"
             src={`https://maps.google.com/maps?q=${v.latitude},${v.longitude}&z=15&output=embed&iwloc=`}
-            className="absolute w-[150%] h-[150%] top-[-25%] left-[-25%] filter grayscale contrast-[1.1] opacity-90 mix-blend-multiply transition-opacity duration-500"
+            className="absolute w-[150%] h-[150%] top-[-25%] left-[-25%] filter grayscale contrast-[1.1] opacity-90 dark:invert dark:contrast-[0.85] dark:opacity-80 mix-blend-multiply dark:mix-blend-normal transition-opacity duration-500"
             style={{ pointerEvents: "auto" }}
           ></iframe>
         ) : (
           /* Loading / No Signal State */
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-400 bg-gray-50">
-            <div className="w-12 h-12 rounded-full border-4 border-gray-200 border-t-blue-500 animate-spin mb-3"></div>
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-gray-800">
+            <div className="w-12 h-12 rounded-full border-4 border-gray-200 dark:border-gray-700 border-t-blue-500 dark:border-t-blue-400 animate-spin mb-3"></div>
             <span className="text-xs font-bold uppercase tracking-wider">
               Đang xác định vị trí
             </span>
