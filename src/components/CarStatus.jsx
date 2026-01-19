@@ -20,7 +20,7 @@ export default function CarStatus() {
     if (code >= 1 && code <= 3) {
       return (
         <svg
-          className="w-4 h-4 text-gray-500"
+          className="w-4 h-4 text-gray-500 dark:text-gray-400"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -36,7 +36,7 @@ export default function CarStatus() {
     } else if (code >= 45 && code <= 48) {
       return (
         <svg
-          className="w-4 h-4 text-gray-400"
+          className="w-4 h-4 text-gray-400 dark:text-gray-500"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -119,14 +119,14 @@ export default function CarStatus() {
   return (
     <div className="h-full">
       {/* Battery Card (Energy) - Stacked Layout */}
-      <div className="relative rounded-3xl bg-white p-5 shadow-sm border border-gray-100 flex flex-col flex-1 min-h-[420px] md:h-[420px] justify-center">
+      <div className="relative rounded-3xl bg-white dark:bg-gray-800 p-5 shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col flex-1 min-h-[420px] md:h-[420px] justify-center transition-colors">
         {/* Header */}
         <div className="w-full mb-4 px-1">
           <div className="flex justify-between items-center">
-            <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
               {/* Energy Icon - Lightning */}
               <svg
-                className="w-6 h-6 text-blue-600"
+                className="w-6 h-6 text-blue-600 dark:text-blue-400"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -163,7 +163,7 @@ export default function CarStatus() {
                       cx="50%"
                       cy="50%"
                       r="45%"
-                      stroke="#f3f4f6"
+                      className="stroke-gray-100 dark:stroke-gray-700"
                       strokeWidth="8"
                       fill="none"
                     />
@@ -188,18 +188,18 @@ export default function CarStatus() {
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
                     {battery_level !== null ? (
                       <>
-                        <span className="text-3xl font-black text-gray-900 tracking-tighter leading-none">
+                        <span className="text-3xl font-black text-gray-900 dark:text-white tracking-tighter leading-none">
                           {Number(battery_level).toFixed(0)}
-                          <span className="text-sm align-top ml-0.5 text-gray-400">
+                          <span className="text-sm align-top ml-0.5 text-gray-400 dark:text-gray-500">
                             %
                           </span>
                         </span>
-                        <span className="text-[9px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">
+                        <span className="text-[9px] text-gray-400 dark:text-gray-500 font-bold uppercase tracking-widest mt-0.5">
                           SOC
                         </span>
                       </>
                     ) : (
-                      <span className="text-3xl font-black text-gray-200 tracking-tighter leading-none">
+                      <span className="text-3xl font-black text-gray-200 dark:text-gray-700 tracking-tighter leading-none">
                         N/A
                       </span>
                     )}
@@ -212,20 +212,20 @@ export default function CarStatus() {
                     <>
                       {data.battery_serial && (
                         <div className="flex flex-col items-center leading-none">
-                          <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider mb-0.5">
+                          <span className="text-[8px] text-gray-400 dark:text-gray-500 font-bold uppercase tracking-wider mb-0.5">
                             Batt. Serial
                           </span>
-                          <span className="text-[9px] text-gray-600 font-bold font-mono tracking-wide">
+                          <span className="text-[9px] text-gray-600 dark:text-gray-300 font-bold font-mono tracking-wide">
                             {data.battery_serial}
                           </span>
                         </div>
                       )}
                       {data.battery_manufacture_date && (
                         <div className="flex flex-col items-center leading-none">
-                          <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider mb-0.5">
+                          <span className="text-[8px] text-gray-400 dark:text-gray-500 font-bold uppercase tracking-wider mb-0.5">
                             Batt. Date
                           </span>
-                          <span className="text-[9px] text-gray-600 font-bold font-mono tracking-wide">
+                          <span className="text-[9px] text-gray-600 dark:text-gray-300 font-bold font-mono tracking-wide">
                             {data.battery_manufacture_date}
                           </span>
                         </div>
@@ -233,7 +233,7 @@ export default function CarStatus() {
                     </>
                   ) : (
                     <div className="flex flex-col items-center justify-center h-full gap-1">
-                      <span className="text-[8px] text-gray-300 font-bold uppercase tracking-wider">
+                      <span className="text-[8px] text-gray-300 dark:text-gray-700 font-bold uppercase tracking-wider">
                         SERIAL: N/A
                       </span>
                     </div>
@@ -244,16 +244,16 @@ export default function CarStatus() {
               {/* Specs Stack - NARROWER (110px) */}
               <div className="flex flex-col gap-3 w-[110px] justify-center flex-shrink-0">
                 {/* Range */}
-                <div className="bg-blue-50 px-2 py-3 rounded-2xl flex flex-col items-center justify-center text-center border border-blue-100 shadow-sm hover:scale-105 transition-transform">
+                <div className="bg-blue-50 dark:bg-blue-900/20 px-2 py-3 rounded-2xl flex flex-col items-center justify-center text-center border border-blue-100 dark:border-blue-800/50 shadow-sm hover:scale-105 transition-transform">
                   <p className="text-blue-400 text-[8px] font-bold uppercase tracking-wider mb-0.5">
                     Est. Range
                   </p>
                   <p
-                    className={`text-xl font-black leading-none ${data.range !== null ? "text-blue-600" : "text-gray-300"}`}
+                    className={`text-xl font-black leading-none ${data.range !== null ? "text-blue-600 dark:text-blue-400" : "text-gray-300 dark:text-gray-600"}`}
                   >
                     {data.range !== null ? data.range : "N/A"}{" "}
                     <span
-                      className={`text-[10px] font-bold ${data.range !== null ? "text-blue-400" : "text-gray-300"}`}
+                      className={`text-[10px] font-bold ${data.range !== null ? "text-blue-400 dark:text-blue-300" : "text-gray-300 dark:text-gray-600"}`}
                     >
                       {data.range !== null ? "km" : ""}
                     </span>
@@ -261,12 +261,12 @@ export default function CarStatus() {
                 </div>
 
                 {/* Health */}
-                <div className="bg-gray-50 px-2 py-2.5 rounded-2xl flex flex-col items-center justify-center text-center border border-gray-100">
-                  <p className="text-gray-400 text-[8px] font-bold uppercase tracking-wider mb-0.5">
+                <div className="bg-gray-50 dark:bg-gray-700/50 px-2 py-2.5 rounded-2xl flex flex-col items-center justify-center text-center border border-gray-100 dark:border-gray-600">
+                  <p className="text-gray-400 dark:text-gray-500 text-[8px] font-bold uppercase tracking-wider mb-0.5">
                     Health
                   </p>
                   <p
-                    className={`text-base font-black leading-none ${data.soh_percentage !== null ? "text-emerald-600" : "text-gray-300"}`}
+                    className={`text-base font-black leading-none ${data.soh_percentage !== null ? "text-emerald-600 dark:text-emerald-400" : "text-gray-300 dark:text-gray-600"}`}
                   >
                     {data.soh_percentage !== null
                       ? `${data.soh_percentage}%`
@@ -276,15 +276,15 @@ export default function CarStatus() {
 
                 {/* 12V Battery */}
                 <div
-                  className={`px-2 py-2.5 rounded-2xl flex flex-col items-center justify-center text-center border ${typeof data.battery_health_12v === "number" && data.battery_health_12v < 50 ? "bg-red-50 border-red-100" : "bg-gray-50 border-gray-100"}`}
+                  className={`px-2 py-2.5 rounded-2xl flex flex-col items-center justify-center text-center border ${typeof data.battery_health_12v === "number" && data.battery_health_12v < 50 ? "bg-red-50 dark:bg-red-900/20 border-red-100 dark:border-red-800" : "bg-gray-50 dark:bg-gray-700/50 border-gray-100 dark:border-gray-600"}`}
                 >
                   <p
-                    className={`text-[8px] font-bold uppercase tracking-wider mb-0.5 ${typeof data.battery_health_12v === "number" && data.battery_health_12v < 50 ? "text-red-500" : "text-gray-400"}`}
+                    className={`text-[8px] font-bold uppercase tracking-wider mb-0.5 ${typeof data.battery_health_12v === "number" && data.battery_health_12v < 50 ? "text-red-500" : "text-gray-400 dark:text-gray-500"}`}
                   >
                     12V Batt
                   </p>
                   <p
-                    className={`text-base font-black leading-none ${typeof data.battery_health_12v === "number" && data.battery_health_12v < 50 ? "text-red-600" : typeof data.battery_health_12v === "number" ? "text-emerald-600" : "text-gray-300"}`}
+                    className={`text-base font-black leading-none ${typeof data.battery_health_12v === "number" && data.battery_health_12v < 50 ? "text-red-600 dark:text-red-400" : typeof data.battery_health_12v === "number" ? "text-emerald-600 dark:text-emerald-400" : "text-gray-300 dark:text-gray-600"}`}
                   >
                     {typeof data.battery_health_12v === "number"
                       ? `${data.battery_health_12v}%`
@@ -296,15 +296,15 @@ export default function CarStatus() {
           </div>
 
           {/* DIVIDER */}
-          <div className="h-px w-full bg-gray-100 my-1"></div>
+          <div className="h-px w-full bg-gray-100 dark:bg-gray-700 my-1"></div>
 
           {/* BOTTOM SECTION: Charging Info */}
           <div
-            className={`grid grid-cols-3 gap-2 p-1 rounded-2xl transition-colors duration-300 ${isCharging ? "bg-blue-50/50" : "bg-transparent"}`}
+            className={`grid grid-cols-3 gap-2 p-1 rounded-2xl transition-colors duration-300 ${isCharging ? "bg-blue-50/50 dark:bg-blue-900/10" : "bg-transparent"}`}
           >
             {/* Status */}
-            <div className="p-2 rounded-xl text-center bg-gray-50 border border-gray-100 flex flex-col justify-center min-h-[60px]">
-              <p className="text-[8px] font-bold text-gray-400 uppercase tracking-wider mb-1">
+            <div className="p-2 rounded-xl text-center bg-gray-50 dark:bg-gray-700/50 border border-gray-100 dark:border-gray-600 flex flex-col justify-center min-h-[60px]">
+              <p className="text-[8px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1">
                 Status
               </p>
               <div className="flex flex-col items-center justify-center">
@@ -324,7 +324,7 @@ export default function CarStatus() {
                   </svg>
                 ) : (
                   <svg
-                    className="w-4 h-4 text-gray-400 mb-0.5"
+                    className="w-4 h-4 text-gray-400 dark:text-gray-500 mb-0.5"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -337,7 +337,7 @@ export default function CarStatus() {
                     />
                   </svg>
                 )}
-                <span className="text-[8px] font-bold text-gray-500 leading-none">
+                <span className="text-[8px] font-bold text-gray-500 dark:text-gray-300 leading-none">
                   {isCharging ? "Charging" : "Unplugged"}
                 </span>
               </div>
@@ -345,14 +345,14 @@ export default function CarStatus() {
 
             {/* Target */}
             <div
-              className={`p-2 rounded-xl text-center border flex flex-col justify-center min-h-[60px] ${isCharging ? "bg-white border-blue-100 shadow-sm" : "bg-gray-50 border-gray-100"}`}
+              className={`p-2 rounded-xl text-center border flex flex-col justify-center min-h-[60px] ${isCharging ? "bg-white dark:bg-gray-700 border-blue-100 dark:border-blue-900 shadow-sm" : "bg-gray-50 dark:bg-gray-700/50 border-gray-100 dark:border-gray-600"}`}
             >
-              <p className="text-[8px] font-bold text-gray-400 uppercase tracking-wider mb-1">
+              <p className="text-[8px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1">
                 Target
               </p>
               <div className="flex items-center justify-center">
                 <span
-                  className={`text-base font-black leading-none ${data.target_soc !== null ? "text-gray-900" : "text-gray-300"}`}
+                  className={`text-base font-black leading-none ${data.target_soc !== null ? "text-gray-900 dark:text-white" : "text-gray-300 dark:text-gray-600"}`}
                 >
                   {data.target_soc !== null ? `${data.target_soc}%` : "N/A"}
                 </span>
@@ -361,14 +361,14 @@ export default function CarStatus() {
 
             {/* Time Left */}
             <div
-              className={`p-2 rounded-xl text-center border flex flex-col justify-center min-h-[60px] ${isCharging ? "bg-white border-blue-100 shadow-sm" : "bg-gray-50 border-gray-100"}`}
+              className={`p-2 rounded-xl text-center border flex flex-col justify-center min-h-[60px] ${isCharging ? "bg-white dark:bg-gray-700 border-blue-100 dark:border-blue-900 shadow-sm" : "bg-gray-50 dark:bg-gray-700/50 border-gray-100 dark:border-gray-600"}`}
             >
-              <p className="text-[8px] font-bold text-gray-400 uppercase tracking-wider mb-1 whitespace-nowrap">
+              <p className="text-[8px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1 whitespace-nowrap">
                 Time Left
               </p>
               <div className="flex items-center justify-center">
                 <span
-                  className={`text-base font-black leading-none whitespace-nowrap ${data.remaining_charging_time > 0 ? "text-gray-900" : "text-gray-300"}`}
+                  className={`text-base font-black leading-none whitespace-nowrap ${data.remaining_charging_time > 0 ? "text-gray-900 dark:text-white" : "text-gray-300 dark:text-gray-600"}`}
                 >
                   {data.remaining_charging_time > 0
                     ? formatTime(data.remaining_charging_time)

@@ -141,6 +141,27 @@ export default function VehicleHeader({ onOpenTelemetry }) {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [showAbout, setShowAbout] = React.useState(false);
 
+  // Dark Mode State
+  const [isDark, setIsDark] = React.useState(false);
+
+  React.useEffect(() => {
+    if (typeof document !== "undefined" && document.documentElement.classList.contains("dark")) {
+      setIsDark(true);
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newDark = !isDark;
+    setIsDark(newDark);
+    if (newDark) {
+      document.documentElement.classList.add("dark");
+      document.cookie = "theme=dark; path=/; max-age=31536000";
+    } else {
+      document.documentElement.classList.remove("dark");
+      document.cookie = "theme=light; path=/; max-age=31536000";
+    }
+  };
+
   const handleRefresh = () => {
     refreshVehicle(vehicle.vin);
   };
@@ -329,23 +350,23 @@ export default function VehicleHeader({ onOpenTelemetry }) {
                 ></div>
 
                 {/* Dropdown Menu */}
-                <div className="absolute right-0 top-full mt-2 w-72 bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 py-2 z-50 animate-in fade-in zoom-in-95 duration-200 origin-top-right overflow-hidden">
+                <div className="absolute right-0 top-full mt-2 w-72 bg-white dark:bg-gray-800 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 dark:border-gray-700 py-2 z-50 animate-in fade-in zoom-in-95 duration-200 origin-top-right overflow-hidden">
                   {/* User Section */}
-                  <div className="px-4 py-3 border-b border-gray-50 bg-gray-50/30">
-                    <p className="text-[10px] font-extrabold text-blue-600 uppercase tracking-widest mb-1">
+                  <div className="px-4 py-3 border-b border-gray-50 dark:border-gray-700 bg-gray-50/30 dark:bg-gray-700/30">
+                    <p className="text-[10px] font-extrabold text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-1">
                       Current User
                     </p>
                     <div className="flex items-center gap-3">
                       <img
                         src={vehicle.user_avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(vehicle.user_name || "User")}&background=0D8ABC&color=fff`}
-                        className="w-10 h-10 rounded-full border border-white shadow-sm"
+                        className="w-10 h-10 rounded-full border border-white dark:border-gray-600 shadow-sm"
                         alt=""
                       />
                       <div className="min-w-0">
-                        <p className="text-sm font-black text-gray-900 truncate">
+                        <p className="text-sm font-black text-gray-900 dark:text-white truncate">
                           {vehicle.user_name}
                         </p>
-                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tight">
+                        <p className="text-[10px] text-gray-400 dark:text-gray-400 font-bold uppercase tracking-tight">
                           {vehicle.userVehicleType?.replace("ROLE_", "").replace(/_/g, " ")}
                         </p>
                       </div>
@@ -375,9 +396,9 @@ export default function VehicleHeader({ onOpenTelemetry }) {
                               if (!isSelected) switchVehicle(v.vinCode);
                               setMenuOpen(false);
                             }}
-                            className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-all hover:bg-blue-50/50 group ${isSelected ? "bg-blue-50/80" : ""}`}
+                            className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-all hover:bg-blue-50/50 dark:hover:bg-gray-700 group ${isSelected ? "bg-blue-50/80 dark:bg-blue-900/20" : ""}`}
                           >
-                            <div className="relative h-12 w-16 bg-gray-50 rounded-lg overflow-hidden border border-gray-100 p-1 flex items-center justify-center shrink-0">
+                            <div className="relative h-12 w-16 bg-gray-50 dark:bg-gray-700 rounded-lg overflow-hidden border border-gray-100 dark:border-gray-600 p-1 flex items-center justify-center shrink-0">
                               <img
                                 src={img || "/logo.png"}
                                 className="w-full h-full object-contain drop-shadow-sm group-hover:scale-110 transition-transform"
@@ -385,10 +406,10 @@ export default function VehicleHeader({ onOpenTelemetry }) {
                               />
                             </div>
                             <div className="min-w-0 flex-1">
-                              <p className={`text-sm font-extrabold truncate ${isSelected ? "text-blue-700" : "text-gray-900"}`}>
+                              <p className={`text-sm font-extrabold truncate ${isSelected ? "text-blue-700 dark:text-blue-400" : "text-gray-900 dark:text-gray-100"}`}>
                                 {name}
                               </p>
-                              <p className="text-[10px] font-mono font-bold text-gray-400 truncate tracking-tighter">
+                              <p className="text-[10px] font-mono font-bold text-gray-400 dark:text-gray-500 truncate tracking-tighter">
                                 {v.vinCode}
                               </p>
                             </div>
@@ -405,17 +426,61 @@ export default function VehicleHeader({ onOpenTelemetry }) {
                     </div>
                   </div>
 
-                  <div className="h-px bg-gray-50 mx-2 my-1"></div>
+                  <div className="h-px bg-gray-50 dark:bg-gray-700 mx-2 my-1"></div>
+
+                  {/* Dark Mode Toggle */}
+                  <div
+                    onClick={toggleTheme}
+                    className="w-full flex items-center justify-between px-4 py-2.5 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                  >
+                    <div className="flex items-center gap-2">
+                      <svg
+                        className="w-4 h-4 text-gray-400 dark:text-gray-400"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        {isDark ? (
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                          />
+                        ) : (
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                          />
+                        )}
+                      </svg>
+                      <span className="text-sm font-bold text-gray-600 dark:text-gray-300">
+                        Dark Mode
+                      </span>
+                    </div>
+
+                    <div
+                      className={`w-9 h-5 rounded-full relative transition-colors border border-transparent ${isDark ? "bg-blue-600" : "bg-gray-200 dark:bg-gray-600"}`}
+                    >
+                      <div
+                        className={`absolute top-0.5 left-0.5 bg-white w-3.5 h-3.5 rounded-full shadow-sm transition-transform ${isDark ? "translate-x-4" : "translate-x-0"}`}
+                      ></div>
+                    </div>
+                  </div>
+
+                  <div className="h-px bg-gray-50 dark:bg-gray-700 mx-2 my-1"></div>
 
                   <button
                     onClick={() => {
                       setShowAbout(true);
                       setMenuOpen(false);
                     }}
-                    className="w-full text-left px-4 py-2.5 text-sm font-bold text-gray-600 hover:bg-gray-50 flex items-center gap-2 transition-colors"
+                    className="w-full text-left px-4 py-2.5 text-sm font-bold text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2 transition-colors"
                   >
                     <svg
-                      className="w-4 h-4 text-gray-400"
+                      className="w-4 h-4 text-gray-400 dark:text-gray-500"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -432,7 +497,7 @@ export default function VehicleHeader({ onOpenTelemetry }) {
 
                   <button
                     onClick={handleLogout}
-                    className="w-full text-left px-4 py-2.5 text-sm font-bold text-red-500 hover:bg-red-50 flex items-center gap-2 transition-colors"
+                    className="w-full text-left px-4 py-2.5 text-sm font-bold text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 flex items-center gap-2 transition-colors"
                   >
                     <svg
                       className="w-4 h-4 text-red-300"

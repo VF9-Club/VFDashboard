@@ -3,18 +3,18 @@ import React from "react";
 const NavItem = ({ id, label, icon, active, onClick }) => (
   <button
     onClick={() => onClick(id)}
-    className={`relative flex-1 flex flex-col items-center justify-center h-full transition-all duration-500 rounded-full z-10 ${active ? "text-blue-600" : "text-gray-500 hover:text-gray-700"}`}
+    className={`relative flex-1 flex flex-col items-center justify-center h-full transition-all duration-500 rounded-full z-10 ${active ? "text-blue-600 dark:text-blue-400" : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"}`}
   >
     {/* Active Background Pill */}
     <div
-      className={`absolute inset-1 transition-all duration-500 rounded-full ${active ? "bg-blue-100/60 scale-100 opacity-100 shadow-[inset_0_1px_4px_rgba(0,0,0,0.05)]" : "scale-75 opacity-0"}`}
+      className={`absolute inset-1 transition-all duration-500 rounded-full ${active ? "bg-blue-100/60 dark:bg-blue-900/40 scale-100 opacity-100 shadow-[inset_0_1px_4px_rgba(0,0,0,0.05)]" : "scale-75 opacity-0"}`}
     ></div>
 
     <div
       className={`relative transition-all duration-500 ${active ? "scale-110 mb-0.5" : "mb-1"}`}
     >
       {React.cloneElement(icon, {
-        className: `w-6 h-6 ${active ? "text-blue-600" : "text-gray-500"}`,
+        className: `w-6 h-6 ${active ? "text-blue-600 dark:text-blue-400" : "text-gray-500 dark:text-gray-400"}`,
       })}
     </div>
     <span
@@ -94,7 +94,7 @@ export default function MobileNav({ activeTab, onTabChange, onScan }) {
   return (
     <div className="md:hidden fixed bottom-6 left-0 right-0 z-50 flex justify-center items-stretch gap-2 px-2">
       {/* Pill Container for Main Tabs */}
-      <div className="flex-1 flex bg-white/40 backdrop-blur-3xl border border-white/50 rounded-full p-1 shadow-[0_12px_40px_rgba(0,0,0,0.12)] transition-all duration-500 h-16">
+      <div className="flex-1 flex bg-white/40 dark:bg-gray-800/60 backdrop-blur-3xl border border-white/50 dark:border-gray-700/50 rounded-full p-1 shadow-[0_12px_40px_rgba(0,0,0,0.12)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.3)] transition-all duration-500 h-16">
         {tabs.map((tab) => (
           <NavItem
             key={tab.id}
@@ -108,11 +108,11 @@ export default function MobileNav({ activeTab, onTabChange, onScan }) {
       {/* Separate Circle Button for Full Scan */}
       <button
         onClick={onScan}
-        className="w-16 h-16 flex items-center justify-center bg-white/40 backdrop-blur-3xl border border-white/50 rounded-full shadow-[0_12px_40px_rgba(0,0,0,0.12)] active:scale-90 active:bg-blue-100/50 transition-all duration-300 group"
+        className="w-16 h-16 flex items-center justify-center bg-white/40 dark:bg-gray-800/60 backdrop-blur-3xl border border-white/50 dark:border-gray-700/50 rounded-full shadow-[0_12px_40px_rgba(0,0,0,0.12)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.3)] active:scale-90 active:bg-blue-100/50 dark:active:bg-blue-900/20 transition-all duration-300 group"
         title="Full Scan"
       >
         <svg
-          className="w-8 h-8 text-indigo-600 group-hover:text-indigo-800 transition-colors"
+          className="w-8 h-8 text-indigo-600 dark:text-indigo-400 group-hover:text-indigo-800 dark:group-hover:text-indigo-300 transition-colors"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
