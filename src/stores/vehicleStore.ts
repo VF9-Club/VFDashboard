@@ -32,6 +32,8 @@ export interface VehicleState {
   customizedVehicleName?: string;
   userVehicleType?: string;
   vehicleImage?: string; // Link image from API
+  manufacturer?: string;
+  interiorColor?: string;
 
   // Climate
   outside_temp?: number | null;
@@ -215,12 +217,13 @@ export const updateVehicleData = (data: Partial<VehicleState>) => {
   if (!targetVin) return;
 
   // 1. Always Update Cache for the specific vehicle
-  const currentCache = current.vehicleCache[targetVin] || {};
+  // Use a fresh read for the cache to avoid race conditions with other updates
+  const latest = vehicleStore.get();
+  const currentCache = latest.vehicleCache[targetVin] || {};
   const newCacheEntry = { ...currentCache, ...data };
 
-  // Update cache key specifically (optimization) or full object
   vehicleStore.setKey("vehicleCache", {
-    ...current.vehicleCache,
+    ...latest.vehicleCache,
     [targetVin]: newCacheEntry,
   });
 
@@ -327,6 +330,7 @@ export const switchVehicle = async (targetVin: string) => {
     vehicleVariant: vehicleInfo.vehicleVariant,
     color: vehicleInfo.exteriorColor || vehicleInfo.color,
     yearOfProduct: vehicleInfo.yearOfProduct,
+    interiorColor: vehicleInfo.interiorColor,
     customizedVehicleName:
       vehicleInfo.customizedVehicleName || vehicleInfo.vehicleName,
     userVehicleType: vehicleInfo.userVehicleType,
@@ -337,25 +341,23 @@ export const switchVehicle = async (targetVin: string) => {
     // Warranty
     warrantyExpirationDate: vehicleInfo.warrantyExpirationDate,
     warrantyMileage: vehicleInfo.warrantyMileage,
-    // Reset refreshing state
-    isRefreshing: true,
   };
 
   // 3. Hydrate from Cache if available
   const cachedData = current.vehicleCache[targetVin] || {};
 
   // Merge: Current State -> Reset Telemetry -> Base State -> Cached Data
-  // This ensures we keep global stuff (user info, vehicles list) but clear old telemetry before applying new.
   vehicleStore.set({
     ...current,
     ...INITIAL_TELEMETRY,
     ...baseState,
     ...cachedData,
-    vin: targetVin, // ensure VIN is correct
+    vin: targetVin,
+    isRefreshing: true, // Always show loading when switching
   });
 
-  // 4. Trigger Background Refresh
-  await fetchTelemetry(targetVin);
+  // 4. Trigger Background Refresh (Always)
+  fetchTelemetry(targetVin);
 };
 
 export const fetchTelemetry = async (vin: string) => {
@@ -492,9 +494,11 @@ export const fetchVehicles = async (): Promise<string | null> => {
       const cache: Record<string, Partial<VehicleState>> = {};
       uniqueVehicles.forEach((v: any) => {
         cache[v.vinCode] = {
+          vin: v.vinCode,
           marketingName: v.marketingName,
           vehicleVariant: v.vehicleVariant,
           color: v.exteriorColor || v.color,
+          interiorColor: v.interiorColor,
           yearOfProduct: v.yearOfProduct,
           customizedVehicleName: v.customizedVehicleName || v.vehicleName,
           userVehicleType: v.userVehicleType,

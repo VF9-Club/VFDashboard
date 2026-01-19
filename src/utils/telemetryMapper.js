@@ -10,6 +10,7 @@ export const TELEMETRY_KEY_MAP = {
   BMS_STATUS_BATTERY_TYPE: "battery_type",
   BMS_STATUS_BATTERY_SERIAL_NUMBER: "battery_serial",
   BMS_STATUS_BATTERY_DECODED_MANUFACTURE_DATE: "battery_manufacture_date",
+  VINFAST_VEHICLE_IDENTIFIER_VEHICLE_MANUFACTURER: "manufacturer",
 
   // 4.2 Vehicle
   VEHICLE_STATUS_ODOMETER: "odometer",

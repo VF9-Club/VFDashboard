@@ -28,14 +28,93 @@ export default function TelemetryDrawer({ isOpen, onClose }) {
           String(a.devRsrcID || "0") === rid,
       );
 
+      // Improve name context
+      let improvedName = meta?.name || null;
+      const alias = meta?.alias || "";
+      if (improvedName && (improvedName.toLowerCase() === "status" || improvedName.toLowerCase() === "door status" || improvedName.toLowerCase() === "configuration json")) {
+        // Extract context from alias (e.g., CAMP_MODE_CONTROL_STATUS -> Camp Mode Status)
+        const context = alias.split('_').slice(0, -1).map(word =>
+          word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        ).join(' ');
+        improvedName = `${context} ${improvedName}`;
+      }
+
       return {
         ...item,
-        name: meta?.name || null,
+        name: improvedName,
         units: meta?.units || null,
-        alias: meta?.alias || null,
+        alias: alias,
       };
     });
   }, [data, aliases]);
+
+  // Filter logic
+  const filteredData = React.useMemo(() => {
+    const search = searchTerm.toLowerCase();
+    return mappedData.filter((item) => {
+      const deviceKey = (item.deviceKey || "").toLowerCase();
+      const value = String(item.value || "").toLowerCase();
+      const name = (item.name || "").toLowerCase();
+      const alias = (item.alias || "").toLowerCase();
+      return (
+        deviceKey.includes(search) ||
+        value.includes(search) ||
+        name.includes(search) ||
+        alias.includes(search)
+      );
+    });
+  }, [mappedData, searchTerm]);
+
+  // Grouping logic
+  const groupedData = React.useMemo(() => {
+    const groups = {};
+    const categoryMap = {
+      'BATTERY_LEASING': 'Battery Leasing',
+      'BMS_STATUS': 'BMS Status',
+      'CAMP_MODE': 'Camp Mode',
+      'CAPP_PAIRING': 'CAPP Pairing',
+      'CCARSERVICE': 'C-Car Service',
+      'CHARGE_CONTROL': 'Charge Control',
+      'CHARGING_STATUS': 'Charging Status',
+      'CLIMATE': 'Climate Control',
+      'DATA_PRIVACY': 'Data Privacy',
+      'DOOR': 'Doors & Security',
+      'LOCATION': 'Location & GPS',
+      'VEHICLE_STATUS': 'Vehicle Status',
+      'VEHICLE_WARNINGS': 'Warnings',
+      'TPMS': 'Tire Pressure (TPMS)',
+      'WINDOW': 'Windows & Sunroof',
+    };
+
+    filteredData.forEach(item => {
+      const alias = item.alias || "";
+      let categoryKey = 'OTHERS';
+
+      for (const [key, label] of Object.entries(categoryMap)) {
+        if (alias.startsWith(key)) {
+          categoryKey = key;
+          break;
+        }
+      }
+
+      if (!groups[categoryKey]) {
+        groups[categoryKey] = {
+          label: categoryMap[categoryKey] || 'Other Parameters',
+          items: []
+        };
+      }
+      groups[categoryKey].items.push(item);
+    });
+
+    // Sort categories: OTHERS at the end, others alphabetically
+    return Object.keys(groups)
+      .sort((a, b) => {
+        if (a === 'OTHERS') return 1;
+        if (b === 'OTHERS') return -1;
+        return a.localeCompare(b);
+      })
+      .map(key => groups[key]);
+  }, [filteredData]);
 
   useEffect(() => {
     if (isOpen && !timestamp && !vehicle.isScanning) {
@@ -66,24 +145,11 @@ export default function TelemetryDrawer({ isOpen, onClose }) {
     URL.revokeObjectURL(url);
   };
 
-  const filteredData = mappedData.filter((item) => {
-    const search = searchTerm.toLowerCase();
-    const deviceKey = (item.deviceKey || "").toLowerCase();
-    const value = String(item.value || "").toLowerCase();
-    const name = (item.name || "").toLowerCase();
-    const alias = (item.alias || "").toLowerCase();
-    return (
-      deviceKey.includes(search) ||
-      value.includes(search) ||
-      name.includes(search) ||
-      alias.includes(search)
-    );
-  });
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end overflow-hidden">
+    <div className="fixed inset-0 z-[100] flex justify-end overflow-hidden">
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity"
@@ -171,7 +237,7 @@ export default function TelemetryDrawer({ isOpen, onClose }) {
                 d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
               />
             </svg>
-            Full Scan
+            <span className="hidden sm:inline">Full Scan</span>
           </button>
           <button
             onClick={handleExport}
@@ -192,7 +258,7 @@ export default function TelemetryDrawer({ isOpen, onClose }) {
                 d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
               />
             </svg>
-            Export
+            <span className="hidden sm:inline">Export</span>
           </button>
         </div>
 
@@ -211,32 +277,44 @@ export default function TelemetryDrawer({ isOpen, onClose }) {
               </div>
             </div>
           ) : filteredData.length > 0 ? (
-            <div className="divide-y divide-gray-100">
-              {filteredData.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="px-6 py-4 hover:bg-white transition-colors group"
-                >
-                  <div className="flex justify-between items-start gap-4">
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <p className="text-sm font-bold text-gray-900 leading-tight">
-                          {item.name || item.alias || "Unknown Parameter"}
-                        </p>
-                        {item.units && (
-                          <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded">
-                            {item.units}
-                          </span>
-                        )}
+            <div className="bg-white">
+              {groupedData.map((group, gIdx) => (
+                <div key={gIdx} className="mb-4">
+                  <div className="px-6 py-2 bg-gray-100/80 border-y border-gray-200 sticky top-0 z-10">
+                    <h3 className="text-xs font-black text-gray-500 uppercase tracking-widest leading-none">
+                      {group.label}
+                    </h3>
+                  </div>
+                  <div className="divide-y divide-gray-100">
+                    {group.items.map((item, idx) => (
+                      <div
+                        key={idx}
+                        className="px-6 py-4 hover:bg-blue-50/30 transition-colors group/row overflow-hidden"
+                      >
+                        <div className="flex justify-between items-start gap-4">
+                          <div className="min-w-0 flex-1">
+                            <div className="flex-1 group/name flex items-center min-w-0">
+                              <p className="text-sm font-bold text-gray-900 leading-tight truncate">
+                                {item.name || item.alias || "Unknown Parameter"}
+                              </p>
+                              {item.units && (
+                                <span className="shrink-0 text-[10px] font-bold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded ml-2">
+                                  {item.units}
+                                </span>
+                              )}
+                            </div>
+                            <div className="mt-0.5 group/alias min-w-0">
+                              <p className="text-[10px] font-mono font-medium text-gray-400 uppercase leading-none group-hover/row:text-blue-500 transition-colors truncate">
+                                {item.alias || item.deviceKey}
+                              </p>
+                            </div>
+                            <div className="mt-2 text-sm font-semibold text-gray-800 bg-gray-100/50 p-2 rounded border border-gray-100 group/value truncate">
+                              {String(item.value)}
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <p className="mt-0.5 text-[10px] font-mono font-medium text-gray-400 uppercase leading-none group-hover:text-blue-500 transition-colors">
-                        {item.alias || item.deviceKey}
-                      </p>
-                      <p className="mt-2 text-sm font-semibold text-gray-800 break-all leading-tight bg-gray-100/50 p-2 rounded border border-gray-100">
-                        {String(item.value)}
-                      </p>
-                    </div>
-                    {/* Optional: Add labels or descriptions if we map them later */}
+                    ))}
                   </div>
                 </div>
               ))}

@@ -40,7 +40,7 @@ export default function DashboardApp({ vin: initialVin }) {
     <div className="fixed inset-0 w-full h-[100dvh] z-0 md:static md:h-auto md:max-w-7xl md:min-w-[1280px] md:mx-auto p-4 md:space-y-6 pb-28 md:pb-4 animate-in fade-in duration-700 flex flex-col overflow-hidden md:overflow-visible">
       <DashboardController vin={initialVin} />
 
-      <header className="flex-shrink-0">
+      <header className="flex-shrink-0 relative z-[60]">
         <VehicleHeader onOpenTelemetry={handleOpenTelemetry} />
       </header>
 

@@ -4,6 +4,7 @@ import {
   vehicleStore,
   fetchTelemetry,
   fetchFullTelemetry,
+  switchVehicle,
 } from "../stores/vehicleStore";
 import { api } from "../services/api";
 import AboutModal from "./AboutModal";
@@ -180,79 +181,44 @@ export default function VehicleHeader({ onOpenTelemetry }) {
   }, [vehicle.lastUpdated]);
 
   return (
-    <div className="flex items-center justify-between py-2 mb-2">
+    <div className="relative z-50 flex items-center justify-between py-2 mb-2 gap-2 md:gap-4 pr-1">
       {/* Left: Branding & Model */}
-      <div className="flex items-center gap-4">
-        <div className="h-12 w-12 rounded-full overflow-hidden shadow-md border border-gray-100/50 shrink-0">
+      <div className="flex items-center gap-2 md:gap-3 min-w-0 flex-1">
+        <div className="h-10 w-10 md:h-12 md:w-12 rounded-full overflow-hidden shadow-md border border-gray-100/50 shrink-0">
           <img
             src="/logo.png"
             alt="VF9 Club"
             className="w-full h-full object-cover"
           />
         </div>
-        <div>
-          <h1 className="text-xl md:text-2xl font-bold text-gray-900 tracking-tight leading-none flex items-center gap-2">
-            <span className="hidden md:inline">VinFast </span>
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-col min-w-0">
             {!vehicle.vin ? (
-              <div className="h-6 w-24 bg-gray-200 animate-pulse rounded"></div>
+              <div className="h-6 w-48 bg-gray-200 animate-pulse rounded"></div>
             ) : (
-              <span className="hidden md:inline">
-                {vehicle.marketingName || vehicle.model || (
-                  <span className="animate-pulse bg-gray-200 text-transparent rounded px-2">
-                    VF9
-                  </span>
-                )}
-              </span>
+              <h1 className="text-base md:text-2xl font-extrabold text-gray-900 tracking-tight leading-none truncate">
+                {vehicle.manufacturer} {vehicle.marketingName}
+              </h1>
             )}
-          </h1>
-          {!vehicle.vin ? (
-            /* Skeleton Loader for Subtitle */
-            <div className="flex items-center gap-2 w-full mt-1">
-              <div className="h-3 w-32 bg-gray-200 animate-pulse rounded"></div>
-              <div className="h-3 w-16 bg-gray-200 animate-pulse rounded"></div>
-            </div>
-          ) : (
-            <div className="flex flex-col md:flex-row md:items-center items-start gap-1 md:gap-2 mt-1">
-              {/* VIN Badge - Simplified for mobile */}
-              <span
-                className="text-[10px] md:text-xs text-gray-500 font-medium bg-gray-100 px-2 py-0.5 rounded text-transform uppercase"
-                title={vehicle.vin}
-              >
-                <span className="md:hidden font-bold text-gray-700">
-                  VinFast {vehicle.marketingName || vehicle.model || "VF9"}{" "}
-                  •{" "}
+
+            {!vehicle.vin ? (
+              <div className="h-3 w-32 bg-gray-200 animate-pulse rounded mt-2"></div>
+            ) : (
+              <div className="mt-1.5 flex items-center">
+                <span
+                  className="text-[9px] md:text-xs text-gray-500 font-bold bg-gray-100 px-2 py-0.5 rounded text-transform uppercase shrink-0"
+                  title={vehicle.vin}
+                >
+                  {vehicle.vin || "..."}
                 </span>
-                {vehicle.vin || "..."}
-              </span>
-
-              {/* Vehicle Details (Variant, Battery, Year, Color) */}
-              <div className="flex items-center gap-1.5 md:gap-2 flex-wrap text-[10px] md:text-xs text-gray-500 font-medium bg-gray-100 px-2 py-0.5 rounded md:bg-transparent md:px-0 md:py-0">
-                <span className="hidden md:block h-1 w-1 rounded-full bg-gray-300"></span>
-                <span>{vehicle.vehicleVariant}</span>
-
-                {vehicle.battery_type && (
-                  <>
-                    <span className="hidden md:block h-1 w-1 rounded-full bg-gray-300"></span>
-                    <span className="md:hidden text-gray-300">•</span>
-                    <span className="uppercase">{vehicle.battery_type}</span>
-                  </>
-                )}
-
-                <span className="hidden md:block h-1 w-1 rounded-full bg-gray-300"></span>
-                <span className="md:hidden text-gray-300">•</span>
-                <span>{vehicle.yearOfProduct}</span>
-
-                <span className="hidden md:block h-1 w-1 rounded-full bg-gray-300"></span>
-                <span className="md:hidden text-gray-300">•</span>
-                <span>{vehicle.color}</span>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
 
       {/* Right: Actions & Context */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-1.5 md:gap-3 shrink-0">
         <div className="hidden md:flex">
           <WeatherIcon
             temp={vehicle.weather_outside_temp}
@@ -328,10 +294,10 @@ export default function VehicleHeader({ onOpenTelemetry }) {
             <p className="text-xs text-gray-400 mt-0.5 font-medium tracking-wide">
               {vehicle.userVehicleType
                 ? vehicle.userVehicleType
-                    .replace("ROLE_", "")
-                    .toLowerCase()
-                    .replace(/_/g, " ")
-                    .replace(/\b\w/g, (c) => c.toUpperCase())
+                  .replace("ROLE_", "")
+                  .toLowerCase()
+                  .replace(/_/g, " ")
+                  .replace(/\b\w/g, (c) => c.toUpperCase())
                 : ""}
             </p>
           </div>
@@ -362,25 +328,93 @@ export default function VehicleHeader({ onOpenTelemetry }) {
                 ></div>
 
                 {/* Dropdown Menu */}
-                <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 py-1.5 z-50 animate-in fade-in zoom-in-95 duration-200 origin-top-right">
-                  <div className="px-4 py-2 border-b border-gray-50 mb-1">
-                    <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-                      Account
+                <div className="absolute right-0 top-full mt-2 w-72 bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 py-2 z-50 animate-in fade-in zoom-in-95 duration-200 origin-top-right overflow-hidden">
+                  {/* User Section */}
+                  <div className="px-4 py-3 border-b border-gray-50 bg-gray-50/30">
+                    <p className="text-[10px] font-extrabold text-blue-600 uppercase tracking-widest mb-1">
+                      Current User
                     </p>
-                    <p className="text-sm font-bold text-gray-900 truncate">
-                      {vehicle.user_name}
-                    </p>
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={vehicle.user_avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(vehicle.user_name || "User")}&background=0D8ABC&color=fff`}
+                        className="w-10 h-10 rounded-full border border-white shadow-sm"
+                        alt=""
+                      />
+                      <div className="min-w-0">
+                        <p className="text-sm font-black text-gray-900 truncate">
+                          {vehicle.user_name}
+                        </p>
+                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tight">
+                          {vehicle.userVehicleType?.replace("ROLE_", "").replace(/_/g, " ")}
+                        </p>
+                      </div>
+                    </div>
                   </div>
+
+                  {/* Vehicles Section */}
+                  <div className="py-2">
+                    <div className="px-4 py-1 mb-1">
+                      <p className="text-[10px] font-extrabold text-gray-400 uppercase tracking-widest">
+                        Your Vehicles
+                      </p>
+                    </div>
+
+                    <div className="max-h-64 overflow-y-auto">
+                      {(vehicle.vehicles || []).map((v) => {
+                        const isSelected = v.vinCode === vehicle.vin;
+                        const cached = vehicle.vehicleCache[v.vinCode] || {};
+                        const name = v.customizedVehicleName || v.marketingName || v.vehicleName || "VinFast Vehicle";
+
+                        const img = v.vehicleImage || cached.vehicleImage;
+
+                        return (
+                          <button
+                            key={v.vinCode}
+                            onClick={() => {
+                              if (!isSelected) switchVehicle(v.vinCode);
+                              setMenuOpen(false);
+                            }}
+                            className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-all hover:bg-blue-50/50 group ${isSelected ? "bg-blue-50/80" : ""}`}
+                          >
+                            <div className="relative h-12 w-16 bg-gray-50 rounded-lg overflow-hidden border border-gray-100 p-1 flex items-center justify-center shrink-0">
+                              <img
+                                src={img || "/logo.png"}
+                                className="w-full h-full object-contain drop-shadow-sm group-hover:scale-110 transition-transform"
+                                alt={name}
+                              />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <p className={`text-sm font-extrabold truncate ${isSelected ? "text-blue-700" : "text-gray-900"}`}>
+                                {name}
+                              </p>
+                              <p className="text-[10px] font-mono font-bold text-gray-400 truncate tracking-tighter">
+                                {v.vinCode}
+                              </p>
+                            </div>
+                            {isSelected && (
+                              <div className="h-5 w-5 rounded-full bg-blue-600 flex items-center justify-center shrink-0 shadow-sm border-2 border-white">
+                                <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="4">
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                </svg>
+                              </div>
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  <div className="h-px bg-gray-50 mx-2 my-1"></div>
 
                   <button
                     onClick={() => {
                       setShowAbout(true);
                       setMenuOpen(false);
                     }}
-                    className="w-full text-left px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 flex items-center gap-2 transition-colors"
+                    className="w-full text-left px-4 py-2.5 text-sm font-bold text-gray-600 hover:bg-gray-50 flex items-center gap-2 transition-colors"
                   >
                     <svg
-                      className="w-4 h-4"
+                      className="w-4 h-4 text-gray-400"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -392,15 +426,15 @@ export default function VehicleHeader({ onOpenTelemetry }) {
                         d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                       />
                     </svg>
-                    About
+                    About This App
                   </button>
 
                   <button
                     onClick={handleLogout}
-                    className="w-full text-left px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 flex items-center gap-2 transition-colors"
+                    className="w-full text-left px-4 py-2.5 text-sm font-bold text-red-500 hover:bg-red-50 flex items-center gap-2 transition-colors"
                   >
                     <svg
-                      className="w-4 h-4"
+                      className="w-4 h-4 text-red-300"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
