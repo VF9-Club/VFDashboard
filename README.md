@@ -2,20 +2,21 @@
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Node.js](https://img.shields.io/badge/Node.js-23%2B-green)
-![Status](https://img.shields.io/badge/Status-Archived-yellow)
+![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
 ---
 
-## 🌅 **Sunset Notice** (January 2026)
+## 🔄 **Status Update** (January 2026)
 
-> **This dashboard is no longer operational** due to VinFast's implementation of X-HASH authentication on their APIs.  
-> 
-> 🔒 **What happened?** VinFast implemented HMAC-SHA256 security requiring a secret key not available publicly.  
-> 📚 **All research preserved**: API documentation, analysis reports, and Postman collections remain available.  
+> **Dashboard is back online!** The X-HASH authentication issue has been resolved.
+>
+> ✅ **What changed?** API authentication is now working properly.
+> ⚠️ **Important limitation**: SOH (State of Health) battery data is **no longer available** in the API response.
+> 📚 **Documentation**: API documentation and technical reports remain available for reference.
 > 🎯 **For details**: See [SUNSET.md](./SUNSET.md) and [API Documentation](./docs/api/)
 
-**The code and documentation are preserved for educational purposes and future reference.**
+**The dashboard is functional again, but SOH (battery health) data is no longer provided by the API.**
 
 ---
 
