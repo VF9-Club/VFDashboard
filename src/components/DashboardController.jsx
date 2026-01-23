@@ -13,11 +13,29 @@ export default function DashboardController({ vin: initialVin }) {
 
   useEffect(() => {
     const init = async () => {
-      // Sunset Notice: Force redirect to login for everyone
-      console.log("VinFast Dashboard is now archived. Redirecting to sunset notice.");
-      api.clearSession();
-      window.location.href = "/login";
-      return;
+      let targetVin = initialVin || vin;
+
+      // Ensure we have User profile
+      fetchUser();
+
+      // If no VIN, fetch it
+      if (!targetVin) {
+        // fetchVehicles automatically calls switchVehicle -> fetchTelemetry
+        targetVin = await fetchVehicles();
+      } else {
+        // If VIN was passed via props/initial state, ensure we have initial telemetry
+        fetchTelemetry(targetVin);
+      }
+
+      // If still no VIN or failed to fetch, redirect to login
+      if (!targetVin) {
+        console.warn(
+          "No vehicle found or init failed. Clearing session and redirecting.",
+        );
+        api.clearSession();
+        window.location.href = "/login";
+        return;
+      }
     };
 
     init();
