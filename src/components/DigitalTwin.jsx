@@ -121,23 +121,36 @@ const TireCard = ({ pressure, temp, label, positionClass }) => {
   );
 };
 
-// Warning Item Component
-const WarningItem = ({ label }) => (
-  <div className="flex items-center gap-2 px-3 py-1.5 bg-red-50 text-red-600 rounded-lg border border-red-100 animate-pulse">
-    <svg
-      className="w-4 h-4"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
+// Warning Item Component with Tooltip (hover on desktop, tap on mobile)
+const WarningItem = ({ label, detail }) => (
+  <div className="relative group/warn">
+    <button
+      type="button"
+      className="flex items-center gap-2 px-3 py-1.5 bg-red-50 text-red-600 rounded-lg border border-red-100 animate-pulse cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-300"
     >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-      ></path>
-    </svg>
-    <span className="text-xs font-bold">{label}</span>
+      <svg
+        className="w-4 h-4"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+        ></path>
+      </svg>
+      <span className="text-xs font-bold">{label}</span>
+    </button>
+    {/* Tooltip - shows on hover (desktop) or focus (mobile tap) */}
+    {detail && (
+      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-white rounded-lg shadow-lg border border-gray-200 text-xs text-gray-700 whitespace-nowrap opacity-0 invisible group-hover/warn:opacity-100 group-hover/warn:visible group-focus-within/warn:opacity-100 group-focus-within/warn:visible transition-all z-50">
+        <div className="font-bold text-red-600 mb-1">{label}</div>
+        <div className="text-gray-600">{detail}</div>
+        <div className="absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 bg-white border-b border-r border-gray-200 rotate-45 -translate-y-1"></div>
+      </div>
+    )}
   </div>
 );
 
@@ -189,13 +202,41 @@ export default function DigitalTwin() {
   const carImageSrc = getCarImage();
 
   const warnings = [];
-  if (data.door_fl || data.door_fr || data.door_rl || data.door_rr)
-    warnings.push("Door Open");
-  if (data.trunk_status) warnings.push("Trunk Open");
-  if (data.hood_status) warnings.push("Hood Open");
+
+  // Door warnings with detail
+  const openDoors = [];
+  if (data.door_fl) openDoors.push("Front Left");
+  if (data.door_fr) openDoors.push("Front Right");
+  if (data.door_rl) openDoors.push("Rear Left");
+  if (data.door_rr) openDoors.push("Rear Right");
+  if (openDoors.length > 0) {
+    warnings.push({
+      label: "Door Open",
+      detail: openDoors.join(", ")
+    });
+  }
+
+  if (data.trunk_status) {
+    warnings.push({
+      label: "Trunk Open",
+      detail: "Rear trunk is open"
+    });
+  }
+
+  if (data.hood_status) {
+    warnings.push({
+      label: "Hood Open",
+      detail: "Front hood is open"
+    });
+  }
+
   // Central Lock: false means UNLOCKED (Warning)
-  if (data.central_lock_status === false || data.is_locked === false)
-    warnings.push("Unlocked");
+  if (data.central_lock_status === false || data.is_locked === false) {
+    warnings.push({
+      label: "Unlocked",
+      detail: "Vehicle is not locked"
+    });
+  }
 
   return (
     <div className="relative w-full h-full min-h-[45vh] md:min-h-[400px] bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden flex flex-col flex-1">
@@ -261,7 +302,7 @@ export default function DigitalTwin() {
             <span className="text-gray-300">•</span>
             <span>{data.yearOfProduct}</span>
 
-            {data.battery_type && (
+            {data.battery_type && data.battery_type !== "--" && data.battery_type.trim() !== "" && (
               <>
                 <span className="text-gray-300">•</span>
                 <span className="uppercase">{data.battery_type}</span>
@@ -480,7 +521,7 @@ export default function DigitalTwin() {
           {warnings.length > 0 ? (
             <div className="flex flex-wrap items-center justify-center gap-2">
               {warnings.map((w, idx) => (
-                <WarningItem key={idx} label={w} />
+                <WarningItem key={idx} label={w.label} detail={w.detail} />
               ))}
             </div>
           ) : (

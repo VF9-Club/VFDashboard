@@ -13,9 +13,13 @@ export default function SystemHealth() {
       tire_pressure_rl,
       tire_pressure_rr,
     } = data;
+    
+    const detailText = `FL: ${tire_pressure_fl || "--"}, FR: ${tire_pressure_fr || "--"}, RL: ${tire_pressure_rl || "--"}, RR: ${tire_pressure_rr || "--"}`;
+
     if (!tire_pressure_fl && !tire_pressure_fr)
       return {
         status: "No Data",
+        detail: "No tire pressure data available",
         color: "text-gray-400",
         bg: "bg-gray-100",
         iconColor: "text-gray-400",
@@ -34,12 +38,14 @@ export default function SystemHealth() {
     if (lowTires.length > 0)
       return {
         status: "Low Pressure",
+        detail: detailText,
         color: "text-red-700",
         bg: "bg-red-50",
         iconColor: "text-red-500",
       };
     return {
       status: "All OK",
+      detail: detailText,
       color: "text-emerald-700",
       bg: "bg-emerald-50",
       iconColor: "text-emerald-500",
@@ -61,6 +67,7 @@ export default function SystemHealth() {
     ) {
       return {
         status: "--",
+        detail: "No door status data",
         color: "text-gray-400",
         bg: "bg-gray-100",
         iconColor: "text-gray-400",
@@ -77,13 +84,15 @@ export default function SystemHealth() {
 
     if (openDoors.length > 0)
       return {
-        status: `${openDoors.join(", ")} Open`,
+        status: `${openDoors.length} Open`,
+        detail: `${openDoors.join(", ")} is open`,
         color: "text-amber-700",
         bg: "bg-amber-50",
         iconColor: "text-amber-500",
       };
     return {
       status: "All Closed",
+      detail: "All doors, hood, and trunk are closed",
       color: "text-emerald-700",
       bg: "bg-emerald-50",
       iconColor: "text-emerald-500",
@@ -94,6 +103,7 @@ export default function SystemHealth() {
     if (data.thermal_warning === undefined || data.thermal_warning === null) {
       return {
         status: "--",
+        detail: "No safety data",
         color: "text-gray-400",
         bg: "bg-gray-100",
         iconColor: "text-gray-400",
@@ -102,14 +112,16 @@ export default function SystemHealth() {
 
     if (Number(data.thermal_warning) === 1) {
       return {
-        status: "Thermal Warning",
+        status: "Warning",
+        detail: "Thermal Runaway Warning Active",
         color: "text-red-700",
         bg: "bg-red-50",
         iconColor: "text-red-600",
       };
     }
     return {
-      status: "System Normal",
+      status: "Normal",
+      detail: "System Normal (No Thermal Warning)",
       color: "text-emerald-700",
       bg: "bg-emerald-50",
       iconColor: "text-emerald-500",
@@ -120,22 +132,115 @@ export default function SystemHealth() {
     if (data.service_alert === undefined || data.service_alert === null) {
       return {
         status: "--",
+        detail: "No service data",
         color: "text-gray-400",
         bg: "bg-gray-100",
         iconColor: "text-gray-400",
       };
     }
 
+    // Try to parse structured service info
+    let extraInfo = "";
+    if (data.service_appointment_id) {
+      extraInfo = `Appointment ID: ${data.service_appointment_id}`;
+    } else if (data.warrantyExpirationDate) {
+      extraInfo = `Warranty until: ${new Date(data.warrantyExpirationDate).toLocaleDateString("vi-VN")}`;
+    }
+
+    // Server-provided Service Info (No Estimation)
+    let mileageInfo = "";
+    if (data.next_service_mileage) {
+      mileageInfo = `Next service at ${Number(data.next_service_mileage).toLocaleString()} km`;
+    }
+
+    let dateInfo = "";
+    if (data.next_service_date) {
+      dateInfo = `Date: ${data.next_service_date}`;
+    }
+
     if (data.service_alert && data.service_alert != 0) {
       return {
-        status: "Service Due",
+        status: "Due",
+        detail: `Service is due. ${mileageInfo} ${dateInfo} ${extraInfo}`.trim(),
         color: "text-blue-700",
         bg: "bg-blue-50",
         iconColor: "text-blue-500",
       };
     }
+
+    const hasServiceData = mileageInfo || dateInfo || extraInfo;
+
     return {
-      status: "No Alerts",
+      status: hasServiceData ? "Scheduled" : "No Alerts",
+      detail: hasServiceData
+        ? `${mileageInfo} ${dateInfo} ${extraInfo}`.trim()
+        : "No service alerts",
+      color: hasServiceData ? "text-blue-600" : "text-gray-500",
+      bg: hasServiceData ? "bg-blue-50" : "bg-gray-50",
+      iconColor: hasServiceData ? "text-blue-500" : "text-gray-400",
+    };
+  };
+
+  const getWindowStatus = () => {
+    const { window_status } = data;
+    // Assuming 0/null = Closed, 1/true = Open for simplicity until exact enum is known
+    // Adjust logic if window_status is a bitmask or specific code
+    if (window_status === undefined || window_status === null) {
+      return {
+        status: "--",
+        detail: "No window status data",
+        color: "text-gray-400",
+        bg: "bg-gray-100",
+        iconColor: "text-gray-400",
+      };
+    }
+    
+    // If it's a number > 0 or true, assume Not Closed
+    const isOpen = Number(window_status) > 0 || window_status === true;
+
+    if (isOpen) {
+      return {
+        status: "Open",
+        detail: "One or more windows are open",
+        color: "text-amber-700",
+        bg: "bg-amber-50",
+        iconColor: "text-amber-500",
+      };
+    }
+    return {
+      status: "Closed",
+      detail: "All windows are closed",
+      color: "text-emerald-700",
+      bg: "bg-emerald-50",
+      iconColor: "text-emerald-500",
+    };
+  };
+
+  const getHandbrakeStatus = () => {
+    const { handbrake_status } = data;
+    if (handbrake_status === undefined || handbrake_status === null) {
+      return {
+        status: "--",
+        detail: "No handbrake data",
+        color: "text-gray-400",
+        bg: "bg-gray-100",
+        iconColor: "text-gray-400",
+      };
+    }
+
+    // Usually 1 = Engaged
+    if (handbrake_status) {
+      return {
+        status: "Engaged",
+        detail: "Handbrake is ON",
+        color: "text-gray-700",
+        bg: "bg-gray-100",
+        iconColor: "text-red-500", // Red icon for Handbrake is standard
+      };
+    }
+    return {
+      status: "Released",
+      detail: "Handbrake is OFF",
       color: "text-gray-500",
       bg: "bg-gray-50",
       iconColor: "text-gray-400",
@@ -144,52 +249,65 @@ export default function SystemHealth() {
 
   const tire = getTireStatus();
   const door = getDoorStatus();
+  const windowStat = getWindowStatus();
+  const handbrake = getHandbrakeStatus();
   const safety = getSafetyStatus();
   const service = getServiceStatus();
 
   const items = [
     {
-      label: VEHICLE_STATUS_LABELS.TIRES,
-      value: tire.status,
-      bg: tire.bg,
-      txt: tire.color,
-      icon: "tire",
-      iconColor: tire.iconColor,
-    },
-    {
-      label: VEHICLE_STATUS_LABELS.DOORS,
-      value: door.status,
-      bg: door.bg,
-      txt: door.color,
-      icon: "door",
-      iconColor: door.iconColor,
-    },
-    {
       label: VEHICLE_STATUS_LABELS.SAFETY,
       value: safety.status,
+      detail: safety.detail,
       bg: safety.bg,
       txt: safety.color,
       icon: "shield",
       iconColor: safety.iconColor,
     },
     {
+      label: VEHICLE_STATUS_LABELS.HANDBRAKE,
+      value: handbrake.status,
+      detail: handbrake.detail,
+      bg: handbrake.bg,
+      txt: handbrake.color,
+      icon: "handbrake",
+      iconColor: handbrake.iconColor,
+    },
+    {
+      label: VEHICLE_STATUS_LABELS.DOORS,
+      value: door.status,
+      detail: door.detail,
+      bg: door.bg,
+      txt: door.color,
+      icon: "door",
+      iconColor: door.iconColor,
+    },
+    {
+      label: VEHICLE_STATUS_LABELS.WINDOWS,
+      value: windowStat.status,
+      detail: windowStat.detail,
+      bg: windowStat.bg,
+      txt: windowStat.color,
+      icon: "window",
+      iconColor: windowStat.iconColor,
+    },
+    {
+      label: VEHICLE_STATUS_LABELS.TIRES,
+      value: tire.status,
+      detail: tire.detail,
+      bg: tire.bg,
+      txt: tire.color,
+      icon: "tire",
+      iconColor: tire.iconColor,
+    },
+    {
       label: VEHICLE_STATUS_LABELS.SERVICE,
       value: service.status,
+      detail: service.detail,
       bg: service.bg,
       txt: service.color,
       icon: "tool",
       iconColor: service.iconColor,
-    },
-    {
-      label: VEHICLE_STATUS_LABELS.FIRMWARE,
-      value:
-        data.firmware_version && data.firmware_version !== "--"
-          ? data.firmware_version
-          : "N/A",
-      bg: "bg-gray-50",
-      txt: "text-gray-600",
-      icon: "chip",
-      iconColor: "text-indigo-500",
     },
     {
       label: VEHICLE_STATUS_LABELS.TBOX,
@@ -197,10 +315,23 @@ export default function SystemHealth() {
         data.tbox_version && data.tbox_version !== "--"
           ? data.tbox_version
           : "N/A",
+      detail: "T-Box Software Version",
       bg: "bg-gray-50",
       txt: "text-gray-600",
       icon: "wifi",
       iconColor: "text-blue-500",
+    },
+    {
+      label: VEHICLE_STATUS_LABELS.FIRMWARE,
+      value:
+        data.firmware_version && data.firmware_version !== "--"
+          ? data.firmware_version
+          : "N/A",
+      detail: "Vehicle Firmware Version",
+      bg: "bg-gray-50",
+      txt: "text-gray-600",
+      icon: "chip",
+      iconColor: "text-indigo-500",
     },
   ];
 
@@ -235,6 +366,39 @@ export default function SystemHealth() {
               strokeLinejoin="round"
               strokeWidth="2"
               d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"
+            />
+          </svg>
+        );
+      case "window":
+        return (
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 10h16M4 14h16M4 18h16"
+            />
+          </svg>
+        );
+      case "handbrake":
+        return (
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <circle cx="12" cy="12" r="9" strokeWidth="2" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M9 12h6M12 9v6" // Represents a P or symbol inside circle
             />
           </svg>
         );
