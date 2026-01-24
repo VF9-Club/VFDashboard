@@ -9,12 +9,12 @@ export default function AuthGate() {
     return (
       <div className="fixed inset-0 flex flex-col items-center justify-center bg-gray-50 z-[9999]">
         <div className="relative mb-6">
-          <div className="w-20 h-20 rounded-full border-4 border-gray-100 border-t-blue-600 animate-spin shadow-inner"></div>
+          <div className="w-20 h-20 rounded-full border-4 border-gray-100 border-t-[#E82127] animate-spin shadow-inner"></div>
           <div className="absolute inset-0 flex items-center justify-center">
             <img
-              src="/logo.png"
+              src="/ev-icon.svg"
               className="w-10 h-10 object-contain"
-              alt="Logo"
+              alt="EV Dashboard"
             />
           </div>
         </div>
@@ -23,9 +23,9 @@ export default function AuthGate() {
             Authenticating
           </p>
           <div className="flex gap-1">
-            <div className="w-1 h-1 bg-blue-600 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-            <div className="w-1 h-1 bg-blue-600 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-            <div className="w-1 h-1 bg-blue-600 rounded-full animate-bounce"></div>
+            <div className="w-1 h-1 bg-[#E82127] rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+            <div className="w-1 h-1 bg-[#E82127] rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+            <div className="w-1 h-1 bg-[#E82127] rounded-full animate-bounce"></div>
           </div>
         </div>
       </div>

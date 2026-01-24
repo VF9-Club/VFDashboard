@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Stylized "V" Icon - Tesla-inspired geometric design -->
+  <!-- Outer circle frame -->
+  <circle cx="32" cy="32" r="30" fill="none" stroke="#E82127" stroke-width="2"/>
+
+  <!-- Main V shape with top bar -->
+  <g transform="translate(12, 14)">
+    <!-- Top bar -->
+    <rect x="0" y="0" width="40" height="2.5" fill="#E82127" rx="1.25"/>
+    <!-- V shape -->
+    <path d="M0 6 L14 6 L14 10 L8 10 L20 38 L32 10 L26 10 L26 6 L40 6 L40 10 L34 10 L20 42 L6 10 L0 10 Z"
+          fill="#E82127"/>
+  </g>
+</svg>

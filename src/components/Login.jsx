@@ -98,10 +98,10 @@ export default function Login({ bgImage }) {
             </div>
           )}
           <div className="flex justify-center mb-6">
-            {/* VinFast Logo */}
+            {/* EV Dashboard Logo - Tesla-inspired design */}
             <img
-              src="/vinfast-logo.png"
-              alt="VinFast"
+              src="/ev-dashboard-logo.svg"
+              alt="EV Dashboard"
               className="h-10 object-contain"
             />
           </div>
@@ -112,7 +112,7 @@ export default function Login({ bgImage }) {
                 <input
                   type="email"
                   required
-                  className="relative block w-full rounded-xl border-gray-200 bg-gray-50 py-3.5 px-4 text-gray-900 focus:z-10 focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-200 font-medium placeholder:text-gray-400 text-sm"
+                  className="relative block w-full rounded-xl border-gray-200 bg-gray-50 py-3.5 px-4 text-gray-900 focus:z-10 focus:ring-2 focus:ring-[#E82127] focus:border-transparent transition-all duration-200 font-medium placeholder:text-gray-400 text-sm"
                   placeholder="Email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -122,7 +122,7 @@ export default function Login({ bgImage }) {
                 <input
                   type="password"
                   required
-                  className="relative block w-full rounded-xl border-gray-200 bg-gray-50 py-3.5 px-4 text-gray-900 focus:z-10 focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-200 font-medium placeholder:text-gray-400 text-sm"
+                  className="relative block w-full rounded-xl border-gray-200 bg-gray-50 py-3.5 px-4 text-gray-900 focus:z-10 focus:ring-2 focus:ring-[#E82127] focus:border-transparent transition-all duration-200 font-medium placeholder:text-gray-400 text-sm"
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -138,7 +138,7 @@ export default function Login({ bgImage }) {
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
+                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-red-300 accent-[#E82127]"
                   />
                 </div>
                 <label
@@ -207,7 +207,7 @@ export default function Login({ bgImage }) {
                             }}
                             className={`w-full text-left px-3 py-2 rounded-lg text-sm font-bold transition-colors ${
                               region === opt.val
-                                ? "bg-blue-50 text-blue-600"
+                                ? "bg-red-50 text-[#E82127]"
                                 : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                             }`}
                           >
@@ -225,7 +225,7 @@ export default function Login({ bgImage }) {
               <button
                 type="submit"
                 disabled={loading}
-                className="group relative flex w-full justify-center rounded-xl bg-blue-600 py-3.5 px-4 text-sm font-black text-white uppercase tracking-wider hover:bg-blue-700 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-blue-200/50 shadow-md"
+                className="group relative flex w-full justify-center rounded-xl bg-[#E82127] py-3.5 px-4 text-sm font-black text-white uppercase tracking-wider hover:bg-[#c91c21] hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E82127] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-red-200/50 shadow-md"
               >
                 {loading ? (
                   <svg

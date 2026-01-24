@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 80">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1a1a1a"/>
+      <stop offset="100%" style="stop-color:#333333"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Stylized "V" Icon - Tesla-inspired geometric design -->
+  <g transform="translate(0, 8)">
+    <!-- Main V shape with electric bolt integrated -->
+    <path d="M10 12 L32 12 L32 18 L22 18 L38 52 L54 18 L44 18 L44 12 L66 12 L66 18 L56 18 L38 62 L20 18 L10 18 Z"
+          fill="#E82127"/>
+    <!-- Top bar accent -->
+    <rect x="10" y="8" width="56" height="3" fill="#E82127" rx="1.5"/>
+  </g>
+
+  <!-- "EV DASHBOARD" Text - Tesla-style typography -->
+  <g fill="#1a1a1a" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-weight="600" letter-spacing="0.15em">
+    <text x="82" y="52" font-size="36" letter-spacing="0.08em">EV DASHBOARD</text>
+  </g>
+</svg>
