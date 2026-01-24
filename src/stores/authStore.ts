@@ -6,17 +6,14 @@ export const userRegion = atom("vn");
 export const userEmail = atom("");
 
 onMount(isAuthenticated, () => {
-  // Check if API has specific tokens loaded
-  if (api.accessToken) {
+  // Check if API has session restored (tokens now managed via HttpOnly cookies)
+  if (api.isLoggedIn) {
     isAuthenticated.set(true);
     userRegion.set(api.region);
   } else {
-    // Fallback check directly to localStorage if API hasn't init'd (though it should have in its constructor)
-    // api.constructor calls restoreSession(), so api.accessToken should be populated if exists.
-
-    // Double check restoration just in case or for reactive syncing
+    // Double check restoration just in case
     api.restoreSession();
-    if (api.accessToken) {
+    if (api.isLoggedIn) {
       isAuthenticated.set(true);
       userRegion.set(api.region);
     }

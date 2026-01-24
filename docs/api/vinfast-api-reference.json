@@ -1,0 +1,403 @@
+{
+  "baseUrl": "https://mobile.connected-car.vinfast.vn",
+  "auth": {
+    "type": "Bearer",
+    "provider": "Auth0",
+    "tokenEndpoint": "https://vin3s.au.auth0.com/oauth/token"
+  },
+  "headers": {
+    "required": [
+      {
+        "name": "Authorization",
+        "value": "Bearer {access_token}",
+        "description": "JWT access token from Auth0"
+      },
+      {
+        "name": "X-TIMESTAMP",
+        "value": "{unix_timestamp_ms}",
+        "description": "Current timestamp in milliseconds"
+      },
+      {
+        "name": "X-HASH",
+        "value": "{computed_hash}",
+        "description": "HMAC signature for request validation"
+      },
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      }
+    ],
+    "optional": [
+      {
+        "name": "X-Vin-Code",
+        "value": "{vin_number}",
+        "description": "Vehicle VIN code (required for vehicle-specific APIs)"
+      },
+      {
+        "name": "X-APP-VERSION",
+        "value": "2.16.16"
+      },
+      {
+        "name": "X-Device-Platform",
+        "value": "iPhone unrecognized"
+      },
+      {
+        "name": "X-Device-OS-Version",
+        "value": "26.2"
+      },
+      {
+        "name": "X-Device-Locale",
+        "value": "en_US"
+      },
+      {
+        "name": "X-Timezone",
+        "value": "Asia/Ho_Chi_Minh"
+      }
+    ]
+  },
+  "endpoints": {
+    "user": {
+      "profile": {
+        "method": "GET",
+        "path": "/ccarusermgnt/api/v1/auth0/account/profile",
+        "description": "Get user profile information",
+        "response": {
+          "id": "email",
+          "name": "string",
+          "email": "string",
+          "phoneNumber": "string",
+          "vehicleRoles": "array"
+        }
+      },
+      "vehicles": {
+        "method": "GET",
+        "path": "/ccarusermgnt/api/v1/user-vehicle",
+        "description": "Get list of user's vehicles",
+        "response": {
+          "vinCode": "string",
+          "vehicleName": "string",
+          "vehicleType": "string (VF9, VF8, etc.)",
+          "licensePlate": "string",
+          "odometer": "string",
+          "userVehicleType": "string (MASTER_DRIVER, etc.)"
+        }
+      },
+      "setPrimaryVehicle": {
+        "method": "PUT",
+        "path": "/ccarusermgnt/api/v1/user-vehicle/set-primary-vehicle",
+        "description": "Set primary/selected vehicle",
+        "body": {
+          "vinCode": "string"
+        }
+      },
+      "favoriteLocations": {
+        "method": "GET",
+        "path": "/ccarusermgnt/api/v1/location-favorite",
+        "description": "Get user's favorite locations",
+        "response": {
+          "id": "string",
+          "title": "string",
+          "address": "string",
+          "lat": "string",
+          "lng": "string",
+          "favoriteType": "string (HOME, WORK, OTHER)"
+        }
+      },
+      "consentStatus": {
+        "method": "GET",
+        "path": "/ccarusermgnt/api/v1/consent/account/list-consent-status",
+        "description": "Get user consent status for various services"
+      }
+    },
+    "telemetry": {
+      "ping": {
+        "method": "POST",
+        "path": "/ccaraccessmgmt/api/v1/telemetry/app/ping",
+        "description": "Get real-time telemetry data for specific resources",
+        "body": [
+          {
+            "instanceId": "string",
+            "objectId": "string",
+            "resourceId": "string"
+          }
+        ],
+        "response": {
+          "resourceId": "number",
+          "instanceId": "number",
+          "deviceKey": "string",
+          "value": "string",
+          "objectId": "number",
+          "lastUpdateTime": "string (timestamp)"
+        }
+      },
+      "listResource": {
+        "method": "POST",
+        "path": "/ccaraccessmgmt/api/v1/telemetry/{VIN}/list_resource",
+        "description": "Get multiple telemetry resources at once (bulk fetch)"
+      }
+    },
+    "charging": {
+      "searchStations": {
+        "method": "POST",
+        "path": "/ccarcharging/api/v1/stations/search",
+        "description": "Search for nearby charging stations",
+        "body": {
+          "latitude": "number",
+          "longitude": "number",
+          "excludeFavorite": "boolean"
+        },
+        "response": {
+          "locationId": "string",
+          "stationName": "string",
+          "stationAddress": "string",
+          "latitude": "number",
+          "longitude": "number",
+          "totalEvse": "number",
+          "numberOfAvailableEvse": "number",
+          "connectors": "array",
+          "depotStatus": "string (Available, AllBusy)",
+          "isPublic": "boolean",
+          "workingTimeDescription": "string"
+        }
+      },
+      "stationDetails": {
+        "method": "POST",
+        "path": "/ccarcharging/api/v1/stations/location-info",
+        "description": "Get detailed info for specific stations",
+        "body": {
+          "locationIds": ["string"]
+        }
+      },
+      "searchSessions": {
+        "method": "POST",
+        "path": "/ccarcharging/api/v1/charging-sessions/search",
+        "description": "Search charging session history",
+        "body": {
+          "orderStatus": [3, 5, 7]
+        },
+        "statusCodes": {
+          "3": "COMPLETED",
+          "5": "CANCELLED",
+          "7": "ERROR"
+        },
+        "response": {
+          "id": "string",
+          "chargingStationName": "string",
+          "chargingStationAddress": "string",
+          "locationId": "string",
+          "pluggedTime": "number (timestamp)",
+          "startChargeTime": "number (timestamp)",
+          "endChargeTime": "number (timestamp)",
+          "unpluggedTime": "number (timestamp)",
+          "totalKWCharged": "string",
+          "amount": "number",
+          "discount": "number",
+          "finalAmount": "number",
+          "status": "string",
+          "orderStatus": "number",
+          "items": "array",
+          "promotions": "array"
+        }
+      },
+      "reservationAvailability": {
+        "method": "GET",
+        "path": "/ccarcharging/api/v1/reservation/check-availability",
+        "description": "Check if vehicle can make charging reservations"
+      },
+      "batteryLeasing": {
+        "method": "GET",
+        "path": "/ccarcharging/api/v3/battery-leasing/info",
+        "description": "Get battery leasing subscription info",
+        "response": {
+          "month": "number",
+          "year": "number",
+          "actualKm": "number",
+          "cost": "number",
+          "initOdo": "number",
+          "endOdo": "number",
+          "contractNo": "string",
+          "isBatteryOwner": "boolean",
+          "package": {
+            "name": "string",
+            "packageTypeName": "string (FIXED, etc.)",
+            "price": "number",
+            "limitKm": "number"
+          }
+        }
+      }
+    },
+    "driving": {
+      "drivingTrend": {
+        "method": "GET",
+        "path": "/ccaraccessmgmt/api/v1/c-app/driving-trend/info",
+        "description": "Get daily driving statistics (distance, energy)",
+        "response": {
+          "days": [
+            {
+              "time": "number (unix timestamp seconds)",
+              "distance": "number (km)",
+              "fuel": "number (kWh for EV)"
+            }
+          ]
+        }
+      },
+      "geoFencing": {
+        "method": "GET",
+        "path": "/ccaraccessmgmt/api/v1/geo_fencing/get_map_enable",
+        "description": "Check if geo-fencing is enabled"
+      },
+      "parkedImages": {
+        "method": "GET",
+        "path": "/ccaraccessmgmt/api/v1/vehicles/{VIN}/parked-images",
+        "description": "Get images of parked vehicle location"
+      }
+    },
+    "maintenance": {
+      "nextMaintenance": {
+        "method": "GET",
+        "path": "/ccarbookingservice/api/v1/c-app/next-maintenance",
+        "description": "Get next scheduled maintenance info",
+        "response": {
+          "vinNumber": "string",
+          "nextMileage": "string",
+          "unitDistance": "string (Km)",
+          "nextDateMaintainceBasedOnOdo": "string (ISO date)",
+          "nextDateMaintainceBasedOnBU": "string (ISO date)",
+          "nextDateMaintaince": "number (timestamp)"
+        }
+      }
+    },
+    "diagnostics": {
+      "alertDashboard": {
+        "method": "GET",
+        "path": "/ccar-diagnostic/api/v1/c-app/telltales/alert-dashboard",
+        "description": "Get vehicle alerts and warnings",
+        "response": {
+          "categoryName": "string",
+          "categoryType": "string (RSA, BOOKING, SELF_FIX)",
+          "alertNo": "number",
+          "alerts": "array"
+        }
+      }
+    },
+    "payment": {
+      "bills": {
+        "method": "POST",
+        "path": "/ccarpayment/api/v3/bills",
+        "description": "Get billing summary",
+        "body": {
+          "bills": []
+        }
+      },
+      "billDetails": {
+        "method": "GET",
+        "path": "/ccarpayment/api/v2/bills/{billId}",
+        "description": "Get specific bill details"
+      }
+    },
+    "loyalty": {
+      "vfPoints": {
+        "method": "GET",
+        "path": "/ccarreferral/api/v1/capp/vouchers/vf-point",
+        "description": "Get VF Points and membership info",
+        "response": {
+          "vpoint": "number",
+          "membership": "string (Platinum, Gold, etc.)",
+          "membershipCode": "string",
+          "linkedVinclub": "boolean",
+          "canUseVfpoint": "boolean"
+        }
+      }
+    },
+    "rsa": {
+      "info": {
+        "method": "GET",
+        "path": "/vfrsa/api/c-app/rsa/info",
+        "description": "Get current RSA request info",
+        "response": {
+          "vinCode": "string",
+          "requestCode": "string",
+          "state": "string (RSA_REQUESTED, etc.)",
+          "vinfastServiceHotline": "string",
+          "pickUpLocationLat": "number",
+          "pickUpLocationLng": "number"
+        }
+      },
+      "carServices": {
+        "method": "GET",
+        "path": "/vfrsa/api/c-app/rsa/car-services",
+        "description": "Get available RSA service types",
+        "response": {
+          "VEHICLE_CAN_NOT_MOVE": "No-start problems",
+          "VEHICLE_ACCIDENT": "Car crash/Collision/Accident"
+        }
+      }
+    },
+    "remote": {
+      "command": {
+        "method": "POST",
+        "path": "/ccaraccessmgmt/api/v2/remote/app/command",
+        "description": "Send remote command to vehicle (climate, etc.)",
+        "body": {
+          "signature2": "string",
+          "tag": "string",
+          "isMasterProfile": "boolean",
+          "timestamp": "string",
+          "message_name": "string (REMOTE_CONTROL)",
+          "user_id": "string (hashed)",
+          "wakeUpTimeOut": "number (timestamp)",
+          "sess_id": "string (UUID)",
+          "signature": "string (RSA signature)",
+          "message_content": "string (base64 encoded JSON)"
+        },
+        "note": "Requires RSA signature - complex authentication"
+      }
+    },
+    "notifications": {
+      "isUnread": {
+        "method": "GET",
+        "path": "/notimgmt/api/v1/notimgmt/users/app/is-unread",
+        "description": "Check if user has unread notifications"
+      }
+    },
+    "ota": {
+      "currentPackage": {
+        "method": "GET",
+        "path": "/ccar-sota/api/v1/capp/package/current-package",
+        "description": "Get current OTA software package info"
+      },
+      "packages": {
+        "method": "GET",
+        "path": "/ccar-sota/api/v1/capp/package/",
+        "description": "List available OTA packages"
+      },
+      "paymentHistory": {
+        "method": "GET",
+        "path": "/ccar-sota/api/v1/capp/payment/payment-history",
+        "description": "Get OTA payment history"
+      }
+    },
+    "orders": {
+      "history": {
+        "method": "GET",
+        "path": "/ccar-order-history/api/v1/me/orders",
+        "description": "Get vehicle order history"
+      }
+    },
+    "vehicle": {
+      "getAlias": {
+        "method": "GET",
+        "path": "/modelmgmt/api/v2/vehicle-model/mobile-app/vehicle/get-alias",
+        "description": "Get telemetry alias mappings for vehicle model"
+      }
+    }
+  },
+  "capturedDate": "2026-01-24",
+  "appVersion": "2.16.16",
+  "notes": [
+    "X-HASH is computed using HMAC-SHA256 with a secret key",
+    "Remote commands require RSA signature which needs private key",
+    "All timestamps are in milliseconds unless noted",
+    "Response structure: { code: 200000, message: 'Success', data: {...}, metadata: {} }"
+  ]
+}

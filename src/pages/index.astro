@@ -1,13 +1,13 @@
 ---
 export const prerender = true;
 
-import DashboardApp from '../components/DashboardApp.jsx';
+import DashboardAppV2 from '../components/DashboardAppV2.jsx';
 import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
 
-const vin = ''; 
+const vin = '';
 ---
 
 <Layout title="VinFast Dashboard">
-    <DashboardApp client:only="react" vin={vin} />
+    <DashboardAppV2 client:only="react" vin={vin} />
 </Layout>
