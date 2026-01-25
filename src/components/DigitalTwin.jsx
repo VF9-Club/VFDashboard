@@ -1,10 +1,11 @@
-import React from "react";
+import React, { memo } from "react";
 import { useStore } from "@nanostores/react";
 import { vehicleStore, switchVehicle } from "../stores/vehicleStore";
 import { TIRE_PRESSURE, TEMPERATURE, GEARS } from "../constants/vehicle";
 
 // Tire Pressure Card - Polished Visuals with Full Labels
-const TireCard = ({ pressure, temp, label, positionClass }) => {
+// OPTIMIZATION: Memoized to prevent re-renders when other vehicle data changes (e.g. speed, location)
+const TireCard = memo(({ pressure, temp, label, positionClass }) => {
   const hasData = pressure !== null && pressure !== undefined;
 
   // Normalize Pressure to Bar
@@ -119,10 +120,13 @@ const TireCard = ({ pressure, temp, label, positionClass }) => {
       </div>
     </div>
   );
-};
+});
+
+TireCard.displayName = "TireCard";
 
 // Warning Item Component with Tooltip (hover on desktop, tap on mobile)
-const WarningItem = ({ label, detail }) => (
+// OPTIMIZATION: Memoized to prevent re-renders during frequent telemetry updates
+const WarningItem = memo(({ label, detail }) => (
   <div className="relative group/warn">
     <button
       type="button"
@@ -152,7 +156,9 @@ const WarningItem = ({ label, detail }) => (
       </div>
     )}
   </div>
-);
+));
+
+WarningItem.displayName = "WarningItem";
 
 // Helper to split Odometer into Integer and Decimal parts (No Rounding)
 const formatOdometer = (value) => {
