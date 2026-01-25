@@ -1,118 +1,314 @@
 import React, { useState, useEffect } from "react";
 import { useStore } from "@nanostores/react";
 import { vehicleStore, fetchFullTelemetry } from "../stores/vehicleStore";
-import { DEEP_SCAN_GROUPS, getSortedGroups, getGroupByAlias } from "../config/deepScanGroups";
+import {
+  DEEP_SCAN_GROUPS,
+  getSortedGroups,
+  getGroupByAlias,
+} from "../config/deepScanGroups";
 
 // Icon component for groups
 const GroupIcon = ({ icon }) => {
   const icons = {
     battery: (
-      <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8h16v8H4V8zm16 2h2v4h-2V10zM7 11h4v2H7v-2z" />
+      <svg
+        className="w-4 h-4 text-green-600"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M4 8h16v8H4V8zm16 2h2v4h-2V10zM7 11h4v2H7v-2z"
+        />
       </svg>
     ),
     "battery-low": (
-      <svg className="w-4 h-4 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8h16v8H4V8zm16 2h2v4h-2V10z" />
+      <svg
+        className="w-4 h-4 text-yellow-600"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M4 8h16v8H4V8zm16 2h2v4h-2V10z"
+        />
       </svg>
     ),
     bolt: (
-      <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+      <svg
+        className="w-4 h-4 text-blue-600"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M13 10V3L4 14h7v7l9-11h-7z"
+        />
       </svg>
     ),
     car: (
-      <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 17l4 4 4-4m-4-5v9M3 7l9-4 9 4M3 7l9 4 9-4M3 7v10l9 4 9-4V7" />
+      <svg
+        className="w-4 h-4 text-gray-600"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M8 17l4 4 4-4m-4-5v9M3 7l9-4 9 4M3 7l9 4 9-4M3 7v10l9 4 9-4V7"
+        />
       </svg>
     ),
     tire: (
-      <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg
+        className="w-4 h-4 text-gray-600"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
         <circle cx="12" cy="12" r="9" strokeWidth="2" />
         <circle cx="12" cy="12" r="4" strokeWidth="2" />
       </svg>
     ),
     door: (
-      <svg className="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h18v18H3V3zm5 9h2" />
+      <svg
+        className="w-4 h-4 text-orange-600"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M3 3h18v18H3V3zm5 9h2"
+        />
       </svg>
     ),
     window: (
-      <svg className="w-4 h-4 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg
+        className="w-4 h-4 text-cyan-600"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
         <rect x="3" y="3" width="18" height="18" rx="2" strokeWidth="2" />
         <line x1="3" y1="12" x2="21" y2="12" strokeWidth="2" />
         <line x1="12" y1="3" x2="12" y2="21" strokeWidth="2" />
       </svg>
     ),
     thermometer: (
-      <svg className="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9V3m0 18a4 4 0 100-8 4 4 0 000 8zm0-8V9" />
+      <svg
+        className="w-4 h-4 text-red-500"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M12 9V3m0 18a4 4 0 100-8 4 4 0 000 8zm0-8V9"
+        />
       </svg>
     ),
     seat: (
-      <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 19h14M7 14l1-5h8l1 5M7 14v5m10-5v5" />
+      <svg
+        className="w-4 h-4 text-purple-600"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M5 19h14M7 14l1-5h8l1 5M7 14v5m10-5v5"
+        />
       </svg>
     ),
     location: (
-      <svg className="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+      <svg
+        className="w-4 h-4 text-red-600"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+        />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+        />
       </svg>
     ),
     star: (
-      <svg className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
+      <svg
+        className="w-4 h-4 text-yellow-500"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+      >
         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
       </svg>
     ),
     lightbulb: (
-      <svg className="w-4 h-4 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+      <svg
+        className="w-4 h-4 text-yellow-500"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+        />
       </svg>
     ),
     shield: (
-      <svg className="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+      <svg
+        className="w-4 h-4 text-red-600"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+        />
       </svg>
     ),
     warning: (
-      <svg className="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      <svg
+        className="w-4 h-4 text-amber-500"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+        />
       </svg>
     ),
     route: (
-      <svg className="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+      <svg
+        className="w-4 h-4 text-indigo-600"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+        />
       </svg>
     ),
     cpu: (
-      <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+      <svg
+        className="w-4 h-4 text-gray-600"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
+        />
       </svg>
     ),
     microchip: (
-      <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg
+        className="w-4 h-4 text-blue-600"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
         <rect x="6" y="6" width="12" height="12" rx="1" strokeWidth="2" />
-        <path strokeLinecap="round" strokeWidth="2" d="M9 1v4m6-4v4M9 19v4m6-4v4M1 9h4m-4 6h4M19 9h4m-4 6h4" />
+        <path
+          strokeLinecap="round"
+          strokeWidth="2"
+          d="M9 1v4m6-4v4M9 19v4m6-4v4M1 9h4m-4 6h4M19 9h4m-4 6h4"
+        />
       </svg>
     ),
     "id-card": (
-      <svg className="w-4 h-4 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V4a2 2 0 114 0v2m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
+      <svg
+        className="w-4 h-4 text-teal-600"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V4a2 2 0 114 0v2m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
+        />
       </svg>
     ),
     wifi: (
-      <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.14 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+      <svg
+        className="w-4 h-4 text-blue-500"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.14 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"
+        />
       </svg>
     ),
     search: (
-      <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      <svg
+        className="w-4 h-4 text-purple-600"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+        />
       </svg>
     ),
     ellipsis: (
-      <svg className="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+      <svg
+        className="w-4 h-4 text-gray-400"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+      >
         <circle cx="5" cy="12" r="2" />
         <circle cx="12" cy="12" r="2" />
         <circle cx="19" cy="12" r="2" />
@@ -127,11 +323,13 @@ const formatValue = (value, fieldConfig) => {
   if (value === null || value === undefined) return "N/A";
 
   if (fieldConfig) {
-    const { format, enumMap, trueLabel, falseLabel, decimals, unit } = fieldConfig;
+    const { format, enumMap, trueLabel, falseLabel, decimals, unit } =
+      fieldConfig;
 
     if (format === "boolean") {
-      const boolVal = value === true || value === 1 || value === "1" || value === "true";
-      return boolVal ? (trueLabel || "Yes") : (falseLabel || "No");
+      const boolVal =
+        value === true || value === 1 || value === "1" || value === "true";
+      return boolVal ? trueLabel || "Yes" : falseLabel || "No";
     }
 
     if (format === "enum" && enumMap) {
@@ -168,15 +366,25 @@ const getValueStatus = (value, fieldConfig) => {
   const { warning, critical } = fieldConfig;
 
   if (critical) {
-    if (critical.below !== undefined && numVal < critical.below) return "critical";
-    if (critical.above !== undefined && numVal > critical.above) return "critical";
-    if (critical.equals !== undefined && (value === critical.equals || numVal === critical.equals)) return "critical";
+    if (critical.below !== undefined && numVal < critical.below)
+      return "critical";
+    if (critical.above !== undefined && numVal > critical.above)
+      return "critical";
+    if (
+      critical.equals !== undefined &&
+      (value === critical.equals || numVal === critical.equals)
+    )
+      return "critical";
   }
 
   if (warning) {
     if (warning.below !== undefined && numVal < warning.below) return "warning";
     if (warning.above !== undefined && numVal > warning.above) return "warning";
-    if (warning.equals !== undefined && (value === warning.equals || numVal === warning.equals)) return "warning";
+    if (
+      warning.equals !== undefined &&
+      (value === warning.equals || numVal === warning.equals)
+    )
+      return "warning";
   }
 
   return "normal";
@@ -376,7 +584,10 @@ export default function TelemetryDrawer({ isOpen, onClose }) {
         });
 
         const actualValue = matchingTelemetry?.value ?? null;
-        const hasData = actualValue !== null && actualValue !== "" && actualValue !== undefined;
+        const hasData =
+          actualValue !== null &&
+          actualValue !== "" &&
+          actualValue !== undefined;
 
         return {
           name: r.resourceName || r.alias || "Service Data",
@@ -426,7 +637,7 @@ export default function TelemetryDrawer({ isOpen, onClose }) {
           item.value === null ||
           item.value === undefined ||
           item.value === "" ||
-          item.value === "No data"
+          item.value === "No data",
       );
 
       if (noDataItems.length > 0) {
@@ -452,7 +663,7 @@ export default function TelemetryDrawer({ isOpen, onClose }) {
             item.value !== null &&
             item.value !== undefined &&
             item.value !== "" &&
-            item.value !== "No data"
+            item.value !== "No data",
         );
       }
     });
@@ -514,8 +725,18 @@ export default function TelemetryDrawer({ isOpen, onClose }) {
         <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-blue-50 to-indigo-50">
           <div>
             <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-              <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+              <svg
+                className="w-6 h-6 text-blue-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
+                />
               </svg>
               Deep Scan
             </h2>
@@ -628,8 +849,18 @@ export default function TelemetryDrawer({ isOpen, onClose }) {
             <div className="flex flex-col items-center justify-center h-64 gap-4">
               <div className="relative">
                 <div className="w-16 h-16 border-4 border-blue-600/20 border-t-blue-600 rounded-full animate-spin"></div>
-                <svg className="w-8 h-8 text-blue-600 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                <svg
+                  className="w-8 h-8 text-blue-600 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
+                  />
                 </svg>
               </div>
               <div className="text-center">
@@ -656,7 +887,9 @@ export default function TelemetryDrawer({ isOpen, onClose }) {
                           {group.label}
                         </h3>
                         {group.description && (
-                          <p className="text-[10px] text-gray-400 mt-0.5">{group.description}</p>
+                          <p className="text-[10px] text-gray-400 mt-0.5">
+                            {group.description}
+                          </p>
                         )}
                       </div>
                       <span className="ml-auto text-[10px] font-bold text-gray-400 bg-white px-2 py-0.5 rounded-full border border-gray-200">
@@ -667,8 +900,14 @@ export default function TelemetryDrawer({ isOpen, onClose }) {
                   <div className="divide-y divide-gray-100">
                     {group.items.map((item, idx) => {
                       const fieldConfig = item.fieldConfig;
-                      const valueStatus = getValueStatus(item.value, fieldConfig);
-                      const formattedValue = formatValue(item.value, fieldConfig);
+                      const valueStatus = getValueStatus(
+                        item.value,
+                        fieldConfig,
+                      );
+                      const formattedValue = formatValue(
+                        item.value,
+                        fieldConfig,
+                      );
                       const displayUnit = fieldConfig?.unit || item.units;
 
                       return (
@@ -678,8 +917,8 @@ export default function TelemetryDrawer({ isOpen, onClose }) {
                             valueStatus === "critical"
                               ? "bg-red-50 hover:bg-red-100/50"
                               : valueStatus === "warning"
-                              ? "bg-amber-50 hover:bg-amber-100/50"
-                              : "hover:bg-blue-50/30"
+                                ? "bg-amber-50 hover:bg-amber-100/50"
+                                : "hover:bg-blue-50/30"
                           }`}
                         >
                           <div className="flex justify-between items-start gap-4">
@@ -688,16 +927,25 @@ export default function TelemetryDrawer({ isOpen, onClose }) {
                                 {valueStatus !== "normal" && (
                                   <span
                                     className={`shrink-0 mr-2 ${
-                                      valueStatus === "critical" ? "text-red-500" : "text-amber-500"
+                                      valueStatus === "critical"
+                                        ? "text-red-500"
+                                        : "text-amber-500"
                                     }`}
                                   >
-                                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                    <svg
+                                      className="w-4 h-4"
+                                      fill="currentColor"
+                                      viewBox="0 0 24 24"
+                                    >
                                       <path d="M12 2L1 21h22L12 2zm0 3.83L19.13 19H4.87L12 5.83zM11 16h2v2h-2v-2zm0-6h2v4h-2v-4z" />
                                     </svg>
                                   </span>
                                 )}
                                 <p className="text-sm font-bold text-gray-900 leading-tight truncate">
-                                  {fieldConfig?.label || item.name || item.alias || "Unknown Parameter"}
+                                  {fieldConfig?.label ||
+                                    item.name ||
+                                    item.alias ||
+                                    "Unknown Parameter"}
                                 </p>
                                 {displayUnit && (
                                   <span className="shrink-0 text-[10px] font-bold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded ml-2">
@@ -715,17 +963,27 @@ export default function TelemetryDrawer({ isOpen, onClose }) {
                                   item.isCandidate || item.value === "No data"
                                     ? "text-gray-400 bg-gray-50 border-dashed border-gray-200 italic"
                                     : valueStatus === "critical"
-                                    ? "text-red-700 bg-red-100/50 border-red-200"
-                                    : valueStatus === "warning"
-                                    ? "text-amber-700 bg-amber-100/50 border-amber-200"
-                                    : "text-gray-800 bg-gray-100/50 border-gray-100"
+                                      ? "text-red-700 bg-red-100/50 border-red-200"
+                                      : valueStatus === "warning"
+                                        ? "text-amber-700 bg-amber-100/50 border-amber-200"
+                                        : "text-gray-800 bg-gray-100/50 border-gray-100"
                                 }`}
                               >
                                 <span className="truncate block">
                                   {item.isCandidate ? (
                                     <span className="flex items-center gap-1">
-                                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                      <svg
+                                        className="w-3 h-3"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                      >
+                                        <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          strokeWidth="2"
+                                          d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                        />
                                       </svg>
                                       No telemetry data available
                                     </span>

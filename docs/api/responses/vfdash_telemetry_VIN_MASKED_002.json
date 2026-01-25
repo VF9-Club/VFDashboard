@@ -1,5 +1,5 @@
 {
-  "vin": "RLNVBL9K3SH701087",
+  "vin": "VIN_MASKED_002",
   "timestamp": "2026-01-25T04:35:35.509Z",
   "data": [
     {
@@ -589,7 +589,7 @@
       "resourceId": 0,
       "instanceId": 1,
       "deviceKey": "00006_00001_00000",
-      "value": "20.990812",
+      "value": "21.000000",
       "objectId": 6,
       "lastUpdateTime": "1769242256968",
       "name": "Latitude",
@@ -622,7 +622,7 @@
       "resourceId": 1,
       "instanceId": 1,
       "deviceKey": "00006_00001_00001",
-      "value": "105.869869",
+      "value": "105.800000",
       "objectId": 6,
       "lastUpdateTime": "1769242256968",
       "name": "Longitude",
@@ -1040,7 +1040,7 @@
       "resourceId": 1,
       "instanceId": 1,
       "deviceKey": "34180_00001_00001",
-      "value": "RLNVBL9K3SH701087",
+      "value": "VIN_MASKED_002",
       "objectId": 34180,
       "lastUpdateTime": "1767456541318",
       "name": "VIN Number",

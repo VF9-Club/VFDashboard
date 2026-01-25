@@ -569,7 +569,16 @@ export const DEEP_SCAN_GROUPS = {
         key: "fan_speed",
         label: "Fan Speed",
         format: "enum",
-        enumMap: { 0: "Off", 1: "1", 2: "2", 3: "3", 4: "4", 5: "5", 6: "6", 7: "Auto" },
+        enumMap: {
+          0: "Off",
+          1: "1",
+          2: "2",
+          3: "3",
+          4: "4",
+          5: "5",
+          6: "6",
+          7: "Auto",
+        },
       },
       {
         key: "ac_mode",
@@ -1164,7 +1173,14 @@ export const DEEP_SCAN_GROUPS = {
         key: "firmware_state",
         label: "Update State",
         format: "enum",
-        enumMap: { 0: "Idle", 1: "Downloading", 2: "Ready", 3: "Installing", 4: "Complete", 5: "Error" },
+        enumMap: {
+          0: "Idle",
+          1: "Downloading",
+          2: "Ready",
+          3: "Installing",
+          4: "Complete",
+          5: "Error",
+        },
       },
       {
         key: "firmware_progress",
@@ -1384,7 +1400,9 @@ export const DEEP_SCAN_GROUPS = {
 
 // Helper: Get all groups sorted by priority
 export const getSortedGroups = () => {
-  return Object.values(DEEP_SCAN_GROUPS).sort((a, b) => a.priority - b.priority);
+  return Object.values(DEEP_SCAN_GROUPS).sort(
+    (a, b) => a.priority - b.priority,
+  );
 };
 
 // Helper: Get group by alias

@@ -1,5 +1,5 @@
 {
-  "vin": "RLLV2CWA5PH705671",
+  "vin": "VIN_MASKED_001",
   "timestamp": "2026-01-25T04:34:23.694Z",
   "data": [
     {
@@ -2239,7 +2239,7 @@
       "resourceId": 1,
       "instanceId": 1,
       "deviceKey": "34180_00001_00001",
-      "value": "RLLV2CWA5PH705671",
+      "value": "VIN_MASKED_001",
       "objectId": 34180,
       "lastUpdateTime": "1769315204431",
       "name": "VIN Number",

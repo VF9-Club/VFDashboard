@@ -1,4 +1,4 @@
-import { atom } from 'nanostores';
+import { atom } from "nanostores";
 
 // Refresh interval: 5 hours in milliseconds
 export const REFRESH_INTERVAL = 5 * 60 * 60 * 1000; // 5 hours
@@ -17,7 +17,7 @@ export const refreshTimerStore = atom<RefreshTimerState>({
 
 // Format milliseconds to human-readable countdown
 export function formatCountdown(ms: number): string {
-  if (ms <= 0) return 'Refreshing...';
+  if (ms <= 0) return "Refreshing...";
 
   const hours = Math.floor(ms / (1000 * 60 * 60));
   const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
@@ -62,11 +62,11 @@ export function resetRefreshTimer() {
   });
 
   // Save to localStorage for persistence across page reloads
-  if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+  if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
     try {
-      localStorage.setItem('vf_next_refresh', nextRefreshTime.toString());
+      localStorage.setItem("vf_next_refresh", nextRefreshTime.toString());
     } catch (e) {
-      console.error('Failed to save refresh timer to localStorage', e);
+      console.error("Failed to save refresh timer to localStorage", e);
     }
   }
 }
@@ -80,9 +80,9 @@ export function setRefreshing(isRefreshing: boolean) {
 }
 
 // Load from localStorage on initialization
-if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
   try {
-    const saved = localStorage.getItem('vf_next_refresh');
+    const saved = localStorage.getItem("vf_next_refresh");
     if (saved) {
       const nextRefreshTime = parseInt(saved, 10);
       const now = Date.now();
@@ -102,7 +102,7 @@ if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
       resetRefreshTimer();
     }
   } catch (e) {
-    console.error('Failed to load refresh timer from localStorage', e);
+    console.error("Failed to load refresh timer from localStorage", e);
     resetRefreshTimer();
   }
 } else {
@@ -111,6 +111,6 @@ if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
 }
 
 // Start the countdown when the module loads
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   startCountdown();
 }

@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run dev:*)",
+      "Bash(timeout:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(npm run deploy:*)",
+      "Bash(npx astro:*)",
+      "Bash(wrangler pages deploy:*)",
+      "Bash(npx wrangler pages deploy:*)",
+      "Bash(findstr:*)",
+      "Bash(taskkill:*)",
+      "Bash(npm run build:*)",
+      "Bash(gh pr view:*)",
+      "Bash(where:*)",
+      "Bash(git fetch:*)",
+      "Bash(git show:*)"
+    ]
+  }
+}

@@ -212,21 +212,21 @@ export default function DigitalTwin() {
   if (openDoors.length > 0) {
     warnings.push({
       label: "Door Open",
-      detail: openDoors.join(", ")
+      detail: openDoors.join(", "),
     });
   }
 
   if (data.trunk_status) {
     warnings.push({
       label: "Trunk Open",
-      detail: "Rear trunk is open"
+      detail: "Rear trunk is open",
     });
   }
 
   if (data.hood_status) {
     warnings.push({
       label: "Hood Open",
-      detail: "Front hood is open"
+      detail: "Front hood is open",
     });
   }
 
@@ -234,7 +234,7 @@ export default function DigitalTwin() {
   if (data.central_lock_status === false || data.is_locked === false) {
     warnings.push({
       label: "Unlocked",
-      detail: "Vehicle is not locked"
+      detail: "Vehicle is not locked",
     });
   }
 
@@ -302,12 +302,14 @@ export default function DigitalTwin() {
             <span className="text-gray-300">•</span>
             <span>{data.yearOfProduct}</span>
 
-            {data.battery_type && data.battery_type !== "--" && data.battery_type.trim() !== "" && (
-              <>
-                <span className="text-gray-300">•</span>
-                <span className="uppercase">{data.battery_type}</span>
-              </>
-            )}
+            {data.battery_type &&
+              data.battery_type !== "--" &&
+              data.battery_type.trim() !== "" && (
+                <>
+                  <span className="text-gray-300">•</span>
+                  <span className="uppercase">{data.battery_type}</span>
+                </>
+              )}
 
             {/* Exterior Color */}
             <span className="text-gray-300 ml-1">•</span>

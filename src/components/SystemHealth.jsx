@@ -13,7 +13,7 @@ export default function SystemHealth() {
       tire_pressure_rl,
       tire_pressure_rr,
     } = data;
-    
+
     const detailText = `FL: ${tire_pressure_fl || "--"}, FR: ${tire_pressure_fr || "--"}, RL: ${tire_pressure_rl || "--"}, RR: ${tire_pressure_rr || "--"}`;
 
     if (!tire_pressure_fl && !tire_pressure_fr)
@@ -161,7 +161,8 @@ export default function SystemHealth() {
     if (data.service_alert && data.service_alert != 0) {
       return {
         status: "Due",
-        detail: `Service is due. ${mileageInfo} ${dateInfo} ${extraInfo}`.trim(),
+        detail:
+          `Service is due. ${mileageInfo} ${dateInfo} ${extraInfo}`.trim(),
         color: "text-blue-700",
         bg: "bg-blue-50",
         iconColor: "text-blue-500",
@@ -194,7 +195,7 @@ export default function SystemHealth() {
         iconColor: "text-gray-400",
       };
     }
-    
+
     // If it's a number > 0 or true, assume Not Closed
     const isOpen = Number(window_status) > 0 || window_status === true;
 

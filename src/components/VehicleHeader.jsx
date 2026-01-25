@@ -7,7 +7,10 @@ import {
   switchVehicle,
   refreshVehicle,
 } from "../stores/vehicleStore";
-import { refreshTimerStore, formatCountdown } from "../stores/refreshTimerStore";
+import {
+  refreshTimerStore,
+  formatCountdown,
+} from "../stores/refreshTimerStore";
 import { api } from "../services/api";
 import AboutModal from "./AboutModal";
 
@@ -269,7 +272,9 @@ export default function VehicleHeader({ onOpenTelemetry }) {
               Next Refresh
             </span>
             <span className="text-xs font-mono font-bold text-blue-600 tabular-nums leading-none">
-              {refreshTimer.isRefreshing ? 'Refreshing...' : formatCountdown(refreshTimer.timeUntilRefresh)}
+              {refreshTimer.isRefreshing
+                ? "Refreshing..."
+                : formatCountdown(refreshTimer.timeUntilRefresh)}
             </span>
           </div>
         </button>

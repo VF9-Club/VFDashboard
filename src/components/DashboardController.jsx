@@ -7,7 +7,10 @@ import {
   fetchVehicles,
   vehicleStore,
 } from "../stores/vehicleStore";
-import { REFRESH_INTERVAL, resetRefreshTimer } from "../stores/refreshTimerStore";
+import {
+  REFRESH_INTERVAL,
+  resetRefreshTimer,
+} from "../stores/refreshTimerStore";
 
 export default function DashboardController({ vin: initialVin }) {
   const { vin } = useStore(vehicleStore);
