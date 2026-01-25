@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { useStore } from "@nanostores/react";
 import { vehicleStore, fetchFullTelemetry } from "../stores/vehicleStore";
 import DashboardController from "./DashboardController";
@@ -9,7 +9,9 @@ import { EnvironmentCard, MapCard } from "./ControlGrid";
 import DigitalTwin from "./DigitalTwin";
 import SystemHealth from "./SystemHealth";
 import MobileNav from "./MobileNav";
-import TelemetryDrawer from "./TelemetryDrawer";
+
+// Lazy load heavy components
+const TelemetryDrawer = React.lazy(() => import("./TelemetryDrawer"));
 
 export default function DashboardApp({ vin: initialVin }) {
   const { isInitialized, vin } = useStore(vehicleStore);
@@ -92,10 +94,14 @@ export default function DashboardApp({ vin: initialVin }) {
         onTabChange={setActiveTab}
         onScan={handleOpenTelemetry}
       />
-      <TelemetryDrawer
-        isOpen={isTelemetryDrawerOpen}
-        onClose={() => setIsTelemetryDrawerOpen(false)}
-      />
+      <Suspense fallback={null}>
+        {isTelemetryDrawerOpen && (
+          <TelemetryDrawer
+            isOpen={isTelemetryDrawerOpen}
+            onClose={() => setIsTelemetryDrawerOpen(false)}
+          />
+        )}
+      </Suspense>
     </div>
   );
 }

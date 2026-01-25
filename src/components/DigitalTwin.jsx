@@ -1,158 +1,9 @@
 import React from "react";
 import { useStore } from "@nanostores/react";
 import { vehicleStore, switchVehicle } from "../stores/vehicleStore";
-import { TIRE_PRESSURE, TEMPERATURE, GEARS } from "../constants/vehicle";
-
-// Tire Pressure Card - Polished Visuals with Full Labels
-const TireCard = ({ pressure, temp, label, positionClass }) => {
-  const hasData = pressure !== null && pressure !== undefined;
-
-  // Normalize Pressure to Bar
-  let displayPressure = "--";
-  if (hasData) {
-    let val = pressure;
-    if (val > 100) {
-      // Assume kPa (e.g. 230) -> Bar
-      val = val / 100;
-    } else if (val > 8) {
-      // Assume PSI (e.g. 35) -> Bar
-      val = val / 14.5038;
-    }
-    // If < 8, assume default Bar
-    displayPressure = Number(val).toFixed(1);
-  }
-
-  // Status Logic for Coloring (using Bar values)
-  // Warning conditions: Pressure < LIMIT_LOW or > LIMIT_HIGH, OR Temp > LIMIT_HIGH
-  const limitPressureLow = TIRE_PRESSURE.LIMIT_LOW;
-  const limitPressureHigh = TIRE_PRESSURE.LIMIT_HIGH;
-  const limitTempHigh = TEMPERATURE.LIMIT_HIGH;
-
-  // HIDE BUBBLE IF NO DATA
-  if (!hasData) return null;
-
-  // We check raw converted value for warning logic
-  const numericPressure = hasData ? Number(displayPressure) : null;
-  const isWarning =
-    hasData &&
-    (numericPressure < limitPressureLow ||
-      numericPressure > limitPressureHigh ||
-      (temp && temp > limitTempHigh));
-
-  // Dynamic Styles based on status
-  // Normal: Green Safe Theme
-  // Warning: Amber/Orange Theme
-
-  // PC Styles (Lighter)
-  const cardBgDesktop = isWarning
-    ? "md:bg-amber-50/90 md:border-amber-200"
-    : "md:bg-emerald-50/90 md:border-emerald-200";
-
-  // Mobile Styles (Unified with PC as requested)
-  const cardBgMobile = isWarning
-    ? "bg-amber-50/90 border-amber-200"
-    : "bg-emerald-50/90 border-emerald-200";
-
-  // Text Colors
-  const textColor = isWarning ? "text-amber-600" : "text-emerald-700";
-  const labelColor = isWarning ? "text-amber-600/70" : "text-emerald-600/70";
-  const valueColor = isWarning ? "text-amber-600" : "text-emerald-600";
-  const subTextColor = isWarning ? "text-amber-500" : "text-emerald-500";
-
-  return (
-    <div
-      className={`absolute ${positionClass} z-20 transition-all group-hover:scale-100`}
-    >
-      {/* PC: Card Style / Mobile: Glassmorphism Pill Style with Color */}
-      <div
-        className={`
-        flex flex-col items-center md:items-start
-        rounded-2xl md:rounded-xl 
-        border md:border md:shadow-sm md:backdrop-blur-sm
-        md:${cardBgDesktop}
-        ${cardBgMobile} backdrop-blur-md shadow-sm
-        px-1.5 py-1.5
-        md:px-3 md:py-2.5
-        gap-0 md:gap-0.5
-        w-[85px] md:w-[130px]
-        hover:scale-105 md:hover:bg-white md:hover:border-gray-200 md:hover:shadow-md transition-all
-        md:bg-opacity-100
-      `}
-      >
-        {/* Label: On Mobile, keep very small */}
-        <span
-          className={`text-[8px] md:text-[10px] uppercase ${labelColor} font-extrabold tracking-widest leading-none mb-0.5 md:mb-1 opacity-70 md:opacity-100`}
-        >
-          {label}
-        </span>
-
-        {/* Stats Container */}
-        <div className="flex flex-col items-center md:items-start">
-          {/* Pressure Row */}
-          <div className="flex items-baseline gap-px md:gap-1">
-            <span
-              className={`text-lg md:text-2xl font-black tracking-tighter ${valueColor} drop-shadow-sm md:drop-shadow-none`}
-            >
-              {displayPressure}
-            </span>
-            <span
-              className={`text-[9px] md:text-[10px] ${subTextColor} font-bold uppercase`}
-            >
-              {TIRE_PRESSURE.UNIT}
-            </span>
-          </div>
-
-          {/* Temp Row */}
-          {temp !== null && temp !== undefined && (
-            <div className="flex items-center gap-0.5 md:gap-1 -mt-0.5 md:-mt-0.5">
-              <span className={`text-[9px] md:text-xs font-bold ${textColor}`}>
-                {temp}
-              </span>
-              <span
-                className={`text-[8px] md:text-[10px] ${subTextColor} font-medium`}
-              >
-                {TEMPERATURE.UNIT}
-              </span>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// Warning Item Component with Tooltip (hover on desktop, tap on mobile)
-const WarningItem = ({ label, detail }) => (
-  <div className="relative group/warn">
-    <button
-      type="button"
-      className="flex items-center gap-2 px-3 py-1.5 bg-red-50 text-red-600 rounded-lg border border-red-100 animate-pulse cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-300"
-    >
-      <svg
-        className="w-4 h-4"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-        ></path>
-      </svg>
-      <span className="text-xs font-bold">{label}</span>
-    </button>
-    {/* Tooltip - shows on hover (desktop) or focus (mobile tap) */}
-    {detail && (
-      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-white rounded-lg shadow-lg border border-gray-200 text-xs text-gray-700 whitespace-nowrap opacity-0 invisible group-hover/warn:opacity-100 group-hover/warn:visible group-focus-within/warn:opacity-100 group-focus-within/warn:visible transition-all z-50">
-        <div className="font-bold text-red-600 mb-1">{label}</div>
-        <div className="text-gray-600">{detail}</div>
-        <div className="absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 bg-white border-b border-r border-gray-200 rotate-45 -translate-y-1"></div>
-      </div>
-    )}
-  </div>
-);
+import { GEARS } from "../constants/vehicle";
+import TireCard from "./TireCard";
+import WarningItem from "./WarningItem";
 
 // Helper to split Odometer into Integer and Decimal parts (No Rounding)
 const formatOdometer = (value) => {
@@ -449,36 +300,34 @@ export default function DigitalTwin() {
               }}
             />
           )}
+
+          {/* Tire Cards - Now INSIDE the container for relative positioning */}
+          <TireCard
+            pressure={data.tire_pressure_fr}
+            temp={data.tire_temp_fr}
+            label="FRONT RIGHT"
+            positionClass="top-[20%] left-[2%]"
+          />
+          <TireCard
+            pressure={data.tire_pressure_rr}
+            temp={data.tire_temp_rr}
+            label="REAR RIGHT"
+            positionClass="top-[20%] right-[2%]"
+          />
+
+          <TireCard
+            pressure={data.tire_pressure_fl}
+            temp={data.tire_temp_fl}
+            label="FRONT LEFT"
+            positionClass="bottom-[10%] left-[2%]"
+          />
+          <TireCard
+            pressure={data.tire_pressure_rl}
+            temp={data.tire_temp_rl}
+            label="REAR LEFT"
+            positionClass="bottom-[10%] right-[2%]"
+          />
         </div>
-
-        {/* Tire Cards */}
-        {/* TL=FR, TR=RR, BL=FL, BR=RL */}
-
-        <TireCard
-          pressure={data.tire_pressure_fr}
-          temp={data.tire_temp_fr}
-          label="FRONT RIGHT"
-          positionClass="top-[25%] left-[1%] md:left-[8%]"
-        />
-        <TireCard
-          pressure={data.tire_pressure_rr}
-          temp={data.tire_temp_rr}
-          label="REAR RIGHT"
-          positionClass="top-[25%] right-[1%] md:right-[8%]"
-        />
-
-        <TireCard
-          pressure={data.tire_pressure_fl}
-          temp={data.tire_temp_fl}
-          label="FRONT LEFT"
-          positionClass="bottom-[8%] md:bottom-[2%] left-[2%] md:left-[8%]"
-        />
-        <TireCard
-          pressure={data.tire_pressure_rl}
-          temp={data.tire_temp_rl}
-          label="REAR LEFT"
-          positionClass="bottom-[8%] md:bottom-[2%] right-[2%] md:right-[8%]"
-        />
       </div>
 
       {/* Bottom Controls Area */}
