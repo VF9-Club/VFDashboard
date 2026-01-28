@@ -6,10 +6,6 @@ export const GET = async () => {
   return new Response(
     JSON.stringify({
       message: "Login API is active. Use POST to authenticate.",
-      debug: {
-        token: "TOKEN_V2_5566_BINGO",
-        timestamp: "2026-01-18 17:42:00",
-      },
     }),
     {
       status: 200,
