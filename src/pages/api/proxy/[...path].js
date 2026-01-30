@@ -3,15 +3,12 @@ export const prerender = false;
 import { REGIONS, DEFAULT_REGION, API_HEADERS } from "../../../config/vinfast";
 import crypto from "crypto";
 
-// X-HASH Secret Key (reverse-engineered from VinFast APK)
-const XHASH_SECRET_KEY = "Vinfast@2025";
-
 /**
  * Generate X-HASH for VinFast API request
  * Algorithm: HMAC-SHA256(secretKey, message) -> Base64
  * Message format: method_path_vin_secretKey_timestamp (lowercase)
  */
-function generateXHash(method, apiPath, vin, timestamp) {
+function generateXHash(method, apiPath, vin, timestamp, secretKey) {
   // Remove query string from path
   const pathWithoutQuery = apiPath.split("?")[0];
 
@@ -25,21 +22,37 @@ function generateXHash(method, apiPath, vin, timestamp) {
   if (vin) {
     parts.push(vin);
   }
-  parts.push(XHASH_SECRET_KEY);
+  parts.push(secretKey);
   parts.push(String(timestamp));
 
   // Join with underscore and lowercase
   const message = parts.join("_").toLowerCase();
 
   // HMAC-SHA256
-  const hmac = crypto.createHmac("sha256", XHASH_SECRET_KEY);
+  const hmac = crypto.createHmac("sha256", secretKey);
   hmac.update(message);
 
   // Base64 encode
   return hmac.digest("base64");
 }
 
-export const ALL = async ({ request, params, cookies }) => {
+export const ALL = async ({ request, params, cookies, locals }) => {
+  // Retrieve X-HASH Secret securely from Environment
+  // Support: Cloudflare (locals.runtime.env) / Vite (import.meta.env) / Node (process.env)
+  const env = locals?.runtime?.env || import.meta.env || process.env || {};
+  const xHashSecret = env.VINFAST_XHASH_SECRET;
+
+  if (!xHashSecret) {
+    console.error(
+      "[Proxy] CRITICAL: Missing VINFAST_XHASH_SECRET environment variable.",
+    );
+    return new Response(
+      JSON.stringify({
+        error: "Server Configuration Error: Missing API Secret",
+      }),
+      { status: 500, headers: { "Content-Type": "application/json" } },
+    );
+  }
   const apiPath = params.path;
   const urlObj = new URL(request.url);
   const region = urlObj.searchParams.get("region") || DEFAULT_REGION;
@@ -80,7 +93,13 @@ export const ALL = async ({ request, params, cookies }) => {
   // If no X-HASH provided, generate it dynamically
   if (!xHash) {
     const timestamp = Date.now();
-    xHash = generateXHash(request.method, apiPath, vinHeader, timestamp);
+    xHash = generateXHash(
+      request.method,
+      apiPath,
+      vinHeader,
+      timestamp,
+      xHashSecret,
+    );
     xTimestamp = String(timestamp);
     console.log(`[Proxy] Generated X-HASH for ${request.method} /${apiPath}`);
   }
