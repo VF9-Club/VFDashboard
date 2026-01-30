@@ -43,7 +43,9 @@ export const ALL = async ({ request, params, cookies, locals }) => {
   const xHashSecret = env.VINFAST_XHASH_SECRET;
 
   if (!xHashSecret) {
-    console.error("[Proxy] CRITICAL: Missing VINFAST_XHASH_SECRET environment variable.");
+    console.error(
+      "[Proxy] CRITICAL: Missing VINFAST_XHASH_SECRET environment variable.",
+    );
     return new Response(
       JSON.stringify({
         error: "Server Configuration Error: Missing API Secret",
