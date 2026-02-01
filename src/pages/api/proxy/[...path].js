@@ -46,7 +46,9 @@ export const ALL = async ({ request, params, cookies, locals }) => {
   const XHASH_SECRET = runtimeEnv.VINFAST_XHASH_SECRET;
 
   if (!XHASH_SECRET) {
-    console.error("CRITICAL: VINFAST_XHASH_SECRET is missing in environment variables!");
+    console.error(
+      "CRITICAL: VINFAST_XHASH_SECRET is missing in environment variables!",
+    );
     // Fail securely
     return new Response(
       JSON.stringify({ error: "Internal Server Configuration Error" }),
