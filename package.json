@@ -17,7 +17,7 @@
     "deploy": "npm run clean && npm run build && wrangler pages deploy dist"
   },
   "devDependencies": {
-    "@eslint/js": "^9.0.0",
+    "@eslint/js": "^10.0.1",
     "astro-eslint-parser": "^1.2.2",
     "eslint": "^9.0.0",
     "eslint-plugin-astro": "^1.2.0",
